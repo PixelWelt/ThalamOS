@@ -25,7 +25,7 @@ Thalamos is a powerful Flask web application designed to enhance your storage ma
     ```
 2. Navigate to the project directory:
     ```bash
-    cd thalamos/app
+    cd thalamos
     ```
 3. Build the container:
     ```bash
@@ -34,7 +34,6 @@ Thalamos is a powerful Flask web application designed to enhance your storage ma
 4. insert your WLED_HOST into the .env.example file and rename it to .env
 5. Run the application using the docker compose file:
     ```bash
-    cd ..
     docker-compose up
     ```
 
