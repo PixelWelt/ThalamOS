@@ -1,11 +1,11 @@
 import csv
-import json
 import sqlite3
 import os
 
 db_path = os.path.join(os.path.dirname(__file__), 'data/storage.db')
 mydb = sqlite3.connect(db_path, check_same_thread=False)
 cursor = mydb.cursor()
+
 
 def setup():
     cursor.execute("""
@@ -33,6 +33,7 @@ def setup():
     mydb.commit()
     print("Database is ready for service")
 
+
 def fetchCSV():
     cursor.execute("SELECT * FROM storage;")
     with open("out.csv", "w", newline='', encoding='utf-8') as csv_file:
@@ -41,26 +42,29 @@ def fetchCSV():
         csv_writer.writerows(cursor.fetchall())  # Alle Zeilen schreiben
         csv_file.close()
 
+
 def fetchItem(itemID):
     cursor.execute("select * From storage WHERE id=?;", (itemID,))
     return cursor.fetchone()
+
 
 def deleteItem(itemID):
     cursor.execute("DELETE FROM storage WHERE ID=?;", (itemID,))
     mydb.commit()
 
+
 def CreateItem(pos, typ, name, jsonData):
     print("Creating item..")
-    if jsonData=="{}":
-            query = "INSERT INTO storage (position, type, name) VALUES (?, ?, ?);"
-            params = (pos, typ, name)
+    if jsonData == "{}":
+        query = "INSERT INTO storage (position, type, name) VALUES (?, ?, ?);"
+        params = (pos, typ, name)
     else:
         query = "INSERT INTO storage (position, type, name, info) VALUES (?, ?, ?, ?);"
         params = (pos, typ, name, jsonData)
     print(query)
-    cursor.execute(query,params)
-    
+    cursor.execute(query, params)
     mydb.commit()
+
 
 def search(searchTerm):
     try:

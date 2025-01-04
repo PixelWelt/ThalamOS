@@ -11,14 +11,17 @@ CORS(app)
 def index():
     return render_template("search.html")
 
+
 @app.route('/toggleLight')
 def toggleLight():
     wledRequests.changePowerState(not wledRequests.getPowerstate())
     return render_template("search.html")
 
+
 @app.route('/createItem')
 def CreateItem():
     return render_template("createItem.html")
+
 
 @app.route('/sendCreation', methods=['POST'])
 def SendCreation():
@@ -30,10 +33,11 @@ def SendCreation():
     pos = data["position"]
     try:
         StorageConnector.CreateItem(pos=pos, typ=typ, name=name, jsonData=info)
-    except  Exception as e:
+    except Exception as e:
         print(e)
 
     return {"status": "ok"}, 200
+
 
 @app.route('/item/<item>')
 def item(item):
@@ -47,10 +51,12 @@ def item(item):
     else:
         return render_template("item.jinja2", item=item_sql, id=item)
 
+
 @app.route('/item/<item>/delete')
 def deleteItem(item):
     StorageConnector.deleteItem(item)
     return render_template("search.html")
+
 
 @app.route('/search/<term>',methods=['GET'])
 def search(term):
@@ -63,6 +69,7 @@ def handle_exception(e):
     # pass through HTTP errors
     
     return e
+
 
 with app.app_context():
     StorageConnector.setup()

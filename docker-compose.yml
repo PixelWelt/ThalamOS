@@ -1,9 +1,10 @@
 version: "3.9"
 services:
   thalamos:
+    container_name: ThalamOS
     image: pixelwelt/thalamos:latest
 
     ports:
       - "8000:80"
     volumes:
-      - ./data:/app/data 
+      - ./data:/app/app/data 

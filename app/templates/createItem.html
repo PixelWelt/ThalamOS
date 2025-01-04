@@ -66,6 +66,7 @@
     </dialog>
 </body>
 <script>
+    const API_URL = `http://${window.location.hostname}:8000`;
     function addPairInput(){
         pairWrapper = document.createElement("div")
         pairWrapper.className = "pair"
@@ -106,7 +107,7 @@
             value = pair.children[1].value;
             json[key] = value;
         });
-        const response = fetch("http://localhost:8000/sendCreation", {
+        const response = fetch(`http://${API_URL}/sendCreation`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

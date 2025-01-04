@@ -72,12 +72,13 @@
     
 </body>
 <script>
+    const API_URL = `http://${window.location.hostname}:8000`;
     resultBox = document.getElementById("results")
     async function Search() {
     resultBox.innerHTML = "";
     const searchTerm = document.getElementById("search").value;
     if (searchTerm.length >= 2) {
-        const searchRequest = new Request(`http://localhost:8000/search/${searchTerm}`, {
+        const searchRequest = new Request(`http://${API_URL}/search/${searchTerm}`, {
             method: "GET",
         });
         const response = await fetch(searchRequest);
