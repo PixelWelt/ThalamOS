@@ -1,0 +1,57 @@
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>ThalamOS - {{item[3]}}</title>
+</head>
+
+<body>
+    <div class="logo-container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+            <path d="M8.33331 43.75V18.75L25 6.25L41.6666 18.75V43.75H37.5V20.8333L25 11.4583L12.5 20.8333V43.75H8.33331ZM18.75 39.5833H31.25V35.4167H18.75V39.5833ZM18.75 31.25H31.25V27.0833H18.75V31.25ZM14.5833 43.75V22.9167H35.4166V43.75H14.5833Z" fill="#2A9D8F"/>
+        </svg>
+        <span>
+            ThalamOS
+        </span>
+    </div>
+    <div class="buttons">
+        <a href="/" class="btn green">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" fill="#FFFFFF"/></svg>
+            zurück zur Suche
+        </a>
+        <a href="/item/{{id}}/delete" class="btn red"> 
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M17 5V4C17 2.89543 16.1046 2 15 2H9C7.89543 2 7 2.89543 7 4V5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5V18C5 19.6569 6.34315 21 8 21H16C17.6569 21 19 19.6569 19 18V7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H17ZM15 4H9V5H15V4ZM17 7H7V18C7 18.5523 7.44772 19 8 19H16C16.5523 19 17 18.5523 17 18V7Z"
+                    fill="currentColor"
+                />
+                <path d="M9 9H11V17H9V9Z" fill="currentColor" />
+                <path d="M13 9H15V17H13V9Z" fill="currentColor" />
+            </svg>
+            Item löschen
+        </a>
+    </div>
+    <div class="single-item">
+        <h2>{{item[3]}}</h2>
+        <br>
+        <table>
+            <tr>
+                <td>type</td>
+                <td>{{item[2]}}</td>
+            </tr>
+        {%for item in json%}
+            <tr>
+                <td>{{item}}</td>
+                
+                <td>{{json[item]}}</td>
+                
+            </tr>
+        {%endfor%}
+
+        </table>
+        
+    </div>
+</body>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>ThalamOS</title>
+</head>
+<body class="home">
+    <header>
+        <div class="logo-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                <path d="M8.33331 43.75V18.75L25 6.25L41.6666 18.75V43.75H37.5V20.8333L25 11.4583L12.5 20.8333V43.75H8.33331ZM18.75 39.5833H31.25V35.4167H18.75V39.5833ZM18.75 31.25H31.25V27.0833H18.75V31.25ZM14.5833 43.75V22.9167H35.4166V43.75H14.5833Z" fill="#2A9D8F"/>
+            </svg>
+            <span>
+                ThalamOS
+            </span>
+        </div>
+    </header>
+    <main>
+        <div class="buttons">
+            <a href="/toggleLight" class="btn green">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="36" viewBox="0 0 35 36" fill="none">
+                    <g filter="url(#filter0_i_1_57)">
+                      <path d="M16.5729 31.6667C15.941 31.6667 15.3698 31.5148 14.8594 31.2109C14.349 30.9071 13.9479 30.5 13.6563 29.9896C12.8542 29.9896 12.1675 29.704 11.5964 29.1328C11.0252 28.5616 10.7396 27.875 10.7396 27.0729V21.8958C9.30556 20.9479 8.15712 19.6962 7.29427 18.1406C6.43142 16.5851 6 14.8958 6 13.0729C6 10.1319 7.02691 7.63455 9.08073 5.58073C11.1345 3.52691 13.6319 2.5 16.5729 2.5C19.5139 2.5 22.0113 3.52691 24.0651 5.58073C26.1189 7.63455 27.1458 10.1319 27.1458 13.0729C27.1458 14.9444 26.7144 16.6458 25.8516 18.1771C24.9887 19.7083 23.8403 20.9479 22.4063 21.8958V27.0729C22.4063 27.875 22.1207 28.5616 21.5495 29.1328C20.9783 29.704 20.2917 29.9896 19.4896 29.9896C19.1979 30.5 18.7969 30.9071 18.2865 31.2109C17.776 31.5148 17.2049 31.6667 16.5729 31.6667ZM13.6563 27.0729H19.4896V25.7604H13.6563V27.0729ZM13.6563 24.3021H19.4896V22.9167H13.6563V24.3021ZM13.3646 20H15.4792V16.0625L12.2708 12.8542L13.8021 11.3229L16.5729 14.0938L19.3438 11.3229L20.875 12.8542L17.6667 16.0625V20H19.7813C21.0938 19.3681 22.1632 18.4384 22.9896 17.2109C23.816 15.9835 24.2292 14.6042 24.2292 13.0729C24.2292 10.934 23.4878 9.12326 22.0052 7.64062C20.5226 6.15799 18.7118 5.41667 16.5729 5.41667C14.434 5.41667 12.6233 6.15799 11.1406 7.64062C9.65799 9.12326 8.91667 10.934 8.91667 13.0729C8.91667 14.6042 9.32986 15.9835 10.1563 17.2109C10.9826 18.4384 12.0521 19.3681 13.3646 20Z" fill="white"/>
+                    </g>
+                    <defs>
+                      <filter id="filter0_i_1_57" x="0" y="0.5" width="35" height="39" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                        <feOffset dy="4"/>
+                        <feGaussianBlur stdDeviation="2"/>
+                        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_1_57"/>
+                      </filter>
+                    </defs>
+                  </svg>
+                  Power On/Off
+            </a>
+            <a href="/createItem" class="btn item"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="36" viewBox="0 0 35 36" fill="none">
+                    <g clip-path="url(#clip0_1_62)">
+                    <path d="M7.29167 31.125C6.48958 31.125 5.80295 30.8394 5.23177 30.2682C4.66059 29.697 4.375 29.0104 4.375 28.2083V13.625C4.375 12.8229 4.66059 12.1363 5.23177 11.5651C5.80295 10.9939 6.48958 10.7083 7.29167 10.7083H13.125V13.625H7.29167V28.2083H27.7083V13.625H21.875V10.7083H27.7083C28.5104 10.7083 29.197 10.9939 29.7682 11.5651C30.3394 12.1363 30.625 12.8229 30.625 13.625V28.2083C30.625 29.0104 30.3394 29.697 29.7682 30.2682C29.197 30.8394 28.5104 31.125 27.7083 31.125H7.29167ZM17.5 23.8333L11.6667 18L13.7083 15.9583L16.0417 18.2552V0.5H18.9583V18.2552L21.2917 15.9583L23.3333 18L17.5 23.8333Z" fill="white"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_1_62">
+                    <rect width="35" height="35" fill="white" transform="translate(0 0.5)"/>
+                    </clipPath>
+                    </defs>
+                </svg>
+                neues Item erstellen
+            </a>
+        </div>
+        
+
+        <div class="searchbar">
+            <label>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                    <path d="M27.6667 30L17.1667 19.5C16.3333 20.1667 15.375 20.6944 14.2917 21.0833C13.2083 21.4722 12.0556 21.6667 10.8333 21.6667C7.80556 21.6667 5.24306 20.6181 3.14583 18.5208C1.04861 16.4236 0 13.8611 0 10.8333C0 7.80556 1.04861 5.24306 3.14583 3.14583C5.24306 1.04861 7.80556 0 10.8333 0C13.8611 0 16.4236 1.04861 18.5208 3.14583C20.6181 5.24306 21.6667 7.80556 21.6667 10.8333C21.6667 12.0556 21.4722 13.2083 21.0833 14.2917C20.6944 15.375 20.1667 16.3333 19.5 17.1667L30 27.6667L27.6667 30ZM10.8333 18.3333C12.9167 18.3333 14.6875 17.6042 16.1458 16.1458C17.6042 14.6875 18.3333 12.9167 18.3333 10.8333C18.3333 8.75 17.6042 6.97917 16.1458 5.52083C14.6875 4.0625 12.9167 3.33333 10.8333 3.33333C8.75 3.33333 6.97917 4.0625 5.52083 5.52083C4.0625 6.97917 3.33333 8.75 3.33333 10.8333C3.33333 12.9167 4.0625 14.6875 5.52083 16.1458C6.97917 17.6042 8.75 18.3333 10.8333 18.3333Z" fill="white"/>
+                </svg>
+                <input id="search" type="text" placeholder="Was suchst du?" name="query" oninput="Search()">
+            </label> 
+        </div>
+        <div id="results">
+        </div>
+    </main>
+    
+    
+</body>
+<script>
+    resultBox = document.getElementById("results")
+    async function Search() {
+    resultBox.innerHTML = "";
+    const searchTerm = document.getElementById("search").value;
+    if (searchTerm.length >= 2) {
+        const searchRequest = new Request(`http://localhost:8000/search/${searchTerm}`, {
+            method: "GET",
+        });
+        const response = await fetch(searchRequest);
+        const data = await response.json();
+        console.log(data);
+        console.log(typeof(data));
+
+        if (data.length === 0) {
+            resultBox.innerHTML = "no results found";
+            return;
+        }
+
+         // Erstelle die Tabelle ohne Table-Head
+         const table = document.createElement("table");
+        table.className = "resultTable"; // CSS-Klasse für Styling
+        const tbody = document.createElement("tbody");
+
+        data.forEach(result => {
+            let jsonData = result[4]; // Wert von result["3"]
+            let info = "";
+
+            // Überprüfe, ob jsonData ein JSON-String ist
+            try {
+                jsonData = JSON.parse(jsonData);
+                Object.keys(jsonData).forEach(key => {
+                    info += `<span class="infoItem"><strong>${key}:</strong> ${jsonData[key]}</span><br/>`;
+                });
+            } catch (e) {
+                console.log("Kein JSON-Format:", jsonData);
+                info = `<div class="infoItem">${jsonData}</div>`;
+            }
+
+            const row = document.createElement("tr");
+
+            const typeCell = document.createElement("td");
+            typeCell.textContent = " " + result[3]; 
+            row.appendChild(typeCell);
+
+            const detailsCell = document.createElement("td");
+            detailsCell.innerHTML = info; 
+            row.appendChild(detailsCell);
+
+            const actionCell = document.createElement("td");
+            const linkElement = document.createElement("a");
+            linkElement.className = "showItem";
+            linkElement.href = `/item/${result[0]}`;
+            linkElement.textContent = "Show me";
+            actionCell.appendChild(linkElement);
+            row.appendChild(actionCell);
+
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(tbody);
+        resultBox.appendChild(table); 
+    }
+}
+
+</script>

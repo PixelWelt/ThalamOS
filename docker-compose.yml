@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  thalamos:
+    image: PixelWelt/thalamos:latest
+
+    ports:
+      - "8000:80"
+    volumes:
+      - ./data:/app/data  # Mount den lokalen Ordner "data" ins Containerverzeichnis "/app/data"

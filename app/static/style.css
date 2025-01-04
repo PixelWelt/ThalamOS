@@ -1,0 +1,373 @@
+:root{
+    --primary-bg: #151515;
+    --secondary-bg: #202020;
+    --accent-green: #2A9D8F;
+    --accent-purple: #827191;
+    --accent-red: #c73340c4;
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body{
+    width: 1440px;
+    height: 1024px;
+    background-color: var(--primary-bg);
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+main{
+    position: absolute;
+    left: 10%;
+    top: 15%;
+    display: flex;
+    width: 80%;
+    height: 75%;
+    flex-shrink: 0;
+    flex-direction: column;
+    border-radius: 1.25rem;
+    background: var(--secondary-bg);
+    box-shadow: 0px 2px 4px 0px var(--accent-green);
+    backdrop-filter: blur(10px);
+}
+.searchbar {
+    position: relative;
+    left: 20%;
+    width: 60%;
+    height: 2.5rem;
+    margin-top: 2rem;
+    flex-shrink: 0;
+    background-color: #4F4F4F;
+    border-radius: 0.625rem;
+    border-bottom: 2px solid var(--accent-green);
+    transition: box-shadow 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+}
+.searchbar label{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    justify-content:  space-between;
+}
+.searchbar svg{
+    padding: 0.1rem;
+    margin-left: 0.5rem;
+}
+.searchbar input, .searchbar input:is(:-webkit-autofill, :autofill) {
+    flex-grow: 1;
+    border-radius:  0 0.625rem 0.625rem 0;
+    height: 100%;
+    border: none;
+    margin-left: 1rem;
+    margin: 0;
+    padding: 0 1rem;
+    background-color: transparent;
+    color: white
+    
+}
+.searchbar:focus-within {
+    box-shadow: 0px 4px 60px 5px var(--accent-green);
+    backdrop-filter: blur(10px);
+}
+.searchbar input:active, .searchbar input:focus{
+    outline: none;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+}
+.btn{
+    margin-left: 2rem;
+    margin-top: 2rem;
+    display: flex;
+    width: 14rem;
+    height: 2.5rem;
+    padding: 0rem 0.5rem;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: white;
+    font-family: Kanit; 
+    animation-timing-function: ease-out;
+    animation-duration: 150ms;
+
+}
+.btn:active{
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+.green{
+    border-radius: 0.625rem 0rem 0rem 0.625rem;
+    border: 1px solid var(--accent-green);
+    background: var(--accent-green);
+    box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.25);
+}
+.red{
+    border-radius: 0rem 0.625rem 0.625rem 0rem;
+    background: var(--accent-red);
+    box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.25);
+}
+.item{
+    border-radius: 0rem 0.625rem 0.625rem 0rem;
+    background: var(--accent-purple);
+    box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.logo-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--secondary-bg);
+    padding: 0.5rem;
+    margin: 0;
+    border-radius: 0.625rem;
+}
+.logo-container svg{
+    width: 3.125rem;
+    height: 3.125rem;
+    flex-shrink: 0;
+}
+.logo-container span{
+    display: flex;
+    width: 11.75rem;
+    height: 2.3125rem;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--accent-green);
+    font-family: Kanit;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    
+}
+#results {
+    position: relative;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+    margin-top: 2rem;    
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.resultTable{
+    border-collapse: collapse;
+    color: white;
+    width: 100%;
+}
+.resultTable td{
+    text-align: left;
+    padding: 0.8rem;
+
+}
+.resultTable td:nth-child(2) {
+    word-wrap: break-word; 
+    white-space: normal;   
+}
+.resultTable td:nth-child(3){
+    text-align: center;
+}
+.resultTable td:nth-child(3) a{
+    text-decoration: none;
+    color: white;
+    border-radius: 0.625rem;
+    border: 1px solid var(--accent-green);
+    background: var(--accent-green);
+    box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.25);
+    padding: 0.5rem;
+}
+.resultTable td:nth-child(3) a{
+    text-decoration: none;
+    color: white;
+    border-radius: 0.625rem;
+    border: 1px solid var(--accent-green);
+    background: var(--accent-green);
+    box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.25);
+    padding: 0.5rem;
+    white-space: nowrap;
+}
+.resultTable td:nth-child(3) a:active{
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+.resultTable tr:nth-child(even) {
+    background-color: var(--primary-bg);
+}
+.infoItem {
+    line-height: 1.3;
+}
+*::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--secondary-bg);
+    border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--accent-green);
+    border-radius: 10px;
+    border: 3px solid var(--secondary-bg);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-purple);
+}
+
+
+.createForm{
+    position: absolute;
+    left: 10%;
+    top: 15%;
+    display: flex;
+    width: 80%;
+    height: 75%;
+    flex-shrink: 0;
+    flex-direction: column;
+    border-radius: 1.25rem;
+    background: var(--secondary-bg);
+    box-shadow: 0px 2px 4px 0px var(--accent-purple);
+    backdrop-filter: blur(10px);
+    justify-content: center;
+}
+
+.createForm > :nth-child(2) {
+    align-self: center;
+}
+#createForm{
+    overflow: auto;
+    width: 80%;
+    height: 80%;
+}
+.purple-logo span{
+    color: var(--accent-purple);
+}
+#createForm label {
+    display: block;
+    margin-top: 1rem;
+    color: var(--accent-purple);
+    font-family: Kanit;
+    font-size: 1.25rem;
+}
+
+#createForm input[type="text"],
+#createForm input[type="number"],
+#createForm select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid var(--accent-purple);
+    border-radius: 0.625rem;
+    background-color: var(--primary-bg);
+    color: white;
+    font-family: Kanit;
+    font-size: 1rem;
+}
+
+#createForm input[type="text"]:focus,
+#createForm input[type="number"]:focus,
+#createForm select:focus {
+    outline: none;
+}
+
+#createForm #jsonArea {
+    margin-top: 1rem;
+}
+
+#createForm .pair {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+#createForm .pair input[type="text"] {
+    flex: 1;
+}
+
+#createForm button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.625rem;
+    background-color: var(--accent-green);
+    color: white;
+    font-family: Kanit;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.25);
+    align-items: center;
+}
+
+#createForm input[type="submit"] {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.625rem;
+    background-color: var(--accent-green);
+    color: white;
+    font-family: Kanit;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+#createForm input[type="submit"]:active, #createForm button:active {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+.rowForm{
+    display: flex;
+    flex-direction: column;
+}
+.single-item{
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    font-family: Kanit;
+    background-color: var(--secondary-bg);
+    padding: 2rem;
+    margin: 2em;
+    border-radius: 1.25rem;
+    position: relative;
+    background: var(--secondary-bg);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    z-index: 1;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--accent-green), var(--accent-purple), var(--accent-red), var(--accent-green));
+    background-size: 400% 400%;
+    animation: glowing-background 20s ease infinite;
+    z-index: -1;
+}
+
+@keyframes glowing-background {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.single-item table{
+    border-collapse: collapse;
+    color: white;
+}
+.single-item table td:first-child{
+    padding-right: 1rem;
+}

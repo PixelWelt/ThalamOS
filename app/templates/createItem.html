@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sixtyfour&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>ThalamOS</title>
+
+</head>
+
+<body>
+    <header>
+        <div class="logo-container purple-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                <path d="M8.33331 43.75V18.75L25 6.25L41.6666 18.75V43.75H37.5V20.8333L25 11.4583L12.5 20.8333V43.75H8.33331ZM18.75 39.5833H31.25V35.4167H18.75V39.5833ZM18.75 31.25H31.25V27.0833H18.75V31.25ZM14.5833 43.75V22.9167H35.4166V43.75H14.5833Z" fill="#827191"/>
+            </svg>
+            <span>
+                ThalamOS
+            </span>
+        </div>
+    </header>
+    <div class="createForm">
+        <div class="buttons">
+            <a href="/" class="btn green">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" fill="#FFFFFF"/></svg>
+                back to search
+            </a>
+        </div>
+        <form id="createForm">
+            <label>name</label><input type="text" name="name"  required ></input>
+            <div class="rowform">
+                <label>type</label>
+                <select id="type" name="type" required>
+                    <option value="sensor">sensor</option>
+                    <option value="screw">screw</option>
+                    <option value="nail">nail</option>
+                    <option value="display">display</option>
+                    <option value="cable">cable</option>
+                    <option value="misc">miscellaneous</option>
+                    <option value="motor-driver">Motor driver</option>
+                </select>
+                <label>position</label>
+                <input type="number" name="position" style="width: 30%"  required ></input>
+            </div>
+            <label>JSON Info</label>
+            <div id="jsonArea">
+                <button formnovalidate type="button" onclick="addPairInput()" >add new value pair</button>
+                <button formnovalidate type="button" onclick="removePairInput()">remove value pair</button>
+                <div id="JSONpairs">
+                    <div class="pair">
+                        <input type="text" placeholder="key"></input><input type="text" placeholder="value"></input>
+                    </div>
+                </div>
+            </div>
+            <input type="submit"  id="addItemSubmit" value="add item">
+        </form>
+        
+    </div>
+    <dialog id="error" closed>
+        <p>Please fill in all required fields</p>
+        <button onclick="document.getElementById('error').close();">close</button>
+    </dialog>
+</body>
+<script>
+    function addPairInput(){
+        pairWrapper = document.createElement("div")
+        pairWrapper.className = "pair"
+
+        key = document.createElement("input")
+        key.type = "text"
+        key.placeholder = "key"
+
+        value = document.createElement("input")
+        value.type = "text"
+        value.placeholder = "value"
+
+        pairWrapper.append(key)
+        pairWrapper.append(value)
+        document.getElementById("JSONpairs").append(pairWrapper)
+    }
+    function removePairInput(){
+        toDelete = document.getElementsByClassName("pair")
+        toDelete = toDelete[toDelete.length -1]
+        toDelete.remove();
+
+    }
+    document.getElementById("addItemSubmit").addEventListener('click', 
+    function(event){
+        event.preventDefault();
+        if(!document.getElementById("createForm").checkValidity()){
+            document.getElementById("error").showModal();
+            return;
+            
+        }
+        jsonPairs = Array.from(document.getElementsByClassName("pair"));
+        name = document.querySelector('input[name=name]').value
+        type = document.getElementById("type").value
+        position = document.querySelector('input[name=position]').value
+        let json = {};
+        jsonPairs.forEach(pair => {
+            key = pair.children[0].value;
+            value = pair.children[1].value;
+            json[key] = value;
+        });
+        const response = fetch("http://localhost:8000/sendCreation", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,             
+                type: type,             
+                position: position,     
+                info: json              
+            })
+        });
+        document.getElementById("createForm").reset();
+    }
+    )
+
+</script>
+
+</html>
