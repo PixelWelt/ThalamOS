@@ -27,6 +27,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: "/app"
-        file: app/Dockerfile
+        file: dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/thalamos:latest
