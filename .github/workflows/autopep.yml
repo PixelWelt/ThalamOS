@@ -1,0 +1,6 @@
+name: Autopep
+
+jobs:
+  build:
+    uses: PixelWelt/autopep-action@v0.1
+            
