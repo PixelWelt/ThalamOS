@@ -1,5 +1,3 @@
-![Build Status](https://img.shields.io/github/workflow/status/PixelWelt/ThalamOS/docker.yml)
-![License](https://img.shields.io/github/license/PixelWelt/ThalamOS)
 ![Issues](https://img.shields.io/github/issues/PixelWelt/ThalamOS)
 ![Forks](https://img.shields.io/github/forks/PixelWelt/ThalamOS)
 ![Stars](https://img.shields.io/github/stars/PixelWelt/ThalamOS)
@@ -18,7 +16,49 @@ Thalamos is a powerful Flask web application designed to enhance your storage ma
 - **Easy Deployment**: Deploy effortlessly using a Docker container.
 
 ## Installation
-### build-it-yourself
+### Pull the latest build from Docker Hub (the easy way)
+
+1. Pull the latest image from Docker Hub:
+    ```bash
+    docker pull PixelWelt/thalamos:latest
+    ```
+2. setup your data directory and add  the `WLED_HOST` enviroment variable:
+    ```/data/.env
+    WLED_HOST="ip-adress"
+    ```
+    ```docker-compose
+    version: "3.9"
+    services:
+        thalamos:
+            image: PixelWelt/thalamos:latest
+            ports:
+            - "8000:80"
+            volumes:
+            - ./data:/app/data 
+    ```
+3. Start the service
+    ```bash
+    docker-compose up
+    ```
+### Build it yourself
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/thalamos.git
+    ```
+2. Navigate to the project directory:
+    ```bash
+    cd thalamos
+    ```
+3. Build the Docker image:
+    ```bash
+    docker build -t PixelWelt/thalamos .
+    ```
+4. Insert your WLED_HOST into the `.env.example` file and rename it to `.env`.
+5. Run the application using the Docker Compose file:
+    ```bash
+    docker-compose up
+    ```
 1. Clone the repository:
     ```bash
     git clone https://github.com/yourusername/thalamos.git
