@@ -1,4 +1,3 @@
-# ThalamOS
 ![Build Status](https://img.shields.io/github/workflow/status/PixelWelt/ThalamOS/docker.yml)
 ![License](https://img.shields.io/github/license/PixelWelt/ThalamOS)
 ![Issues](https://img.shields.io/github/issues/PixelWelt/ThalamOS)
@@ -8,6 +7,7 @@
 ![Contributors](https://img.shields.io/github/contributors/PixelWelt/ThalamOS)
 ![created at](https://img.shields.io/github/created-at/PixelWelt/ThalamOS)
 ![last commit](https://img.shields.io/github/last-commit/PixelWelt/ThalamOS)
+# ThalamOS
 Thalamos is a powerful Flask web application designed to enhance your storage management. It utilizes the WLED-API to light up the item you are looking for.
 ## Features
 
