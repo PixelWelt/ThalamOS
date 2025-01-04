@@ -26,6 +26,7 @@ Thalamos is a powerful Flask web application designed to enhance your storage ma
     ```/data/.env
     WLED_HOST="ip-adress"
     ```
+3. Setup your compose file
     ```docker-compose
     version: "3.9"
     services:
@@ -36,7 +37,7 @@ Thalamos is a powerful Flask web application designed to enhance your storage ma
             volumes:
             - ./data:/app/data 
     ```
-3. Start the service
+4. Start the service
     ```bash
     docker-compose up
     ```
