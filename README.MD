@@ -33,12 +33,14 @@ The name **ThalamOS** is derived from the Latin word *thalamus*, which means "in
     ```docker-compose
     version: "3.9"
     services:
-        thalamos:
-            image: PixelWelt/thalamos:latest
-            ports:
-            - "8000:80"
-            volumes:
-            - ./data:/app/data 
+    thalamos:
+        container_name: ThalamOS
+        image: pixelwelt/thalamos:latest
+
+        ports:
+        - "80:8000"
+        volumes:
+        - ./data:/app/app/data 
     ```
 4. Start the service
     ```bash
