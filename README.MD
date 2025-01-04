@@ -23,7 +23,7 @@ The name **ThalamOS** is derived from the Latin word *thalamus*, which means "in
 
 1. Pull the latest image from Docker Hub:
     ```bash
-    docker pull PixelWelt/thalamos:latest
+    docker pull pixelwelt/thalamos:latest
     ```
 2. setup your data directory and add  the `WLED_HOST` enviroment variable:
     ```/data/.env
