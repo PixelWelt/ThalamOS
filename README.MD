@@ -7,6 +7,9 @@
 ![last commit](https://img.shields.io/github/last-commit/PixelWelt/ThalamOS)
 # ThalamOS
 Thalamos is a powerful Flask web application designed to enhance your storage management. It utilizes the WLED-API to light up the item you are looking for.
+## Etymology
+
+The name **ThalamOS** is derived from the Latin word *thalamus*, which means "inner chamber" or "storage room." This reflects the application's purpose of managing and organizing storage spaces efficiently.
 ## Features
 
 - **LED Integration**: Controls an addressable LED strip via WLED to highlight the correct location of your items.
