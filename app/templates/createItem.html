@@ -107,7 +107,7 @@
             value = pair.children[1].value;
             json[key] = value;
         });
-        const response = fetch(`http://${API_URL}/sendCreation`, {
+        const response = fetch(`${API_URL}/sendCreation`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
