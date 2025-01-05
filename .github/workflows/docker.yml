@@ -34,4 +34,4 @@ jobs:
       with:
         file: dockerfile
         push: true
-        tags: latest, steps.get_latest_release.outputs.release 
+        tags: ${{ secrets.docker_username }}/thalamos:latest,${{ secrets.docker_username }}/thalamos:${{ steps.get_latest_release.outputs.release }}
