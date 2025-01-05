@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build and Push Docker Image to docker registry and github registry
 
 on:
   push:
@@ -35,3 +35,20 @@ jobs:
         file: dockerfile
         push: true
         tags: ${{ secrets.docker_username }}/thalamos:latest,${{ secrets.docker_username }}/thalamos:${{ steps.get_latest_release.outputs.release }}
+    
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@main
+    
+    - name: log in to Github Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GHCR_TOKEN }}
+    
+    - name: 'Build Inventory Image'
+      run: |
+        docker build . --tag ghcr.io/pixelwelt/thalamos:latest --tag ghcr.io/pixelwelt/thalamos:${{ steps.get_latest_release.outputs.release }}
+        docker push ghcr.io/pixelwelt/thalamos:latest
+        docker push ghcr.io/pixelwelt/thalamos:${{ steps.get_latest_release.outputs.release }}
+    
