@@ -12,8 +12,6 @@
 }
 
 body{
-    width: 1440px;
-    height: 1024px;
     background-color: var(--primary-bg);
     overflow-y: hidden;
     overflow-x: hidden;
@@ -77,17 +75,16 @@ main{
 .buttons{
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 .btn{
     margin-left: 2rem;
     margin-top: 2rem;
     display: flex;
     width: 14rem;
-    height: 2.5rem;
-    padding: 0rem 0.5rem;
+    padding: 0.5rem 0.5rem;
     align-items: center;
     gap: 0.625rem;
-    flex-shrink: 0;
     text-decoration: none;
     color: white;
     font-family: Kanit; 
@@ -370,4 +367,11 @@ body::before {
 }
 .single-item table td:first-child{
     padding-right: 1rem;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }

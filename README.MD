@@ -31,16 +31,15 @@ The name **ThalamOS** is derived from the Latin word *thalamus*, which means "in
     ```
 3. Setup your compose file
     ```docker-compose
-    version: "3.9"
     services:
-    thalamos:
-        container_name: ThalamOS
-        image: pixelwelt/thalamos:latest
-
-        ports:
-        - "80:8000"
-        volumes:
-        - ./data:/app/app/data 
+        thalamos:
+            container_name: ThalamOS
+            image: pixelwelt/thalamos:latest
+            restart: always
+            ports:
+            - "8000:8000"
+            volumes:
+            - ./data:/app/app/data 
     ```
 4. Start the service
     ```bash
