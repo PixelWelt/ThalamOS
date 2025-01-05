@@ -19,25 +19,19 @@ jobs:
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        username: ${{ secrets.docker_username }}
+        password: ${{ secrets.docker_password }}
 
     - name: Get latest release tag
       id: get_latest_release
-      uses: actions/github-script@v6
+      uses: pozetroninc/github-action-get-latest-release@master
       with:
-        script: |
-          const { context } = require('@actions/github');
-          const latestRelease = await github.repos.getLatestRelease({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-          });
-          return latestRelease.data.tag_name;
+        owner: PixelWelt
+        repo: ThalamOS
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
         file: dockerfile
         push: true
-        platforms: linux/amd64,linux/arm64
-        tags: ${{ secrets.DOCKER_USERNAME }}/thalamos:latest,${{ secrets.DOCKER_USERNAME }}/thalamos:${{ steps.get_latest_release.outputs.result }}
+        tags: latest, steps.get_latest_release.outputs.release 
