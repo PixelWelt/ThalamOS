@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, jsonify
 import wledRequests
 import StorageConnector
+import configmanager
 import json
 from flask_cors import CORS
 
@@ -67,8 +68,12 @@ def search(term):
 @app.errorhandler(Exception)
 def handle_exception(e):
     # pass through HTTP errors
-    
     return e
+
+
+@app.route('/config/env')
+def getEnv():
+    return jsonify(configmanager.get_env())
 
 
 with app.app_context():

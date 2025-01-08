@@ -35,4 +35,3 @@ def changePowerState(state):
 def getPowerstate():
     state = requests.get(f"http://{WLED_HOST}/json/state")
     return json.loads(state.text)["on"]
-
