@@ -3,6 +3,13 @@ import os
 
 
 def get_env_variables(env_path: str) -> dict:
+    """
+    Reads environment variables from a file and returns them as a dictionary.
+    Args:
+        env_path (str): The path to the environment variables file.
+    Returns:
+        dict: A dictionary containing the environment variables as key-value pairs.
+    """
     with open(env_path) as f:
         env_keys = f.read().splitlines()
     env_dict = {item.split('=')[0]: item.split('=')[1].strip('"') for item in env_keys}
