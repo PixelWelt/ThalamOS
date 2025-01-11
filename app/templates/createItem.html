@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 </head>
 
-<body>
+<body onload="setup()"">
     <header>
         <div class="logo-container purple-logo">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
@@ -65,7 +65,7 @@
         <p>Please fill in all required fields</p>
         <button onclick="document.getElementById('error').close();">close</button>
     </dialog>
-</body onload="setup()">
+</body>
 <script>
     environment = {};
     const API_URL = `${window.location.origin}`;
