@@ -20,6 +20,6 @@ jobs:
 
           - name: 'Build Inventory Image'
             run: |
-              docker build . --tag ghcr.io/pixelwelt/thalamos:latest --tag ghcr.io/pixelwelt/thalamos:${{ steps.get_latest_release.outputs.release }}
+              docker build . --tag ghcr.io/pixelwelt/thalamos:latest --tag ghcr.io/pixelwelt/thalamos:${{steps.get_latest_release.outputs.release }}
               docker push ghcr.io/pixelwelt/thalamos:latest
-              docker push ghcr.io/pixelwelt/thalamos:${{ steps.get_latest_release.outputs.release }}
+              docker push ghcr.io/pixelwelt/thalamos:${{steps.get_latest_release.outputs.release }}
