@@ -50,6 +50,7 @@
             <div id="jsonArea">
                 <button formnovalidate type="button" onclick="addPairInput()" >add new value pair</button>
                 <button formnovalidate type="button" onclick="removePairInput()">remove value pair</button>
+                
                 <div id="JSONpairs">
                     <div class="pair">
                         <input type="text" placeholder="key"></input><input type="text" placeholder="value"></input>
@@ -64,9 +65,10 @@
         <p>Please fill in all required fields</p>
         <button onclick="document.getElementById('error').close();">close</button>
     </dialog>
-</body>
+</body onload="setup()">
 <script>
-    const API_URL = `${window.location.hostname}:8000`;
+    environment = {};
+    const API_URL = `${window.location.origin}`;
     function addPairInput(){
         pairWrapper = document.createElement("div")
         pairWrapper.className = "pair"
@@ -107,7 +109,7 @@
             value = pair.children[1].value;
             json[key] = value;
         });
-        const response = fetch(`http://${API_URL}/sendCreation`, {
+        const response = fetch(`${API_URL}/sendCreation`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -123,6 +125,43 @@
         document.getElementById("createForm").reset();
     }
     )
+
+    async function setup(){
+        jsonArea = document.getElementById("jsonArea")
+        response = await fetch(`${API_URL}/config/env`)
+        env = await response.json()
+        console.log(env)
+        environment = env
+
+        if(env["IS_SCALE_ENABLED"]){
+            console.log("scale is enabled")
+            const scaleButton = document.createElement("button");
+            scaleButton.type = "button";
+            scaleButton.textContent = "measure weight";
+            scaleButton.id = "scaleButton";
+            scaleButton.onclick = function() {
+                getWeight();
+            };
+            jsonArea.insertBefore(scaleButton, jsonArea.children[2]);
+        }
+        if(env["IS_OLLAMA_ENABLED"]){
+            console.error("Ollama not implemented yet")
+        }
+    }
+
+    async function getWeight() {
+        document.getElementById("scaleButton").disabled = true;
+        const response = await fetch(`${API_URL}/wifiscale/weight`);
+        const data = await response.json();
+        console.log(data);
+        const pairs = document.getElementsByClassName("pair");
+        const lastPair = pairs[pairs.length - 1];
+        if (lastPair.children[0].value !== "" && lastPair.children[1].value !== "") {
+            addPairInput();
+        }
+        document.getElementsByClassName("pair")[document.getElementsByClassName("pair").length - 1].children[0].value = "weight";
+        document.getElementsByClassName("pair")[document.getElementsByClassName("pair").length - 1].children[1].value = data["weight"];
+    }
 
 </script>
 

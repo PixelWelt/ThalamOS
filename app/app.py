@@ -4,9 +4,16 @@ import StorageConnector
 import configmanager
 import json
 from flask_cors import CORS
+import wifiscalemanager as wifiscale
+from dotenv import load_dotenv
+import os
 
+ENV_PATH = os.path.join(os.path.dirname(__file__), 'data/.env')
+load_dotenv(dotenv_path=ENV_PATH)
+IS_SCALE_ENABLED = os.getenv("IS_SCALE_ENABLED")
 app = Flask(__name__)
 CORS(app)
+
 
 @app.route('/')
 def index():
@@ -19,7 +26,7 @@ def index():
 
 
 @app.route('/toggleLight')
-def toggleLight():
+def toggle_light():
     """
     Toggles the power state of the WLED device and renders the search template.
     This function changes the power state of the WLED device to the opposite of its current state
@@ -33,7 +40,7 @@ def toggleLight():
 
 
 @app.route('/createItem')
-def CreateItem():
+def create_item():
     """
     Renders the template for creating a new item.
     Returns:
@@ -43,7 +50,7 @@ def CreateItem():
 
 
 @app.route('/sendCreation', methods=['POST'])
-def SendCreation():
+def send_creation():
     """
     Handle the creation of a new item by processing the incoming JSON request data.
     The function expects a JSON payload with the following structure:
@@ -71,7 +78,7 @@ def SendCreation():
     except Exception as e:
         print(e)
 
-    return {"status": "ok"}, 200
+    return {"status": "created"}, 201
 
 
 @app.route('/item/<item>')
@@ -101,7 +108,7 @@ def item(item):
 
 
 @app.route('/item/<item>/delete')
-def deleteItem(item):
+def delete_item(item):
     """
     Deletes an item using the StorageConnector and renders the search.html template.
     Args:
@@ -114,7 +121,7 @@ def deleteItem(item):
     return render_template("search.html")
 
 
-@app.route('/search/<term>',methods=['GET'])
+@app.route('/search/<term>', methods=['GET'])
 def search(term):
     """
     Search for a term in the storage and return the results in JSON format.
@@ -142,7 +149,7 @@ def handle_exception(e):
 
 
 @app.route('/config/env')
-def getEnv():
+def get_env():
     """
     Retrieve the environment configuration.
     This function uses the configmanager to get the current environment
@@ -153,8 +160,23 @@ def getEnv():
     return jsonify(configmanager.get_env())
 
 
+@app.route('/wifiscale/weight')
+def get_weight():
+    """
+    Retrieve the weight of the scale.
+    This function uses the wledRequests to get the weight of the scale
+    Returns:
+        Response: A Flask JSON response containing the weight of the scale.
+    """
+    if IS_SCALE_ENABLED == "False":
+        return {"status": "scale service is not enabled"}, 412
+
+    weight = wifiscale.get_weight()
+    return jsonify({"weight": weight})
+
+
 with app.app_context():
     StorageConnector.setup()
-    
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
