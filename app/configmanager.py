@@ -1,5 +1,13 @@
-from dotenv import load_dotenv
+"""
+This module provides functionality to read and load environment variables from a .env file.
+
+Functions:
+    get_env_variables(env_path: str) -> dict:
+    get_env() -> dict:
+        Loads environment variables from a .env file and returns them as a dictionary.
+"""
 import os
+from dotenv import load_dotenv
 
 
 def get_env_variables(env_path: str) -> dict:
@@ -10,7 +18,7 @@ def get_env_variables(env_path: str) -> dict:
     Returns:
         dict: A dictionary containing the environment variables as key-value pairs.
     """
-    with open(env_path) as f:
+    with open(env_path, encoding='utf-8') as f:
         env_keys = f.read().splitlines()
     env_dict = {item.split('=')[0]: item.split('=')[1].strip('"') for item in env_keys}
     print(env_dict)
@@ -24,9 +32,9 @@ def get_env() -> dict:
     Returns:
         dict: A dictionary containing the environment variables.
     """
-    ENV_PATH = os.path.join(os.path.dirname(__file__), 'data/.env')
-    load_dotenv(dotenv_path=ENV_PATH)
-    env_dict = get_env_variables(ENV_PATH)
+    env_path = os.path.join(os.path.dirname(__file__), 'data/.env')
+    load_dotenv(dotenv_path=env_path)
+    env_dict = get_env_variables(env_path)
     return env_dict
 
 

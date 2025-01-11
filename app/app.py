@@ -1,12 +1,16 @@
+
+
+import json
+import os
+
 from flask import Flask, request, render_template, jsonify
-import wledRequests
+from flask_cors import CORS
+from dotenv import load_dotenv
+
 import StorageConnector
 import configmanager
-import json
-from flask_cors import CORS
 import wifiscalemanager as wifiscale
-from dotenv import load_dotenv
-import os
+import wledRequests
 
 ENV_PATH = os.path.join(os.path.dirname(__file__), 'data/.env')
 load_dotenv(dotenv_path=ENV_PATH)
@@ -35,7 +39,7 @@ def toggle_light():
     Returns:
         str: The rendered "search.html" template.
     """
-    wledRequests.changePowerState(not wledRequests.getPowerstate())
+    wledRequests.change_power_state(not wledRequests.get_power_state())
     return render_template("search.html")
 
 
@@ -74,50 +78,53 @@ def send_creation():
     name = data["name"]
     pos = data["position"]
     try:
-        StorageConnector.CreateItem(pos=pos, typ=typ, name=name, jsonData=info)
+        StorageConnector.create_item(pos=pos, typ=typ, name=name, json_data=info)
     except Exception as e:
         print(e)
-
+        return {"status": "error"}, 500
     return {"status": "created"}, 201
 
 
-@app.route('/item/<item>')
-def item(item):
+@app.route('/item/<item_id>')
+def item(item_id):
     """
     Handles the request to display an item.
     This function performs the following steps:
     1. Changes the power state of the WLED device to on.
     2. Fetches the item details from the storage using the provided item identifier.
     3. Sets the color position on the WLED device based on the fetched item details.
-    4. If the fetched item contains additional information, it parses the data and renders the 'item.jinja2' template with the item details and information.
-    6. If the fetched item does not contain additional information, it renders the 'item.jinja2' template with only the item details.
+    4. If the fetched item contains additional information,
+       it parses the data and renders the 'item.jinja2' template
+       with the item details and information.
+    6. If the fetched item does not contain additional information,
+       it renders the 'item.jinja2' template with only the item details.
     Args:
-        item (int): The id of the item to display.
+        item_id (int): The id of the item to display.
     Returns:
         The rendered HTML template for the item.
     """
-    wledRequests.changePowerState(True)
-    item_sql = StorageConnector.fetchItem(item)
-    wledRequests.colorPos(item_sql[1])
+    wledRequests.change_power_state(True)
+    item_sql = StorageConnector.fetch_item(item_id)
+    wledRequests.color_pos(item_sql[1])
     print(item_sql)
     if item_sql[4]:
-        jsonInfo = json.loads(item_sql[4])
-        return render_template("item.jinja2", item=item_sql, json=jsonInfo, id=item)
+        json_info = json.loads(item_sql[4])
+        return render_template("item.jinja2", item=item_sql, json=json_info, id=item_id)
     else:
-        return render_template("item.jinja2", item=item_sql, id=item)
+        return render_template("item.jinja2", item=item_sql, id=item_id)
 
 
 @app.route('/item/<item>/delete')
-def delete_item(item):
+def delete_item(item_id):
     """
     Deletes an item using the StorageConnector and renders the search.html template.
     Args:
-        item: The id of the item to be deleted.
+        item_id: The id of the item to be deleted.
     Returns:
         A rendered template for the search page.
     """
 
-    StorageConnector.deleteItem(item)
+    StorageConnector.delete_item(item_id)
     return render_template("search.html")
 
 
