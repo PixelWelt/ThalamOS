@@ -27,6 +27,6 @@ jobs:
 
           - name: 'Build and push Docker image'
             run: |
-              docker build . --tag ghcr.io/pixelwelt/thalamos:latest --tag ${{steps.get_latest_release.outputs.release}}
+              docker build . --tag latest --tag ${{steps.get_latest_release.outputs.release}}
               docker push ghcr.io/pixelwelt/thalamos:latest
               docker push ghcr.io/pixelwelt/thalamos:${{steps.get_latest_release.outputs.release }}
