@@ -182,4 +182,3 @@ def search(search_term):
     except sqlite3.ProgrammingError as e:
         print("SQLite-Error:", str(e))
         return None
-

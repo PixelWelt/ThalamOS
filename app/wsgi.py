@@ -7,7 +7,7 @@ When executed as the main module, it starts the Flask development server.
 Attributes:
     app (Flask): The Flask application instance imported from the `app` package.
 """
-from app import app 
+from app import app
 
 
 # Add the application directory to the Python path
