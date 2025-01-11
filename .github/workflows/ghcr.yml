@@ -1,3 +1,5 @@
+name: Build and Push Docker Image to github registry
+
 on:
     push:
       branches:
