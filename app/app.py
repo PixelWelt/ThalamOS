@@ -1,4 +1,33 @@
+"""
+StorageManager Application
 
+This module sets up a Flask web application for managing storage items, controlling WLED devices, 
+and interacting with a WiFi scale. It provides various routes for rendering templates, 
+handling item creation, deletion, and search, as well as retrieving environment configurations 
+and scale weight.
+
+Routes:
+    - /: Renders the search page.
+    - /toggleLight: Toggles the power state of the WLED device and renders the search template.
+    - /createItem: Renders the template for creating a new item.
+    - /sendCreation: Handles the creation of a new item by processing the incoming JSON request data.
+    - /item/<item_id>: Handles the request to display an item.
+    - /item/<item>/delete: Deletes an item using the StorageConnector and renders the search.html template.
+    - /search/<term>: Searches for a term in the storage and returns the results in JSON format.
+    - /config/env: Retrieves the environment configuration.
+    - /wifiscale/weight: Retrieves the weight of the scale.
+
+Error Handling:
+    - handle_exception: Handles exceptions by passing through HTTP errors.
+
+Setup:
+    - Initializes the Flask app and sets up CORS.
+    - Loads environment variables from a .env file.
+    - Sets up the StorageConnector within the app context.
+
+Usage:
+    Run the application using the command `python app.py`.
+"""
 
 import json
 import os
@@ -34,7 +63,8 @@ def toggle_light():
     """
     Toggles the power state of the WLED device and renders the search template.
     This function changes the power state of the WLED device to the opposite of its current state
-    by calling the `changePowerState` method of the `wledRequests` object. After toggling the power state,
+    by calling the `changePowerState` method of the `wledRequests` object.
+    After toggling the power state,
     it returns the rendered "search.html" template.
     Returns:
         str: The rendered "search.html" template.
@@ -65,7 +95,8 @@ def send_creation():
         "position": <str>
     }
     It extracts the necessary information from the JSON payload and attempts to create a new item
-    using the StorageConnector.CreateItem method. If an exception occurs during the creation process,
+    using the StorageConnector.CreateItem method. 
+    If an exception occurs during the creation process,
     it prints the exception.
     Returns:
         tuple: A dictionary with a status message and an HTTP status code.
@@ -110,8 +141,8 @@ def item(item_id):
     if item_sql[4]:
         json_info = json.loads(item_sql[4])
         return render_template("item.jinja2", item=item_sql, json=json_info, id=item_id)
-    else:
-        return render_template("item.jinja2", item=item_sql, id=item_id)
+
+    return render_template("item.jinja2", item=item_sql, id=item_id)
 
 
 @app.route('/item/<item>/delete')
