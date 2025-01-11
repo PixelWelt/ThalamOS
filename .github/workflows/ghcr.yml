@@ -15,11 +15,11 @@ jobs:
             uses: docker/login-action@v2
             with:
               registry: ghcr.io
-              username: ${{ github.repository_owner }}
-              password: ${{ secrets.GHCR_TOKEN }}
+              username: ${{github.repository_owner }}
+              password: ${{secrets.GHCR_TOKEN }}
 
-          - name: 'Build Inventory Image'
+          - name: 'Build and push Docker image'
             run: |
-              docker build . --tag ghcr.io/pixelwelt/thalamos:latest --tag ghcr.io/pixelwelt/thalamos:${{steps.get_latest_release.outputs.release }}
+              docker build . --tag ghcr.io/pixelwelt/thalamos:latest --tag ${{steps.get_latest_release.outputs.release}}
               docker push ghcr.io/pixelwelt/thalamos:latest
               docker push ghcr.io/pixelwelt/thalamos:${{steps.get_latest_release.outputs.release }}
