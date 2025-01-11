@@ -18,6 +18,11 @@ def get_weight():
         float: The weight of the scale.
     """
     API = f"http://{SCALE_HOST}/getWeight"
-    response = requests.get(API)
+    try:
+        response = requests.get(API)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        print(f"Error retrieving weight: {e}")
+        return "ERROR SCALE NOT FOUND"
     weight = response.content.decode('utf-8')
     return weight
