@@ -3,6 +3,7 @@ import sqlite3
 import os
 
 db_path = os.path.join(os.path.dirname(__file__), 'data/storage.db')
+print(db_path)
 mydb = sqlite3.connect(db_path, check_same_thread=False)
 cursor = mydb.cursor()
 
@@ -34,7 +35,7 @@ def setup():
     );
     """)
 
-    # Trigger für automatische Aktualisierung von modification_time beim Update
+    # trigger for automatic update of modification_time
     cursor.execute("""
     CREATE TRIGGER IF NOT EXISTS update_modification_time
     AFTER UPDATE ON storage
@@ -129,10 +130,10 @@ def search(searchTerm):
         sqlite3.ProgrammingError: If there is an error executing the query.
     """
     try:
-        # Split searchTerm into einzelne Wörter
+        # Split searchTerm into single words
         search_terms = searchTerm.split()
 
-        # Bedingung mit Platzhaltern ? erstellen
+        # create statement with placeholders for each search term
         conditions = " AND ".join(
             ["(type LIKE ? OR name LIKE ? OR info LIKE ?)" for _ in search_terms]
         )
@@ -142,16 +143,15 @@ def search(searchTerm):
         WHERE {conditions};
         """
 
-        # Parameter für die Platzhalter erstellen
+        # create parameters for each placeholder
         parameters = tuple(
             f"%{term}%" for term in search_terms for _ in range(3)
         )
 
-        # Debugging: Query und Parameter ausgeben
+        # Debugging: print query and parameters
         print("Query:", query)
         print("Parameter:", parameters)
 
-        # Query ausführen
         cursor.execute(query, parameters)
         results = cursor.fetchall()
 
