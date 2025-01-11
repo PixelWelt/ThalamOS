@@ -8,6 +8,13 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+          - name: Get latest release tag
+            id: get_latest_release
+            uses: pozetroninc/github-action-get-latest-release@master
+            with:
+              owner: PixelWelt
+              repo: ThalamOS
+              
           - name: 'Checkout GitHub Action'
             uses: actions/checkout@v2
 
