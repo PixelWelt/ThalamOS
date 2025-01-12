@@ -16,6 +16,8 @@ jobs:
                   ls -la
                   doxygen Doxyfile
                   npm i doxygen2md -g
+                  export PATH=$(npm config get prefix)/bin:$PATH
+                  source ~/.bashrc
                   doxygen2md --input ./docs/xml --output ./docs/markdown
             
             - name: Deploy Doxygen documentation
