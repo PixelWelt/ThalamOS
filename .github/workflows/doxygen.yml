@@ -7,15 +7,15 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - name: Install Doxygen
-              run: |
-                  sudo apt install doxygen graphviz npm -y
-                  npm i doxygen2md
+              run: sudo apt install doxygen graphviz npm -y
+                  
               
             
             - name: Generate Doxygen documentation
               run: |
                   ls -la
                   doxygen Doxyfile
+                  npm i doxygen2md 
                   doygen2md --input ./docs/xml --output ./docs/markdown
             
             - name: Deploy Doxygen documentation
