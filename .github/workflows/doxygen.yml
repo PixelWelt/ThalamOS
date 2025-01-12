@@ -14,6 +14,7 @@ jobs:
             
             - name: Generate Doxygen documentation
               run: |
+                  ls -la
                   doxygen Doxyfile
                   doygen2md --input ./docs/xml --output ./docs/markdown
             
