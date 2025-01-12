@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['ban_0',['ban',['../md_CODE__OF__CONDUCT.html#autotoc_md9',1,'3. Temporary Ban'],['../md_CODE__OF__CONDUCT.html#autotoc_md10',1,'4. Permanent Ban']]],
-  ['block_1',['Code block',['../classMyLibrary_1_1Example.html#autotoc_md39',1,'']]],
-  ['browser_20support_2',['Browser support',['../md_doxygen-awesome-css_2README.html#autotoc_md52',1,'']]],
-  ['bug_20list_3',['Bug List',['../bug.html',1,'']]],
-  ['button_4',['Fragment Copy Button',['../md_doxygen-awesome-css_2docs_2extensions.html#extension-copy-button',1,'']]]
+  ['ban_0',['ban',['../md_CODE__OF__CONDUCT.html#autotoc_md20',1,'3. Temporary Ban'],['../md_CODE__OF__CONDUCT.html#autotoc_md21',1,'4. Permanent Ban']]],
+  ['build_20from_20docker_20hub_20the_20easy_20way_1',['Pull the latest build from Docker Hub (the easy way)',['../md_README.html#autotoc_md4',1,'']]],
+  ['build_20it_20yourself_2',['Build it yourself',['../md_README.html#autotoc_md5',1,'']]]
 ];

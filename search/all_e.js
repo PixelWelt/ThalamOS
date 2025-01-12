@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['mode_0',['Disable Dark Mode',['../md_doxygen-awesome-css_2docs_2tricks.html#tricks-darkmode',1,'']]],
-  ['mode_20toggle_1',['Dark Mode Toggle',['../md_doxygen-awesome-css_2docs_2extensions.html#extension-dark-mode-toggle',1,'']]],
-  ['motivation_2',['Motivation',['../md_doxygen-awesome-css_2README.html#autotoc_md42',1,'']]]
+  ['of_20conduct_0',['Contributor Covenant Code of Conduct',['../md_CODE__OF__CONDUCT.html',1,'']]],
+  ['our_20pledge_1',['Our Pledge',['../md_CODE__OF__CONDUCT.html#autotoc_md12',1,'']]],
+  ['our_20standards_2',['Our Standards',['../md_CODE__OF__CONDUCT.html#autotoc_md13',1,'']]]
 ];
