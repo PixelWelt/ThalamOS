@@ -25,34 +25,32 @@
 var NAVTREE =
 [
   [ "ThalamOS", "index.html", [
-    [ "README", "md_README.html", [
-      [ "ThalamOS", "md_README.html#autotoc_md0", [
-        [ "Etymology", "md_README.html#autotoc_md1", null ],
-        [ "Features", "md_README.html#autotoc_md2", null ],
-        [ "Installation", "md_README.html#autotoc_md3", [
-          [ "Pull the latest build from Docker Hub (the easy way)", "md_README.html#autotoc_md4", null ],
-          [ "Build it yourself", "md_README.html#autotoc_md5", null ]
-        ] ],
-        [ "Usage", "md_README.html#autotoc_md6", null ],
-        [ "Images", "md_README.html#autotoc_md7", null ],
-        [ "Contributing", "md_README.html#autotoc_md8", null ],
-        [ "License", "md_README.html#autotoc_md9", null ],
-        [ "Contact", "md_README.html#autotoc_md10", null ]
-      ] ]
-    ] ],
     [ "Contributor Covenant Code of Conduct", "md_CODE__OF__CONDUCT.html", [
-      [ "Our Pledge", "md_CODE__OF__CONDUCT.html#autotoc_md12", null ],
-      [ "Our Standards", "md_CODE__OF__CONDUCT.html#autotoc_md13", null ],
-      [ "Enforcement Responsibilities", "md_CODE__OF__CONDUCT.html#autotoc_md14", null ],
-      [ "Scope", "md_CODE__OF__CONDUCT.html#autotoc_md15", null ],
-      [ "Enforcement", "md_CODE__OF__CONDUCT.html#autotoc_md16", null ],
-      [ "Enforcement Guidelines", "md_CODE__OF__CONDUCT.html#autotoc_md17", [
-        [ "1. Correction", "md_CODE__OF__CONDUCT.html#autotoc_md18", null ],
-        [ "2. Warning", "md_CODE__OF__CONDUCT.html#autotoc_md19", null ],
-        [ "3. Temporary Ban", "md_CODE__OF__CONDUCT.html#autotoc_md20", null ],
-        [ "4. Permanent Ban", "md_CODE__OF__CONDUCT.html#autotoc_md21", null ]
+      [ "Our Pledge", "md_CODE__OF__CONDUCT.html#autotoc_md1", null ],
+      [ "Our Standards", "md_CODE__OF__CONDUCT.html#autotoc_md2", null ],
+      [ "Enforcement Responsibilities", "md_CODE__OF__CONDUCT.html#autotoc_md3", null ],
+      [ "Scope", "md_CODE__OF__CONDUCT.html#autotoc_md4", null ],
+      [ "Enforcement", "md_CODE__OF__CONDUCT.html#autotoc_md5", null ],
+      [ "Enforcement Guidelines", "md_CODE__OF__CONDUCT.html#autotoc_md6", [
+        [ "1. Correction", "md_CODE__OF__CONDUCT.html#autotoc_md7", null ],
+        [ "2. Warning", "md_CODE__OF__CONDUCT.html#autotoc_md8", null ],
+        [ "3. Temporary Ban", "md_CODE__OF__CONDUCT.html#autotoc_md9", null ],
+        [ "4. Permanent Ban", "md_CODE__OF__CONDUCT.html#autotoc_md10", null ]
       ] ],
-      [ "Attribution", "md_CODE__OF__CONDUCT.html#autotoc_md22", null ]
+      [ "Attribution", "md_CODE__OF__CONDUCT.html#autotoc_md11", null ]
+    ] ],
+    [ "Security Policy", "md_SECURITY.html", [
+      [ "Supported Versions", "md_SECURITY.html#autotoc_md13", null ],
+      [ "Reporting a Vulnerability", "md_SECURITY.html#autotoc_md14", null ],
+      [ "Scope", "md_SECURITY.html#autotoc_md15", null ],
+      [ "Acknowledgements", "md_SECURITY.html#autotoc_md16", null ]
+    ] ],
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ]
+      ] ]
     ] ]
   ] ]
 ];
