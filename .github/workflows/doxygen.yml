@@ -1,11 +1,16 @@
 name: generate doxygen documentation
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
     build:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
+              with:
+                ref: main
             - name: Install Doxygen
               run: |
                    sudo apt install doxygen graphviz -y
