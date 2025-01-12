@@ -7,34 +7,17 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - name: Install Doxygen
-              run: sudo apt install doxygen graphviz npm -y
-                  
-              
-            
+              run: |
+                   sudo apt install doxygen graphviz -y
+                   git submodule add https://github.com/jothepro/doxygen-awesome-css.git
+
             - name: Generate Doxygen documentation
               run: |
                   ls -la
                   doxygen Doxyfile
-                  npm i doxygen2md -g
-                  export PATH=$(npm config get prefix)/bin:$PATH
-                  hash -r
-                  npm list -g --depth=0
-                  which doxygen2md
-                  doxygen2md --input ./docs/xml --output ./docs/markdown
             
             - name: Deploy Doxygen documentation
               uses: peaceiris/actions-gh-pages@v3
               with:
                   github_token: ${{ secrets.DOCS_TOKEN }}
                   publish_dir: ./docs/html
-            
-            - name: Publish Markdown to Wiki
-              run: |
-                  git clone https://github.com/${{ github.repository }}.wiki.git wiki
-                  cp -r ./docs/markdown/* wiki/
-                  cd wiki
-                  git config user.name "github-actions[bot]"
-                  git config user.email "github-actions[bot]@users.noreply.github.com"
-                  git add .
-                  git commit -m "Update wiki with latest documentation"
-                  git push
