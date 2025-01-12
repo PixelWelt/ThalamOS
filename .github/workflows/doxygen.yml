@@ -16,7 +16,7 @@ jobs:
                   ls -la
                   doxygen Doxyfile
                   npm i doxygen2md -g
-                  doygen2md --input ./docs/xml --output ./docs/markdown
+                  doxygen2md --input ./docs/xml --output ./docs/markdown
             
             - name: Deploy Doxygen documentation
               uses: peaceiris/actions-gh-pages@v3
