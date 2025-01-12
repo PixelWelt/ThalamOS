@@ -1,0 +1,35 @@
+name: generate doxygen documentation
+on: [push]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+
+            - name: Install Doxygen
+              run: |
+                  sudo apt install doxygen graphviz npm -y
+                  npm i doxygen2md
+              
+            
+            - name: Generate Doxygen documentation
+              run: |
+                  doxygen Doxyfile
+                  doygen2md --input ./docs/xml --output ./docs/markdown
+            
+            - name: Deploy Doxygen documentation
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  github_token: ${{ secrets.DOCS_TOKEN }}
+                  publish_dir: ./docs/html
+            
+            - name: Publish Markdown to Wiki
+              run: |
+                  git clone https://github.com/${{ github.repository }}.wiki.git wiki
+                  cp -r ./docs/markdown/* wiki/
+                  cd wiki
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git add .
+                  git commit -m "Update wiki with latest documentation"
+                  git push
