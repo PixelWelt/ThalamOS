@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ThalamOS: Main Page</title>
+<title>ThalamOS: ThalamOS</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -91,10 +91,95 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">ThalamOS Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">ThalamOS </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="https://img.shields.io/github/issues/PixelWelt/ThalamOS" alt="Issues" class="inline"/> <img src="https://img.shields.io/github/forks/PixelWelt/ThalamOS" alt="Forks" class="inline"/> <img src="https://img.shields.io/github/stars/PixelWelt/ThalamOS" alt="Stars" class="inline"/> <img src="https://img.shields.io/github/commits-since/PixelWelt/ThalamOS/latest" alt="Commits since latest release" class="inline"/> <img src="https://img.shields.io/github/contributors/PixelWelt/ThalamOS" alt="Contributors" class="inline"/> <img src="https://img.shields.io/github/created-at/PixelWelt/ThalamOS" alt="created at" class="inline"/> <img src="https://img.shields.io/github/last-commit/PixelWelt/ThalamOS" alt="last commit" class="inline"/> <img src="banner.png" alt="" class="inline" title="Banner"/>     </p>
+<h1><a class="anchor" id="autotoc_md0"></a>
+ThalamOS</h1>
+<p>Thalamos is a powerful Flask web application designed to enhance your storage management. It utilizes the WLED-API to light up the item you are looking for. </p>
+<h2><a class="anchor" id="autotoc_md1"></a>
+Etymology</h2>
+<p>The name <b>ThalamOS</b> is derived from the Latin word <em>thalamus</em>, which means "inner chamber" or "storage room." This reflects the application's purpose of managing and organizing storage spaces efficiently. </p>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Features</h2>
+<ul>
+<li><b>LED Integration</b>: Controls an addressable LED strip via WLED to highlight the correct location of your items.</li>
+<li><b>Custom Properties</b>: Save any property with your stored items using the info field, allowing for infinite key-value pairs.</li>
+<li><b>Search Functionality</b>: Easily search for items and see their location light up on your storage shelf.</li>
+<li><b>Lightweight</b>: Built with SQLite and Flask, ensuring minimal resource usage and easy deployment.</li>
+<li><b>Easy Deployment</b>: Deploy effortlessly using a Docker container.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Installation</h2>
+<h3><a class="anchor" id="autotoc_md4"></a>
+Pull the latest build from Docker Hub (the easy way)</h3>
+<ol type="1">
+<li>Pull the latest image from Docker Hub: <div class="fragment"><div class="line">docker pull pixelwelt/thalamos:latest</div>
+</div><!-- fragment --></li>
+<li>setup your data directory and add the <code>WLED_HOST</code> enviroment variable: <div class="fragment"><div class="line">/data/.env</div>
+<div class="line">   WLED_HOST=&quot;ip-adress&quot;</div>
+</div><!-- fragment --></li>
+<li>Setup your compose file <div class="fragment"><div class="line">-compose</div>
+<div class="line">   services:</div>
+<div class="line">       thalamos:</div>
+<div class="line">           container_name: ThalamOS</div>
+<div class="line">           image: pixelwelt/thalamos:latest</div>
+<div class="line">           restart: always</div>
+<div class="line">           ports:</div>
+<div class="line">           - <span class="stringliteral">&quot;8000:8000&quot;</span></div>
+<div class="line">           volumes:</div>
+<div class="line">           - ./data:/<a class="code hl_namespace" href="namespaceapp.html">app</a>/<a class="code hl_namespace" href="namespaceapp.html">app</a>/data </div>
+<div class="ttc" id="anamespaceapp_html"><div class="ttname"><a href="namespaceapp.html">app</a></div><div class="ttdef"><b>Definition</b> app.py:1</div></div>
+</div><!-- fragment --></li>
+<li>Start the service <div class="fragment"><div class="line">docker-compose up</div>
+</div><!-- fragment --> </li>
+</ol>
+<h3><a class="anchor" id="autotoc_md5"></a>
+Build it yourself</h3>
+<ol type="1">
+<li>Clone the repository: <div class="fragment"><div class="line">git clone https://github.com/yourusername/thalamos.git</div>
+</div><!-- fragment --></li>
+<li>Navigate to the project directory: <div class="fragment"><div class="line">cd thalamos</div>
+</div><!-- fragment --></li>
+<li>Build the Docker image: <div class="fragment"><div class="line">docker build -t PixelWelt/thalamos .</div>
+</div><!-- fragment --></li>
+<li>Insert your WLED_HOST into the <code>.env.example</code> file and rename it to <code>.env</code>.</li>
+<li>Run the application using the Docker Compose file: <div class="fragment"><div class="line">docker-compose up</div>
+</div><!-- fragment --></li>
+</ol>
+<ol type="1">
+<li>Clone the repository: <div class="fragment"><div class="line">git clone https://github.com/yourusername/thalamos.git</div>
+</div><!-- fragment --></li>
+<li>Navigate to the project directory: <div class="fragment"><div class="line">cd thalamos</div>
+</div><!-- fragment --></li>
+<li>Build the container: <div class="fragment"><div class="line">docker build -t PixelWelt/thalamos .</div>
+</div><!-- fragment --></li>
+<li>insert your WLED_HOST into the .env.example file and rename it to .env</li>
+<li>Run the application using the docker compose file: <div class="fragment"><div class="line">docker-compose up</div>
+</div><!-- fragment --></li>
+</ol>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Usage</h2>
+<ol type="1">
+<li>Open your web browser and go to <code><a href="http://localhost:8000">http://localhost:8000</a></code>.</li>
+<li>Add your stored items along with their properties.</li>
+<li>Use the search functionality to find items and see their location light up on your storage shelf.</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Images</h2>
+<p><img src="home-page.png" alt="" class="inline" title="home page"/>     <img src="createItem.png" alt="" class="inline" title="create Item page"/>    </p>
+<h2><a class="anchor" id="autotoc_md8"></a>
+Contributing</h2>
+<p>Contributions are welcome! Please fork the repository and submit a pull request.</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
+License</h2>
+<p>This project is licensed under the MIT License.</p>
+<h2><a class="anchor" id="autotoc_md10"></a>
+Contact</h2>
+<p>For any questions or suggestions, please open an issue or contact the repository owner. </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
