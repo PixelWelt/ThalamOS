@@ -15,7 +15,7 @@ jobs:
               run: |
                   ls -la
                   doxygen Doxyfile
-                  npm i doxygen2md 
+                  npm i doxygen2md -g
                   doygen2md --input ./docs/xml --output ./docs/markdown
             
             - name: Deploy Doxygen documentation
