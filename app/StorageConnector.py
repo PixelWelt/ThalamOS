@@ -15,10 +15,10 @@ Functions:
 - create_item(pos, typ, name, jsonData): Creates an item in the storage database.
 - search(search_term): Searches the storage database for entries that match the given search term.
 """
+from typing import Annotated
 import csv
 import sqlite3
 import os
-from typing import Annotated
 
 
 db_path: Annotated[str, "path of database files"] = os.path.join(os.path.dirname(__file__), 'data/storage.db')

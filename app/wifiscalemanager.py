@@ -16,9 +16,9 @@ Dependencies:
     - dotenv: To load environment variables from a .env file.
 """
 import os
+from typing import Annotated
 import requests
 from dotenv import load_dotenv
-from typing import Annotated
 
 
 ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(os.path.dirname(__file__), 'data/.env')
