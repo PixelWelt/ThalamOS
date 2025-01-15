@@ -19,6 +19,9 @@ The name **ThalamOS** is derived from the Latin word *thalamus*, which means "in
 - **Lightweight**: Built with SQLite and Flask, ensuring minimal resource usage and easy deployment.
 - **Easy Deployment**: Deploy effortlessly using a Docker container.
 
+## Documentation
+The ThalamOS code documentation, generated with Doxygen, is available at: [https://pixelwelt.github.io/ThalamOS/](https://pixelwelt.github.io/ThalamOS/)
+
 ## Installation
 ### Pull the latest build from Docker Hub (the easy way)
 
