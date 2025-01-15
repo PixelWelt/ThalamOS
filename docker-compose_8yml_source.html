@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ThalamOS: app/configmanager.py File Reference</title>
+<title>ThalamOS: docker-compose.yml Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -53,6 +53,11 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -66,7 +71,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('configmanager_8py.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('docker-compose_8yml_source.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -92,33 +97,24 @@ $(document).ready(function(){initNavTree('configmanager_8py.html',''); initResiz
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">configmanager.py File Reference</div></div>
+  <div class="headertitle"><div class="title">docker-compose.yml</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p><a href="configmanager_8py_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespaceconfigmanager" id="r_namespaceconfigmanager"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceconfigmanager.html">configmanager</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a72ff538d2e6cc914974ddead3ca08ffa" id="r_a72ff538d2e6cc914974ddead3ca08ffa"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceconfigmanager.html#a72ff538d2e6cc914974ddead3ca08ffa">configmanager.get_env_variables</a> (str env_path)</td></tr>
-<tr class="separator:a72ff538d2e6cc914974ddead3ca08ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee86fb4e92c2c84e576ab922484d41f5" id="r_aee86fb4e92c2c84e576ab922484d41f5"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceconfigmanager.html#aee86fb4e92c2c84e576ab922484d41f5">configmanager.get_env</a> ()</td></tr>
-<tr class="separator:aee86fb4e92c2c84e576ab922484d41f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-</div><!-- contents -->
+<a href="docker-compose_8yml.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>services:</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span>  thalamos:</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span>    container_name: ThalamOS</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>    image: pixelwelt/thalamos:latest</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    restart: always</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    ports:</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>      - &quot;8000:8000&quot;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    volumes:</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>      - ./data:/app/app/data </div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a class="el" href="configmanager_8py.html">configmanager.py</a></li>
+    <li class="navelem"><a class="el" href="docker-compose_8yml.html">docker-compose.yml</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

@@ -1,6 +1,7 @@
 var NAVTREEINDEX0 =
 {
 "LICENSE.html":[4,0,3],
+"LICENSE_source.html":[4,0,3],
 "StorageConnector_8py.html":[4,0,0,2],
 "StorageConnector_8py.html#a0b9442209d553eab4e8701df8d5ad721":[4,0,0,2,0],
 "StorageConnector_8py.html#a33b2b05b3f8e1257f109e43df48963e4":[4,0,0,2,6],
@@ -11,6 +12,7 @@ var NAVTREEINDEX0 =
 "StorageConnector_8py.html#a934a4293c0cf678010d321659d0318f2":[4,0,0,2,4],
 "StorageConnector_8py.html#acc62120fe4079d51d19d2b692c488e68":[4,0,0,2,5],
 "StorageConnector_8py.html#afbddb5f58d664f5594fae668d9803fdb":[4,0,0,2,1],
+"StorageConnector_8py_source.html":[4,0,0,2],
 "app_8py.html":[4,0,0,0],
 "app_8py.html#a0136a8b7edee5d57e68a782c0ca60794":[4,0,0,0,9],
 "app_8py.html#a16a0596a94a459d734da46538f5b2bdf":[4,0,0,0,4],
@@ -28,12 +30,16 @@ var NAVTREEINDEX0 =
 "app_8py.html#ab4a362027d4aa3246e0e0f57ebf177b0":[4,0,0,0,11],
 "app_8py.html#ac159e21505da516814864393dc85f569":[4,0,0,0,2],
 "app_8py.html#ac419d0b68f139412dbc11882b2927eaf":[4,0,0,0,3],
+"app_8py_source.html":[4,0,0,0],
 "configmanager_8py.html":[4,0,0,1],
 "configmanager_8py.html#a72ff538d2e6cc914974ddead3ca08ffa":[4,0,0,1,1],
 "configmanager_8py.html#aee86fb4e92c2c84e576ab922484d41f5":[4,0,0,1,0],
+"configmanager_8py_source.html":[4,0,0,1],
 "dir_d422163b96683743ed3963d4aac17747.html":[4,0,0],
 "docker-compose_8yml.html":[4,0,1],
+"docker-compose_8yml_source.html":[4,0,1],
 "dockerfile.html":[4,0,2],
+"dockerfile_source.html":[4,0,2],
 "files.html":[4,0],
 "index.html":[],
 "index.html#autotoc_md0":[0],
@@ -121,6 +127,7 @@ var NAVTREEINDEX0 =
 "wifiscalemanager_8py.html#a730dc51e8d9d50a18736bece69a5b092":[4,0,0,3,3],
 "wifiscalemanager_8py.html#aa264a5bf6952a895f2a0df440400de38":[4,0,0,3,0],
 "wifiscalemanager_8py.html#adb64a19df1f9884d711be5748c465fe2":[4,0,0,3,2],
+"wifiscalemanager_8py_source.html":[4,0,0,3],
 "wledRequests_8py.html":[4,0,0,4],
 "wledRequests_8py.html#a001686a28ed69e913e6a02c27271ef52":[4,0,0,4,1],
 "wledRequests_8py.html#a04cc644700c94d37123dfaf7ddb24dd8":[4,0,0,4,3],
@@ -131,5 +138,7 @@ var NAVTREEINDEX0 =
 "wledRequests_8py.html#a7cf56d4c91adb698121ddc9c130bcf52":[4,0,0,4,8],
 "wledRequests_8py.html#ab5cd68058afeefba2ef3b8805bfad28b":[4,0,0,4,2],
 "wledRequests_8py.html#aebdcefdfbc8bcaa52f0d62144dabc45b":[4,0,0,4,7],
-"wsgi_8py.html":[4,0,0,5]
+"wledRequests_8py_source.html":[4,0,0,4],
+"wsgi_8py.html":[4,0,0,5],
+"wsgi_8py_source.html":[4,0,0,5]
 };
