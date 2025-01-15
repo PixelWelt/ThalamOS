@@ -49,7 +49,7 @@ CORS(app)
 
 
 @app.route('/')
-def index():
+def index() -> str:
     """
     Renders the search page.
     Returns:
@@ -59,7 +59,7 @@ def index():
 
 
 @app.route('/toggleLight')
-def toggle_light():
+def toggle_light() -> str:
     """
     Toggles the power state of the WLED device and renders the search template.
     This function changes the power state of the WLED device to the opposite of its current state
@@ -74,7 +74,7 @@ def toggle_light():
 
 
 @app.route('/createItem')
-def create_item():
+def create_item() -> str:
     """
     Renders the template for creating a new item.
     Returns:
@@ -84,7 +84,7 @@ def create_item():
 
 
 @app.route('/sendCreation', methods=['POST'])
-def send_creation():
+def send_creation() -> tuple:
     """
     Handle the creation of a new item by processing the incoming JSON request data.
     The function expects a JSON payload with the following structure:
@@ -117,7 +117,7 @@ def send_creation():
 
 
 @app.route('/item/<item_id>')
-def item(item_id):
+def item(item_id) -> str:
     """
     Handles the request to display an item.
     This function performs the following steps:
@@ -146,7 +146,7 @@ def item(item_id):
 
 
 @app.route('/item/<item>/delete')
-def delete_item(item_id):
+def delete_item(item_id) -> str:
     """
     Deletes an item using the StorageConnector and renders the search.html template.
     Args:
@@ -160,7 +160,7 @@ def delete_item(item_id):
 
 
 @app.route('/search/<term>', methods=['GET'])
-def search(term):
+def search(term) -> str:
     """
     Search for a term in the storage and return the results in JSON format.
     Args:
@@ -173,7 +173,7 @@ def search(term):
 
 
 @app.errorhandler(Exception)
-def handle_exception(e):
+def handle_exception(e) -> Exception:
     """
     Handles exceptions by passing through HTTP errors.
     Parameters:
@@ -187,7 +187,7 @@ def handle_exception(e):
 
 
 @app.route('/config/env')
-def get_env():
+def get_env() -> str:
     """
     Retrieve the environment configuration.
     This function uses the configmanager to get the current environment
@@ -199,7 +199,7 @@ def get_env():
 
 
 @app.route('/wifiscale/weight')
-def get_weight():
+def get_weight() -> str:
     """
     Retrieve the weight of the scale.
     This function uses the wledRequests to get the weight of the scale

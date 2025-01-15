@@ -18,15 +18,17 @@ Dependencies:
 import os
 import requests
 from dotenv import load_dotenv
+from typing import Annotated
 
-ENV_PATH = os.path.join(os.path.dirname(__file__), 'data/.env')
+
+ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(os.path.dirname(__file__), 'data/.env')
 load_dotenv(dotenv_path=ENV_PATH)
 
-SCALE_HOST = os.getenv("SCALE_HOST")
+SCALE_HOST: Annotated[str, "environment variable for wifi scale address"] = os.getenv("SCALE_HOST")
 print(f'WifiScale host is: {SCALE_HOST}')
 
 
-def get_weight():
+def get_weight() -> float:
     """
     Retrieve the weight of the scale.
     This function sends a GET request to the specified API endpoint

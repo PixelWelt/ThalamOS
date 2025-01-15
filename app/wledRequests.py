@@ -15,17 +15,19 @@ import os
 
 import requests
 from dotenv import load_dotenv
+from typing import Annotated
 
-ENV_PATH = os.path.join(os.path.dirname(__file__), 'data/.env')
+
+ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(os.path.dirname(__file__), 'data/.env')
 load_dotenv(dotenv_path=ENV_PATH)
 
-WLED_HOST = os.getenv("WLED_HOST")
+WLED_HOST: Annotated[str, "environment variable for WLED address"] = os.getenv("WLED_HOST")
 print(f'WLED host is: {WLED_HOST}')
 
-API = f"http://{WLED_HOST}/json"
+API: Annotated[str, "URL to WLED"] = f"http://{WLED_HOST}/json"
 
 
-def turn_off_lights():
+def turn_off_lights() -> None:
     """
     Sends a request to turn off the lights by setting the segment color to black.
     This function creates a JSON payload to set the color of a segment of lights to black (hex code "000000")
@@ -37,7 +39,7 @@ def turn_off_lights():
     requests.post(API, req, timeout=10)
 
 
-def color_pos(pos):
+def color_pos(pos) -> None:
     """
     Sends a request to set the color of a specific position on a WLED device.
     Args:
@@ -49,7 +51,7 @@ def color_pos(pos):
     requests.post(API, req, timeout=10)
 
 
-def load_default_state():
+def load_default_state() -> None:
     """
     Sends a POST request to the WLED API to load the default state.
     This function creates a JSON payload with a preset state identifier and sends it to the WLED API endpoint using a POST request.
@@ -60,7 +62,7 @@ def load_default_state():
     requests.post(API, req, timeout=10)
 
 
-def change_power_state(state):
+def change_power_state(state) -> None:
     """
     Change the power state of the device.
     Args:
@@ -72,7 +74,7 @@ def change_power_state(state):
     requests.post(API, req, timeout=10)
 
 
-def get_power_state():
+def get_power_state() -> bool:
     """
     Retrieves the power state of a WLED device.
     Sends a GET request to the WLED device's JSON API endpoint to fetch the current state.

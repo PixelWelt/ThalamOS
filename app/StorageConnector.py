@@ -18,14 +18,15 @@ Functions:
 import csv
 import sqlite3
 import os
+from typing import Annotated
 
-db_path = os.path.join(os.path.dirname(__file__), 'data/storage.db')
-print(db_path)
-mydb = sqlite3.connect(db_path, check_same_thread=False)
+
+db_path: Annotated[str, "path of database files"] = os.path.join(os.path.dirname(__file__), 'data/storage.db')
+mydb: Annotated[sqlite3.Connection, "helper object for database"] = sqlite3.connect(db_path, check_same_thread=False)
 cursor = mydb.cursor()
 
 
-def setup():
+def setup() -> None:
     """
     Sets up the database by creating the 'storage' table and a trigger for automatic 
     updating of the 'modification_time' column.
@@ -67,7 +68,7 @@ def setup():
     print("Database is ready for service")
 
 
-def fetch_csv():
+def fetch_csv() -> None:
     """
     Fetches all data from the 'storage' table in the database and 
     writes it to a CSV file named 'out.csv'.
@@ -86,7 +87,7 @@ def fetch_csv():
         csv_file.close()
 
 
-def fetch_item(item_id):
+def fetch_item(item_id) -> Annotated[tuple, "tuple containing the item's data if found, otherwise None"]:
     """
     Fetch an item from the storage database by its id.
     Args:
@@ -99,7 +100,7 @@ def fetch_item(item_id):
     return cursor.fetchone()
 
 
-def delete_item(item_id):
+def delete_item(item_id) -> None:
     """
     Deletes an item from the storage database based on the provided item id.
     Args:
@@ -112,7 +113,7 @@ def delete_item(item_id):
     mydb.commit()
 
 
-def create_item(pos, typ, name, json_data):
+def create_item(pos, typ, name, json_data) -> None:
     """
     Creates an item in the storage database.
     Args:
@@ -137,7 +138,7 @@ def create_item(pos, typ, name, json_data):
     mydb.commit()
 
 
-def search(search_term):
+def search(search_term) -> Annotated[list, "list of tuples containing the rows from the database that match the search criteria"]:
     """
     Searches the storage database for entries that match the given search term.
     Args:
