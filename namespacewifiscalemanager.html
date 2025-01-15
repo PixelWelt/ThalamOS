@@ -106,14 +106,11 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ab9beeaa133c4cb91d101609d7f9643db" id="r_ab9beeaa133c4cb91d101609d7f9643db"><td class="memItemLeft" align="right" valign="top"><a id="ab9beeaa133c4cb91d101609d7f9643db" name="ab9beeaa133c4cb91d101609d7f9643db"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ENV_PATH</b> = os.path.join(os.path.dirname(__file__), 'data/.env')</td></tr>
+<tr class="memitem:ab9beeaa133c4cb91d101609d7f9643db" id="r_ab9beeaa133c4cb91d101609d7f9643db"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewifiscalemanager.html#ab9beeaa133c4cb91d101609d7f9643db">ENV_PATH</a> = os.path.join(os.path.dirname(__file__), 'data/.env')</td></tr>
 <tr class="separator:ab9beeaa133c4cb91d101609d7f9643db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fb988bfbf357de39654c5c38f2444b5" id="r_a0fb988bfbf357de39654c5c38f2444b5"><td class="memItemLeft" align="right" valign="top"><a id="a0fb988bfbf357de39654c5c38f2444b5" name="a0fb988bfbf357de39654c5c38f2444b5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>dotenv_path</b></td></tr>
+<tr class="memitem:a0fb988bfbf357de39654c5c38f2444b5" id="r_a0fb988bfbf357de39654c5c38f2444b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewifiscalemanager.html#a0fb988bfbf357de39654c5c38f2444b5">dotenv_path</a></td></tr>
 <tr class="separator:a0fb988bfbf357de39654c5c38f2444b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf1933e87949fcc72150313db1a90c12" id="r_acf1933e87949fcc72150313db1a90c12"><td class="memItemLeft" align="right" valign="top"><a id="acf1933e87949fcc72150313db1a90c12" name="acf1933e87949fcc72150313db1a90c12"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SCALE_HOST</b> = os.getenv(&quot;SCALE_HOST&quot;)</td></tr>
+<tr class="memitem:acf1933e87949fcc72150313db1a90c12" id="r_acf1933e87949fcc72150313db1a90c12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewifiscalemanager.html#acf1933e87949fcc72150313db1a90c12">SCALE_HOST</a> = os.getenv(&quot;SCALE_HOST&quot;)</td></tr>
 <tr class="separator:acf1933e87949fcc72150313db1a90c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -152,7 +149,67 @@ This function sends a GET request to the specified API endpoint
 to retrieve the weight of the scale.
 Returns:
     float: The weight of the scale.
-</pre> 
+</pre> <div class="fragment"><div class="line"><span class="lineno">   29</span><span class="keyword">def </span>get_weight():</div>
+<div class="line"><span class="lineno">   30</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   31</span><span class="stringliteral">    Retrieve the weight of the scale.</span></div>
+<div class="line"><span class="lineno">   32</span><span class="stringliteral">    This function sends a GET request to the specified API endpoint</span></div>
+<div class="line"><span class="lineno">   33</span><span class="stringliteral">    to retrieve the weight of the scale.</span></div>
+<div class="line"><span class="lineno">   34</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><span class="lineno">   35</span><span class="stringliteral">        float: The weight of the scale.</span></div>
+<div class="line"><span class="lineno">   36</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   37</span>    api = f<span class="stringliteral">&quot;http://{SCALE_HOST}/getWeight&quot;</span></div>
+<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">   39</span>        response = requests.get(api, timeout=10)</div>
+<div class="line"><span class="lineno">   40</span>        response.raise_for_status()</div>
+<div class="line"><span class="lineno">   41</span>    <span class="keywordflow">except</span> requests.RequestException <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">   42</span>        print(f<span class="stringliteral">&quot;Error retrieving weight: {e}&quot;</span>)</div>
+<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;ERROR SCALE NOT FOUND&quot;</span></div>
+<div class="line"><span class="lineno">   44</span>    weight = response.content.decode(<span class="stringliteral">&#39;utf-8&#39;</span>)</div>
+<div class="line"><span class="lineno">   45</span>    <span class="keywordflow">return</span> weight</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a0fb988bfbf357de39654c5c38f2444b5" name="a0fb988bfbf357de39654c5c38f2444b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fb988bfbf357de39654c5c38f2444b5">&#9670;&#160;</a></span>dotenv_path</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wifiscalemanager.dotenv_path</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab9beeaa133c4cb91d101609d7f9643db" name="ab9beeaa133c4cb91d101609d7f9643db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9beeaa133c4cb91d101609d7f9643db">&#9670;&#160;</a></span>ENV_PATH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wifiscalemanager.ENV_PATH = os.path.join(os.path.dirname(__file__), 'data/.env')</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acf1933e87949fcc72150313db1a90c12" name="acf1933e87949fcc72150313db1a90c12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf1933e87949fcc72150313db1a90c12">&#9670;&#160;</a></span>SCALE_HOST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wifiscalemanager.SCALE_HOST = os.getenv(&quot;SCALE_HOST&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

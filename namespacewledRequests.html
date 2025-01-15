@@ -114,17 +114,13 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a791feedb26d4652e79613b967b3cb880" id="r_a791feedb26d4652e79613b967b3cb880"><td class="memItemLeft" align="right" valign="top"><a id="a791feedb26d4652e79613b967b3cb880" name="a791feedb26d4652e79613b967b3cb880"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ENV_PATH</b> = os.path.join(os.path.dirname(__file__), 'data/.env')</td></tr>
+<tr class="memitem:a791feedb26d4652e79613b967b3cb880" id="r_a791feedb26d4652e79613b967b3cb880"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewledRequests.html#a791feedb26d4652e79613b967b3cb880">ENV_PATH</a> = os.path.join(os.path.dirname(__file__), 'data/.env')</td></tr>
 <tr class="separator:a791feedb26d4652e79613b967b3cb880"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73365ea634beb4274c628766418eb048" id="r_a73365ea634beb4274c628766418eb048"><td class="memItemLeft" align="right" valign="top"><a id="a73365ea634beb4274c628766418eb048" name="a73365ea634beb4274c628766418eb048"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>dotenv_path</b></td></tr>
+<tr class="memitem:a73365ea634beb4274c628766418eb048" id="r_a73365ea634beb4274c628766418eb048"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewledRequests.html#a73365ea634beb4274c628766418eb048">dotenv_path</a></td></tr>
 <tr class="separator:a73365ea634beb4274c628766418eb048"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f08005c0fdfa7359482aaf55c6c75d1" id="r_a6f08005c0fdfa7359482aaf55c6c75d1"><td class="memItemLeft" align="right" valign="top"><a id="a6f08005c0fdfa7359482aaf55c6c75d1" name="a6f08005c0fdfa7359482aaf55c6c75d1"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>WLED_HOST</b> = os.getenv(&quot;WLED_HOST&quot;)</td></tr>
+<tr class="memitem:a6f08005c0fdfa7359482aaf55c6c75d1" id="r_a6f08005c0fdfa7359482aaf55c6c75d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewledRequests.html#a6f08005c0fdfa7359482aaf55c6c75d1">WLED_HOST</a> = os.getenv(&quot;WLED_HOST&quot;)</td></tr>
 <tr class="separator:a6f08005c0fdfa7359482aaf55c6c75d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82100ec9ec05654b31f28707f52488c1" id="r_a82100ec9ec05654b31f28707f52488c1"><td class="memItemLeft" align="right" valign="top"><a id="a82100ec9ec05654b31f28707f52488c1" name="a82100ec9ec05654b31f28707f52488c1"></a>
-str&#160;</td><td class="memItemRight" valign="bottom"><b>API</b> = f&quot;http://{WLED_HOST}/json&quot;</td></tr>
+<tr class="memitem:a82100ec9ec05654b31f28707f52488c1" id="r_a82100ec9ec05654b31f28707f52488c1"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewledRequests.html#a82100ec9ec05654b31f28707f52488c1">API</a> = f&quot;http://{<a class="el" href="namespacewledRequests.html#a6f08005c0fdfa7359482aaf55c6c75d1">WLED_HOST</a>}/json&quot;</td></tr>
 <tr class="separator:a82100ec9ec05654b31f28707f52488c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -159,7 +155,19 @@ Args:
     state (bool): The desired power state. True to turn on, False to turn off.
 Returns:
     None
-</pre> 
+</pre> <div class="fragment"><div class="line"><span class="lineno">   63</span><span class="keyword">def </span>change_power_state(state):</div>
+<div class="line"><span class="lineno">   64</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   65</span><span class="stringliteral">    Change the power state of the device.</span></div>
+<div class="line"><span class="lineno">   66</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><span class="lineno">   67</span><span class="stringliteral">        state (bool): The desired power state. True to turn on, False to turn off.</span></div>
+<div class="line"><span class="lineno">   68</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><span class="lineno">   69</span><span class="stringliteral">        None</span></div>
+<div class="line"><span class="lineno">   70</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   71</span>    req = json.dumps({<span class="stringliteral">&quot;on&quot;</span>:state})</div>
+<div class="line"><span class="lineno">   72</span>    requests.post(API, req, timeout=10)</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span> </div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a740dbac0851a46edf32a48ac19f8799a" name="a740dbac0851a46edf32a48ac19f8799a"></a>
@@ -182,7 +190,19 @@ Args:
     pos (int): The position to set the color for.
 Returns:
     None
-</pre> 
+</pre> <div class="fragment"><div class="line"><span class="lineno">   40</span><span class="keyword">def </span>color_pos(pos):</div>
+<div class="line"><span class="lineno">   41</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   42</span><span class="stringliteral">    Sends a request to set the color of a specific position on a WLED device.</span></div>
+<div class="line"><span class="lineno">   43</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><span class="lineno">   44</span><span class="stringliteral">        pos (int): The position to set the color for.</span></div>
+<div class="line"><span class="lineno">   45</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><span class="lineno">   46</span><span class="stringliteral">        None</span></div>
+<div class="line"><span class="lineno">   47</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   48</span>    req = json.dumps({<span class="stringliteral">&quot;seg&quot;</span>: {<span class="stringliteral">&quot;i&quot;</span>: [pos, <span class="stringliteral">&quot;FF0000&quot;</span>]}})</div>
+<div class="line"><span class="lineno">   49</span>    requests.post(API, req, timeout=10)</div>
+<div class="line"><span class="lineno">   50</span> </div>
+<div class="line"><span class="lineno">   51</span> </div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a2c2c513e02a6ca9613c30ef6b864e7be" name="a2c2c513e02a6ca9613c30ef6b864e7be"></a>
@@ -204,7 +224,17 @@ Sends a GET request to the WLED device's JSON API endpoint to fetch the current 
 Parses the JSON response to determine if the device is on or off.
 Returns:
     bool: True if the WLED device is on, False otherwise.
-</pre> 
+</pre> <div class="fragment"><div class="line"><span class="lineno">   75</span><span class="keyword">def </span>get_power_state():</div>
+<div class="line"><span class="lineno">   76</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   77</span><span class="stringliteral">    Retrieves the power state of a WLED device.</span></div>
+<div class="line"><span class="lineno">   78</span><span class="stringliteral">    Sends a GET request to the WLED device&#39;s JSON API endpoint to fetch the current state.</span></div>
+<div class="line"><span class="lineno">   79</span><span class="stringliteral">    Parses the JSON response to determine if the device is on or off.</span></div>
+<div class="line"><span class="lineno">   80</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><span class="lineno">   81</span><span class="stringliteral">        bool: True if the WLED device is on, False otherwise.</span></div>
+<div class="line"><span class="lineno">   82</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   83</span>    state = requests.get(f<span class="stringliteral">&quot;http://{WLED_HOST}/json/state&quot;</span>, timeout=10)</div>
+<div class="line"><span class="lineno">   84</span>    <span class="keywordflow">return</span> json.loads(state.text)[<span class="stringliteral">&quot;on&quot;</span>]</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ab9bee42a615e57bc6db245ef178fdf54" name="ab9bee42a615e57bc6db245ef178fdf54"></a>
@@ -225,7 +255,18 @@ Returns:
 This function creates a JSON payload with a preset state identifier and sends it to the WLED API endpoint using a POST request.
 Raises:
     requests.exceptions.RequestException: If there is an issue with the HTTP request.
-</pre> 
+</pre> <div class="fragment"><div class="line"><span class="lineno">   52</span><span class="keyword">def </span>load_default_state():</div>
+<div class="line"><span class="lineno">   53</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   54</span><span class="stringliteral">    Sends a POST request to the WLED API to load the default state.</span></div>
+<div class="line"><span class="lineno">   55</span><span class="stringliteral">    This function creates a JSON payload with a preset state identifier and sends it to the WLED API endpoint using a POST request.</span></div>
+<div class="line"><span class="lineno">   56</span><span class="stringliteral">    Raises:</span></div>
+<div class="line"><span class="lineno">   57</span><span class="stringliteral">        requests.exceptions.RequestException: If there is an issue with the HTTP request.</span></div>
+<div class="line"><span class="lineno">   58</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   59</span>    req = json.dumps({<span class="stringliteral">&quot;ps&quot;</span>:1})</div>
+<div class="line"><span class="lineno">   60</span>    requests.post(API, req, timeout=10)</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span> </div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a9422d40f659a0136f636cd5412e5d038" name="a9422d40f659a0136f636cd5412e5d038"></a>
@@ -247,7 +288,76 @@ This function creates a JSON payload to set the color of a segment of lights to 
 and sends a POST request to the specified API endpoint to turn off the lights.
 Raises:
     requests.exceptions.RequestException: If there is an issue with the HTTP request.
-</pre> 
+</pre> <div class="fragment"><div class="line"><span class="lineno">   28</span><span class="keyword">def </span>turn_off_lights():</div>
+<div class="line"><span class="lineno">   29</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   30</span><span class="stringliteral">    Sends a request to turn off the lights by setting the segment color to black.</span></div>
+<div class="line"><span class="lineno">   31</span><span class="stringliteral">    This function creates a JSON payload to set the color of a segment of lights to black (hex code &quot;000000&quot;)</span></div>
+<div class="line"><span class="lineno">   32</span><span class="stringliteral">    and sends a POST request to the specified API endpoint to turn off the lights.</span></div>
+<div class="line"><span class="lineno">   33</span><span class="stringliteral">    Raises:</span></div>
+<div class="line"><span class="lineno">   34</span><span class="stringliteral">        requests.exceptions.RequestException: If there is an issue with the HTTP request.</span></div>
+<div class="line"><span class="lineno">   35</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   36</span>    req = json.dumps({<span class="stringliteral">&quot;seg&quot;</span>: {<span class="stringliteral">&quot;i&quot;</span>: [0, 50, <span class="stringliteral">&quot;000000&quot;</span>]}})</div>
+<div class="line"><span class="lineno">   37</span>    requests.post(API, req, timeout=10)</div>
+<div class="line"><span class="lineno">   38</span> </div>
+<div class="line"><span class="lineno">   39</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a82100ec9ec05654b31f28707f52488c1" name="a82100ec9ec05654b31f28707f52488c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82100ec9ec05654b31f28707f52488c1">&#9670;&#160;</a></span>API</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str wledRequests.API = f&quot;http://{<a class="el" href="namespacewledRequests.html#a6f08005c0fdfa7359482aaf55c6c75d1">WLED_HOST</a>}/json&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73365ea634beb4274c628766418eb048" name="a73365ea634beb4274c628766418eb048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73365ea634beb4274c628766418eb048">&#9670;&#160;</a></span>dotenv_path</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wledRequests.dotenv_path</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a791feedb26d4652e79613b967b3cb880" name="a791feedb26d4652e79613b967b3cb880"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a791feedb26d4652e79613b967b3cb880">&#9670;&#160;</a></span>ENV_PATH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wledRequests.ENV_PATH = os.path.join(os.path.dirname(__file__), 'data/.env')</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6f08005c0fdfa7359482aaf55c6c75d1" name="a6f08005c0fdfa7359482aaf55c6c75d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f08005c0fdfa7359482aaf55c6c75d1">&#9670;&#160;</a></span>WLED_HOST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wledRequests.WLED_HOST = os.getenv(&quot;WLED_HOST&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->
