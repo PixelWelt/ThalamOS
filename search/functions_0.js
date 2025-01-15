@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['change_5fpower_5fstate_0',['change_power_state',['../namespacewledRequests.html#ab2728b7456333bb592e91c9636417ab3',1,'wledRequests']]],
-  ['color_5fpos_1',['color_pos',['../namespacewledRequests.html#a740dbac0851a46edf32a48ac19f8799a',1,'wledRequests']]],
-  ['create_5fitem_2',['create_item',['../namespaceapp.html#a1ed36893db95fbd9b0a74e7a3024b7db',1,'app.create_item()'],['../namespaceStorageConnector.html#a0f91c55bfa838d16b21ec8ef7923a5f0',1,'StorageConnector.create_item()']]]
+  ['change_5fpower_5fstate_0',['change_power_state',['../namespacewledRequests.html#a3d1ba3a4e73218c9dad41c86e7bcd4c0',1,'wledRequests']]],
+  ['color_5fpos_1',['color_pos',['../namespacewledRequests.html#a001686a28ed69e913e6a02c27271ef52',1,'wledRequests']]],
+  ['create_5fitem_2',['create_item',['../namespaceapp.html#a7a6c48667ad92f28d45a5c123a031424',1,'app.create_item()'],['../namespaceStorageConnector.html#a0b9442209d553eab4e8701df8d5ad721',1,'StorageConnector.create_item()']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['delete_5fitem_0',['delete_item',['../namespaceapp.html#aa2ae8e714551b2386266a1140bdcd8ab',1,'app.delete_item()'],['../namespaceStorageConnector.html#a592f10db41c720fb67b6005cd380c507',1,'StorageConnector.delete_item()']]]
+  ['delete_5fitem_0',['delete_item',['../namespaceapp.html#a4a584afd80681ce320c2933db2cb78f6',1,'app.delete_item()'],['../namespaceStorageConnector.html#afbddb5f58d664f5594fae668d9803fdb',1,'StorageConnector.delete_item()']]]
 ];

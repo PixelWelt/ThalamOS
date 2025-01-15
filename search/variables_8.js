@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wled_5fhost_0',['WLED_HOST',['../namespacewledRequests.html#a6f08005c0fdfa7359482aaf55c6c75d1',1,'wledRequests']]]
+  ['wled_5fhost_0',['WLED_HOST',['../namespacewledRequests.html#a7cf56d4c91adb698121ddc9c130bcf52',1,'wledRequests']]]
 ];
