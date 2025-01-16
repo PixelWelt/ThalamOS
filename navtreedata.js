@@ -46,10 +46,10 @@ var NAVTREE =
       [ "Scope", "md_CODE__OF__CONDUCT.html#autotoc_md16", null ],
       [ "Enforcement", "md_CODE__OF__CONDUCT.html#autotoc_md17", null ],
       [ "Enforcement Guidelines", "md_CODE__OF__CONDUCT.html#autotoc_md18", [
-        [ "1. Correction", "md_CODE__OF__CONDUCT.html#autotoc_md19", null ],
-        [ "2. Warning", "md_CODE__OF__CONDUCT.html#autotoc_md20", null ],
-        [ "3. Temporary Ban", "md_CODE__OF__CONDUCT.html#autotoc_md21", null ],
-        [ "4. Permanent Ban", "md_CODE__OF__CONDUCT.html#autotoc_md22", null ]
+        [ "Correction", "md_CODE__OF__CONDUCT.html#autotoc_md19", null ],
+        [ "Warning", "md_CODE__OF__CONDUCT.html#autotoc_md20", null ],
+        [ "Temporary Ban", "md_CODE__OF__CONDUCT.html#autotoc_md21", null ],
+        [ "Permanent Ban", "md_CODE__OF__CONDUCT.html#autotoc_md22", null ]
       ] ],
       [ "Attribution", "md_CODE__OF__CONDUCT.html#autotoc_md23", null ]
     ] ],
@@ -78,5 +78,5 @@ var NAVTREEINDEX =
 "LICENSE.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
