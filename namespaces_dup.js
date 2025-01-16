@@ -22,6 +22,13 @@ var namespaces_dup =
       [ "get_env", "namespaceconfigmanager.html#ab6d51259707342421d4bca0a8ec08a1b", null ],
       [ "get_env_variables_from_path", "namespaceconfigmanager.html#a114250285f4eec20ae6db96224d1f176", null ]
     ] ],
+    [ "logger_config", "namespacelogger__config.html", [
+      [ "compression", "namespacelogger__config.html#ae400b9e96ca6657efec3624b281c0389", null ],
+      [ "format", "namespacelogger__config.html#ae59712b053dd0e8fdd6b44154b041bc5", null ],
+      [ "level", "namespacelogger__config.html#a7bffe4923ecb0351456006a2651daa4b", null ],
+      [ "retention", "namespacelogger__config.html#a4eebebff580f96bd8ad9d5ff767001a7", null ],
+      [ "rotation", "namespacelogger__config.html#ac3d265b98e49b254a2961cd7ffd3bec6", null ]
+    ] ],
     [ "StorageConnector", "namespaceStorageConnector.html", [
       [ "create_item", "namespaceStorageConnector.html#a0b9442209d553eab4e8701df8d5ad721", null ],
       [ "delete_item", "namespaceStorageConnector.html#afbddb5f58d664f5594fae668d9803fdb", null ],

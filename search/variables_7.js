@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['scale_5fhost_0',['SCALE_HOST',['../namespacewifiscalemanager.html#a730dc51e8d9d50a18736bece69a5b092',1,'wifiscalemanager']]]
+  ['level_0',['level',['../namespacelogger__config.html#a7bffe4923ecb0351456006a2651daa4b',1,'logger_config']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['storageconnector_0',['StorageConnector',['../namespaceStorageConnector.html',1,'']]]
+  ['logger_5fconfig_0',['logger_config',['../namespacelogger__config.html',1,'']]]
 ];
