@@ -112,12 +112,12 @@ $(document).ready(function(){initNavTree('wledRequests_8py_source.html',''); ini
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="stringliteral">    change_power_state(state): Change the power state of the device.</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="stringliteral">    get_power_state(): Retrieves the power state of a WLED device.</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">import</span> json</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">import</span> os</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">import</span> requests</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">from</span> typing <span class="keyword">import</span> Annotated</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">from</span> typing <span class="keyword">import</span> Annotated</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">import</span> json</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">import</span> os</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">import</span> requests</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="namespacewledRequests.html#aebdcefdfbc8bcaa52f0d62144dabc45b">   21</a></span>ENV_PATH: Annotated[str, <span class="stringliteral">&quot;path to environment variables&quot;</span>] = os.path.join(os.path.dirname(__file__), <span class="stringliteral">&#39;data/.env&#39;</span>)</div>
@@ -165,7 +165,7 @@ $(document).ready(function(){initNavTree('wledRequests_8py_source.html',''); ini
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="stringliteral">    Raises:</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="stringliteral">        requests.exceptions.RequestException: If there is an issue with the HTTP request.</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    req = json.dumps({<span class="stringliteral">&quot;ps&quot;</span>:1})</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    req = json.dumps({<span class="stringliteral">&quot;ps&quot;</span>: 1})</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    requests.post(API, req, timeout=10)</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
@@ -179,13 +179,13 @@ $(document).ready(function(){initNavTree('wledRequests_8py_source.html',''); ini
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="stringliteral">    Returns:</span></div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="stringliteral">        None</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    req = json.dumps({<span class="stringliteral">&quot;on&quot;</span>:state})</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    req = json.dumps({<span class="stringliteral">&quot;on&quot;</span>: state})</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    requests.post(API, req, timeout=10)</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
 </div>
 <div class="foldopen" id="foldopen00077" data-start="" data-end="">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="namespacewledRequests.html#ab5cd68058afeefba2ef3b8805bfad28b">   77</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacewledRequests.html#ab5cd68058afeefba2ef3b8805bfad28b">get_power_state</a>() -&gt; bool:</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="namespacewledRequests.html#a9a8c23220f01be5c75b1b3f20651fc56">   77</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacewledRequests.html#a9a8c23220f01be5c75b1b3f20651fc56">get_power_state</a>() -&gt; Annotated[bool, &quot;True if power is on, false if power is off&quot;]:</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="stringliteral">    Retrieves the power state of a WLED device.</span></div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="stringliteral">    Sends a GET request to the WLED device&#39;s JSON API endpoint to fetch the current state.</span></div>
@@ -200,7 +200,7 @@ $(document).ready(function(){initNavTree('wledRequests_8py_source.html',''); ini
 <div class="ttc" id="anamespacewledRequests_html_a04cc644700c94d37123dfaf7ddb24dd8"><div class="ttname"><a href="namespacewledRequests.html#a04cc644700c94d37123dfaf7ddb24dd8">wledRequests.load_default_state</a></div><div class="ttdeci">None load_default_state()</div><div class="ttdef"><b>Definition</b> <a href="wledRequests_8py_source.html#l00054">wledRequests.py:54</a></div></div>
 <div class="ttc" id="anamespacewledRequests_html_a3d1ba3a4e73218c9dad41c86e7bcd4c0"><div class="ttname"><a href="namespacewledRequests.html#a3d1ba3a4e73218c9dad41c86e7bcd4c0">wledRequests.change_power_state</a></div><div class="ttdeci">None change_power_state(state)</div><div class="ttdef"><b>Definition</b> <a href="wledRequests_8py_source.html#l00065">wledRequests.py:65</a></div></div>
 <div class="ttc" id="anamespacewledRequests_html_a6d0314f78ea2cfd64014c01c2a77d58e"><div class="ttname"><a href="namespacewledRequests.html#a6d0314f78ea2cfd64014c01c2a77d58e">wledRequests.turn_off_lights</a></div><div class="ttdeci">None turn_off_lights()</div><div class="ttdef"><b>Definition</b> <a href="wledRequests_8py_source.html#l00030">wledRequests.py:30</a></div></div>
-<div class="ttc" id="anamespacewledRequests_html_ab5cd68058afeefba2ef3b8805bfad28b"><div class="ttname"><a href="namespacewledRequests.html#ab5cd68058afeefba2ef3b8805bfad28b">wledRequests.get_power_state</a></div><div class="ttdeci">bool get_power_state()</div><div class="ttdef"><b>Definition</b> <a href="wledRequests_8py_source.html#l00077">wledRequests.py:77</a></div></div>
+<div class="ttc" id="anamespacewledRequests_html_a9a8c23220f01be5c75b1b3f20651fc56"><div class="ttname"><a href="namespacewledRequests.html#a9a8c23220f01be5c75b1b3f20651fc56">wledRequests.get_power_state</a></div><div class="ttdeci">Annotated[bool, &quot;True if power is on, false if power is off&quot;] get_power_state()</div><div class="ttdef"><b>Definition</b> <a href="wledRequests_8py_source.html#l00077">wledRequests.py:77</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

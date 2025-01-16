@@ -12,6 +12,6 @@ var searchData=
   ['contributor_20covenant_20code_20of_20conduct_9',['Contributor Covenant Code of Conduct',['../md_CODE__OF__CONDUCT.html',1,'']]],
   ['correction_10',['1. Correction',['../md_CODE__OF__CONDUCT.html#autotoc_md19',1,'']]],
   ['covenant_20code_20of_20conduct_11',['Contributor Covenant Code of Conduct',['../md_CODE__OF__CONDUCT.html',1,'']]],
-  ['create_5fitem_12',['create_item',['../namespaceapp.html#a7a6c48667ad92f28d45a5c123a031424',1,'app.create_item()'],['../namespaceStorageConnector.html#a0b9442209d553eab4e8701df8d5ad721',1,'StorageConnector.create_item(pos, typ, name, json_data)']]],
+  ['create_5fitem_12',['create_item',['../namespaceapp.html#a72b62fd84b2007fecb090a6324c8ddfb',1,'app.create_item()'],['../namespaceStorageConnector.html#a0b9442209d553eab4e8701df8d5ad721',1,'StorageConnector.create_item(pos, typ, name, json_data)']]],
   ['cursor_13',['cursor',['../namespaceStorageConnector.html#a33b2b05b3f8e1257f109e43df48963e4',1,'StorageConnector']]]
 ];

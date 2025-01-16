@@ -101,8 +101,8 @@ $(document).ready(function(){initNavTree('namespacewifiscalemanager.html',''); i
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa264a5bf6952a895f2a0df440400de38" id="r_aa264a5bf6952a895f2a0df440400de38"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewifiscalemanager.html#aa264a5bf6952a895f2a0df440400de38">get_weight</a> ()</td></tr>
-<tr class="separator:aa264a5bf6952a895f2a0df440400de38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ee83ec56cb14a0009fdd27b5bdaf491" id="r_a4ee83ec56cb14a0009fdd27b5bdaf491"><td class="memItemLeft" align="right" valign="top">Annotated[float, &quot;weight in grams&quot;]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewifiscalemanager.html#a4ee83ec56cb14a0009fdd27b5bdaf491">get_weight</a> ()</td></tr>
+<tr class="separator:a4ee83ec56cb14a0009fdd27b5bdaf491"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -130,14 +130,14 @@ Dependencies:
     - os: To handle file paths and environment variables.
     - dotenv: To load environment variables from a .env file.
 </pre> </div><h2 class="groupheader">Function Documentation</h2>
-<a id="aa264a5bf6952a895f2a0df440400de38" name="aa264a5bf6952a895f2a0df440400de38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa264a5bf6952a895f2a0df440400de38">&#9670;&#160;</a></span>get_weight()</h2>
+<a id="a4ee83ec56cb14a0009fdd27b5bdaf491" name="a4ee83ec56cb14a0009fdd27b5bdaf491"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ee83ec56cb14a0009fdd27b5bdaf491">&#9670;&#160;</a></span>get_weight()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> float wifiscalemanager.get_weight </td>
+          <td class="memname"> Annotated[float, &quot;weight in grams&quot;] wifiscalemanager.get_weight </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -151,7 +151,7 @@ Returns:
     float: The weight of the scale.
 </pre> 
 <p class="definition">Definition at line <a class="el" href="wifiscalemanager_8py_source.html#l00031">31</a> of file <a class="el" href="wifiscalemanager_8py_source.html">wifiscalemanager.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   31</span><span class="keyword">def </span>get_weight() -&gt; float:</div>
+<div class="fragment"><div class="line"><span class="lineno">   31</span><span class="keyword">def </span>get_weight() -&gt; Annotated[float, &quot;weight in grams&quot;]:</div>
 <div class="line"><span class="lineno">   32</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><span class="lineno">   33</span><span class="stringliteral">    Retrieve the weight of the scale.</span></div>
 <div class="line"><span class="lineno">   34</span><span class="stringliteral">    This function sends a GET request to the specified API endpoint</span></div>
