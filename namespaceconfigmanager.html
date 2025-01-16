@@ -132,20 +132,20 @@ them as a dictionary.
 Returns:
     dict: A dictionary containing the environment variables.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="configmanager_8py_source.html#l00029">29</a> of file <a class="el" href="configmanager_8py_source.html">configmanager.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   29</span><span class="keyword">def </span>get_env() -&gt; Annotated[dict, &quot;dictionary of environment variables&quot;]:</div>
-<div class="line"><span class="lineno">   30</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   31</span><span class="stringliteral">    Loads environment variables from a .env file and returns </span></div>
-<div class="line"><span class="lineno">   32</span><span class="stringliteral">    them as a dictionary.</span></div>
-<div class="line"><span class="lineno">   33</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><span class="lineno">   34</span><span class="stringliteral">        dict: A dictionary containing the environment variables.</span></div>
-<div class="line"><span class="lineno">   35</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   36</span>    env_path = os.path.join(os.path.dirname(__file__), <span class="stringliteral">&#39;data/.env&#39;</span>)</div>
-<div class="line"><span class="lineno">   37</span>    load_dotenv(dotenv_path=env_path)</div>
-<div class="line"><span class="lineno">   38</span>    env_dict = get_env_variables_from_path(env_path)</div>
-<div class="line"><span class="lineno">   39</span>    <span class="keywordflow">return</span> env_dict</div>
-<div class="line"><span class="lineno">   40</span> </div>
+<p class="definition">Definition at line <a class="el" href="configmanager_8py_source.html#l00030">30</a> of file <a class="el" href="configmanager_8py_source.html">configmanager.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   30</span><span class="keyword">def </span>get_env() -&gt; Annotated[dict, &quot;dictionary of environment variables&quot;]:</div>
+<div class="line"><span class="lineno">   31</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   32</span><span class="stringliteral">    Loads environment variables from a .env file and returns </span></div>
+<div class="line"><span class="lineno">   33</span><span class="stringliteral">    them as a dictionary.</span></div>
+<div class="line"><span class="lineno">   34</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><span class="lineno">   35</span><span class="stringliteral">        dict: A dictionary containing the environment variables.</span></div>
+<div class="line"><span class="lineno">   36</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   37</span>    env_path = os.path.join(os.path.dirname(__file__), <span class="stringliteral">&#39;data/.env&#39;</span>)</div>
+<div class="line"><span class="lineno">   38</span>    load_dotenv(dotenv_path=env_path)</div>
+<div class="line"><span class="lineno">   39</span>    env_dict = get_env_variables_from_path(env_path)</div>
+<div class="line"><span class="lineno">   40</span>    <span class="keywordflow">return</span> env_dict</div>
 <div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -170,22 +170,22 @@ Args:
 Returns:
     dict: A dictionary containing the environment variables as key-value pairs.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="configmanager_8py_source.html#l00014">14</a> of file <a class="el" href="configmanager_8py_source.html">configmanager.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   14</span><span class="keyword">def </span>get_env_variables_from_path(env_path: str) -&gt; Annotated[dict, <span class="stringliteral">&quot;dictionary of environment variables&quot;</span>]:</div>
-<div class="line"><span class="lineno">   15</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   16</span><span class="stringliteral">    Reads environment variables from a file and returns them as a dictionary.</span></div>
-<div class="line"><span class="lineno">   17</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><span class="lineno">   18</span><span class="stringliteral">        env_path (str): The path to the environment variables file.</span></div>
-<div class="line"><span class="lineno">   19</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><span class="lineno">   20</span><span class="stringliteral">        dict: A dictionary containing the environment variables as key-value pairs.</span></div>
-<div class="line"><span class="lineno">   21</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   22</span>    <span class="keyword">with</span> open(env_path, encoding=<span class="stringliteral">&#39;utf-8&#39;</span>) <span class="keyword">as</span> f:</div>
-<div class="line"><span class="lineno">   23</span>        env_keys = f.read().splitlines()</div>
-<div class="line"><span class="lineno">   24</span>    env_dict = {item.split(<span class="stringliteral">&#39;=&#39;</span>)[0]: item.split(<span class="stringliteral">&#39;=&#39;</span>)[1].strip(<span class="stringliteral">&#39;&quot;&#39;</span>) <span class="keywordflow">for</span> item <span class="keywordflow">in</span> env_keys}</div>
-<div class="line"><span class="lineno">   25</span>    print(env_dict)</div>
-<div class="line"><span class="lineno">   26</span>    <span class="keywordflow">return</span> env_dict</div>
-<div class="line"><span class="lineno">   27</span> </div>
+<p class="definition">Definition at line <a class="el" href="configmanager_8py_source.html#l00015">15</a> of file <a class="el" href="configmanager_8py_source.html">configmanager.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   15</span><span class="keyword">def </span>get_env_variables_from_path(env_path: str) -&gt; Annotated[dict, <span class="stringliteral">&quot;dictionary of environment variables&quot;</span>]:</div>
+<div class="line"><span class="lineno">   16</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   17</span><span class="stringliteral">    Reads environment variables from a file and returns them as a dictionary.</span></div>
+<div class="line"><span class="lineno">   18</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><span class="lineno">   19</span><span class="stringliteral">        env_path (str): The path to the environment variables file.</span></div>
+<div class="line"><span class="lineno">   20</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><span class="lineno">   21</span><span class="stringliteral">        dict: A dictionary containing the environment variables as key-value pairs.</span></div>
+<div class="line"><span class="lineno">   22</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   23</span>    <span class="keyword">with</span> open(env_path, encoding=<span class="stringliteral">&#39;utf-8&#39;</span>) <span class="keyword">as</span> f:</div>
+<div class="line"><span class="lineno">   24</span>        env_keys = f.read().splitlines()</div>
+<div class="line"><span class="lineno">   25</span>    env_dict = {item.split(<span class="stringliteral">&#39;=&#39;</span>)[0]: item.split(<span class="stringliteral">&#39;=&#39;</span>)[1].strip(<span class="stringliteral">&#39;&quot;&#39;</span>) <span class="keywordflow">for</span> item <span class="keywordflow">in</span> env_keys}</div>
+<div class="line"><span class="lineno">   26</span>    logger.debug(f<span class="stringliteral">&quot;Environment variables loaded: {env_dict}&quot;</span>)</div>
+<div class="line"><span class="lineno">   27</span>    <span class="keywordflow">return</span> env_dict</div>
 <div class="line"><span class="lineno">   28</span> </div>
+<div class="line"><span class="lineno">   29</span> </div>
 </div><!-- fragment -->
 </div>
 </div>

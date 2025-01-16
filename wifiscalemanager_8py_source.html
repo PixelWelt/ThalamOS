@@ -121,35 +121,36 @@ $(document).ready(function(){initNavTree('wifiscalemanager_8py_source.html','');
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">from</span> typing <span class="keyword">import</span> Annotated</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">import</span> requests</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="namespacewifiscalemanager.html#adb64a19df1f9884d711be5748c465fe2">   24</a></span>ENV_PATH: Annotated[str, <span class="stringliteral">&quot;path to environment variables&quot;</span>] = os.path.join(os.path.dirname(__file__), <span class="stringliteral">&#39;data/.env&#39;</span>)</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="namespacewifiscalemanager.html#a0fb988bfbf357de39654c5c38f2444b5">   25</a></span>load_dotenv(dotenv_path=ENV_PATH)</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="namespacewifiscalemanager.html#a730dc51e8d9d50a18736bece69a5b092">   27</a></span>SCALE_HOST: Annotated[str, <span class="stringliteral">&quot;environment variable for wifi scale address&quot;</span>] = os.getenv(<span class="stringliteral">&quot;SCALE_HOST&quot;</span>)</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>print(f<span class="stringliteral">&#39;WifiScale host is: {SCALE_HOST}&#39;</span>)</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="namespacewifiscalemanager.html#adb64a19df1f9884d711be5748c465fe2">   25</a></span>ENV_PATH: Annotated[str, <span class="stringliteral">&quot;path to environment variables&quot;</span>] = os.path.join(os.path.dirname(__file__), <span class="stringliteral">&#39;data/.env&#39;</span>)</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespacewifiscalemanager.html#a0fb988bfbf357de39654c5c38f2444b5">   26</a></span>load_dotenv(dotenv_path=ENV_PATH)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="namespacewifiscalemanager.html#a730dc51e8d9d50a18736bece69a5b092">   28</a></span>SCALE_HOST: Annotated[str, <span class="stringliteral">&quot;environment variable for wifi scale address&quot;</span>] = os.getenv(<span class="stringliteral">&quot;SCALE_HOST&quot;</span>)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>logger.info(f<span class="stringliteral">&#39;WifiScale host is: {SCALE_HOST}&#39;</span>)</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="foldopen" id="foldopen00031" data-start="" data-end="">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="namespacewifiscalemanager.html#a4ee83ec56cb14a0009fdd27b5bdaf491">   31</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacewifiscalemanager.html#a4ee83ec56cb14a0009fdd27b5bdaf491">get_weight</a>() -&gt; Annotated[float, &quot;weight in grams&quot;]:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="stringliteral">    Retrieve the weight of the scale.</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="stringliteral">    This function sends a GET request to the specified API endpoint</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="stringliteral">    to retrieve the weight of the scale.</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="stringliteral">        float: The weight of the scale.</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    api = f<span class="stringliteral">&quot;http://{SCALE_HOST}/getWeight&quot;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">try</span>:</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        response = requests.get(api, timeout=10)</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        response.raise_for_status()</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">except</span> requests.RequestException <span class="keyword">as</span> e:</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        print(f<span class="stringliteral">&quot;Error retrieving weight: {e}&quot;</span>)</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;ERROR SCALE NOT FOUND&quot;</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    weight = response.content.decode(<span class="stringliteral">&#39;utf-8&#39;</span>)</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">return</span> weight</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="" data-end="">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="namespacewifiscalemanager.html#a4ee83ec56cb14a0009fdd27b5bdaf491">   32</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacewifiscalemanager.html#a4ee83ec56cb14a0009fdd27b5bdaf491">get_weight</a>() -&gt; Annotated[float, &quot;weight in grams&quot;]:</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="stringliteral">    Retrieve the weight of the scale.</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="stringliteral">    This function sends a GET request to the specified API endpoint</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="stringliteral">    to retrieve the weight of the scale.</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="stringliteral">        float: The weight of the scale.</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    api = f<span class="stringliteral">&quot;http://{SCALE_HOST}/getWeight&quot;</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        response = requests.get(api, timeout=10)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        response.raise_for_status()</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">except</span> requests.RequestException <span class="keyword">as</span> e:</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        logger.error(f<span class="stringliteral">&quot;Error retrieving weight: {e}&quot;</span>)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;ERROR SCALE NOT FOUND&quot;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    weight = response.content.decode(<span class="stringliteral">&#39;utf-8&#39;</span>)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">return</span> weight</div>
 </div>
-<div class="ttc" id="anamespacewifiscalemanager_html_a4ee83ec56cb14a0009fdd27b5bdaf491"><div class="ttname"><a href="namespacewifiscalemanager.html#a4ee83ec56cb14a0009fdd27b5bdaf491">wifiscalemanager.get_weight</a></div><div class="ttdeci">Annotated[float, &quot;weight in grams&quot;] get_weight()</div><div class="ttdef"><b>Definition</b> <a href="wifiscalemanager_8py_source.html#l00031">wifiscalemanager.py:31</a></div></div>
+<div class="ttc" id="anamespacewifiscalemanager_html_a4ee83ec56cb14a0009fdd27b5bdaf491"><div class="ttname"><a href="namespacewifiscalemanager.html#a4ee83ec56cb14a0009fdd27b5bdaf491">wifiscalemanager.get_weight</a></div><div class="ttdeci">Annotated[float, &quot;weight in grams&quot;] get_weight()</div><div class="ttdef"><b>Definition</b> <a href="wifiscalemanager_8py_source.html#l00032">wifiscalemanager.py:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
