@@ -35,8 +35,8 @@ import os
 from flask import Flask, request, render_template, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
-from loguru import logger
 
+from logger_config import logger
 import StorageConnector
 import configmanager
 import wifiscalemanager as wifiscale

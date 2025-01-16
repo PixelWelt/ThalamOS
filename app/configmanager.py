@@ -9,7 +9,8 @@ Functions:
 from typing import Annotated
 import os
 from dotenv import load_dotenv
-from loguru import logger
+
+from logger_config import logger
 
 
 def get_env_variables_from_path(env_path: str) -> Annotated[dict, "dictionary of environment variables"]:

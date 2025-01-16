@@ -19,7 +19,8 @@ from typing import Annotated
 import csv
 import sqlite3
 import os
-from loguru import logger
+
+from logger_config import logger
 
 
 db_path: Annotated[str, "path of database files"] = os.path.join(os.path.dirname(__file__), 'data/storage.db')

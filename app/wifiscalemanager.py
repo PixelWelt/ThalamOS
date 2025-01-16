@@ -19,7 +19,8 @@ import os
 from typing import Annotated
 import requests
 from dotenv import load_dotenv
-from loguru import logger
+
+from logger_config import logger
 
 
 ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(os.path.dirname(__file__), 'data/.env')
