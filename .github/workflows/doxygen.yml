@@ -15,9 +15,9 @@ jobs:
               run: |
                    wget https://www.doxygen.nl/files/doxygen-1.13.2.linux.bin.tar.gz
                    tar -xvzf doxygen-1.13.2.linux.bin.tar.gz
-                   mkdir /usr/bin/doxygen
-                   sudo cp doxygen-1.13.2/bin/doxygen /usr/bin/doxygen
-                   export PATH=$PATH:/usr/bin/doxygen
+                   mkdir doxygen
+                   sudo cp doxygen-1.13.2/bin/doxygen doxygen
+                   export PATH=$PATH:doxygen
                    source ~/.bashrc
                    sudo apt install graphviz -y
                    git submodule add https://github.com/jothepro/doxygen-awesome-css.git
