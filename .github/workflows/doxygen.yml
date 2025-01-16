@@ -25,7 +25,7 @@ jobs:
             - name: Generate Doxygen documentation
               run: |
                   ls -la
-                  doxygen Doxyfile
+                  ./doxygen/doxygen Doxyfile
             
             - name: Deploy Doxygen documentation
               uses: peaceiris/actions-gh-pages@v3
