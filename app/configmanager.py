@@ -9,6 +9,7 @@ Functions:
 from typing import Annotated
 import os
 from dotenv import load_dotenv
+from loguru import logger
 
 
 def get_env_variables_from_path(env_path: str) -> Annotated[dict, "dictionary of environment variables"]:
@@ -22,7 +23,7 @@ def get_env_variables_from_path(env_path: str) -> Annotated[dict, "dictionary of
     with open(env_path, encoding='utf-8') as f:
         env_keys = f.read().splitlines()
     env_dict = {item.split('=')[0]: item.split('=')[1].strip('"') for item in env_keys}
-    print(env_dict)
+    logger.debug(f"Environment variables loaded: {env_dict}")
     return env_dict
 
 

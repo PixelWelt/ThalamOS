@@ -16,13 +16,14 @@ import os
 
 import requests
 from dotenv import load_dotenv
+from loguru import logger
 
 
 ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(os.path.dirname(__file__), 'data/.env')
 load_dotenv(dotenv_path=ENV_PATH)
 
 WLED_HOST: Annotated[str, "environment variable for WLED address"] = os.getenv("WLED_HOST")
-print(f'WLED host is: {WLED_HOST}')
+logger.info(f'WLED host is: {WLED_HOST}')
 
 API: Annotated[str, "URL to WLED"] = f"http://{WLED_HOST}/json"
 

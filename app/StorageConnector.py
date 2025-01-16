@@ -19,9 +19,11 @@ from typing import Annotated
 import csv
 import sqlite3
 import os
+from loguru import logger
 
 
 db_path: Annotated[str, "path of database files"] = os.path.join(os.path.dirname(__file__), 'data/storage.db')
+logger.info(f"Database path: {db_path}")
 mydb: Annotated[sqlite3.Connection, "helper object for database"] = sqlite3.connect(db_path, check_same_thread=False)
 cursor = mydb.cursor()
 
@@ -65,7 +67,7 @@ def setup() -> None:
     END;
     """)
     mydb.commit()
-    print("Database is ready for service")
+    logger.info("Database setup complete and ready for service")
 
 
 def fetch_csv() -> None:
@@ -126,14 +128,14 @@ def create_item(pos, typ, name, json_data) -> None:
         None
     """
 
-    print("Creating item..")
+    logger.info("Creating item with position: {}, type: {}, name: {}, json_data: {}", pos, typ, name, json_data)
     if json_data == "{}":
         query = "INSERT INTO storage (position, type, name) VALUES (?, ?, ?);"
         params = (pos, typ, name)
     else:
         query = "INSERT INTO storage (position, type, name, info) VALUES (?, ?, ?, ?);"
         params = (pos, typ, name, json_data)
-    print(query)
+    logger.debug(f"Executing query: {query} with params: {params}")
     cursor.execute(query, params)
     mydb.commit()
 
@@ -172,8 +174,7 @@ def search(search_term) -> Annotated[list, "list of tuples containing the rows f
         )
 
         # Debugging: print query and parameters
-        print("Query:", query)
-        print("Parameter:", parameters)
+        logger.debug(f"Executing search query: {query} with parameters: {parameters}")
 
         cursor.execute(query, parameters)
         results = cursor.fetchall()
@@ -181,5 +182,5 @@ def search(search_term) -> Annotated[list, "list of tuples containing the rows f
         return results
 
     except sqlite3.ProgrammingError as e:
-        print("SQLite-Error:", str(e))
+        logger.error(f"SQLite-Error: {str(e)}")
         return None

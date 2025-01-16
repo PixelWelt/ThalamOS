@@ -35,6 +35,7 @@ import os
 from flask import Flask, request, render_template, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
+from loguru import logger
 
 import StorageConnector
 import configmanager
@@ -46,6 +47,7 @@ load_dotenv(dotenv_path=ENV_PATH)
 IS_SCALE_ENABLED = os.getenv("IS_SCALE_ENABLED")
 app = Flask(__name__)
 CORS(app)
+
 
 
 @app.route('/')
@@ -103,7 +105,7 @@ def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
     """
 
     data = request.get_json()
-    print(data)
+    logger.info(f"Received creation request with data: {data}")
     info = json.dumps(data["info"])
     typ = data["type"]
     name = data["name"]
@@ -111,7 +113,7 @@ def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
     try:
         StorageConnector.create_item(pos=pos, typ=typ, name=name, json_data=info)
     except Exception as e:
-        print(e)
+        logger.error(f"Failed to create item with name: {name}, type: {typ}, position: {pos}. Error: {e}")
         return {"status": "error"}, 500
     return {"status": "created"}, 201
 
@@ -137,7 +139,7 @@ def item(item_id) -> Annotated[str, "item page as a rendered template"]:
     wledRequests.change_power_state(True)
     item_sql = StorageConnector.fetch_item(item_id)
     wledRequests.color_pos(item_sql[1])
-    print(item_sql)
+    logger.info(f"Fetched item details for item_id {item_id}: {item_sql}")
     if item_sql[4]:
         json_info = json.loads(item_sql[4])
         return render_template("item.jinja2", item=item_sql, json=json_info, id=item_id)

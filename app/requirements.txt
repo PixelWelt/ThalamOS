@@ -6,3 +6,4 @@ python-dotenv==1.0.1
 requests==2.31.0
 urllib3==2.2.1
 typing==3.7.4.3
+loguru==0.7.3

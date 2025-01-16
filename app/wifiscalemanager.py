@@ -19,13 +19,14 @@ import os
 from typing import Annotated
 import requests
 from dotenv import load_dotenv
+from loguru import logger
 
 
 ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(os.path.dirname(__file__), 'data/.env')
 load_dotenv(dotenv_path=ENV_PATH)
 
 SCALE_HOST: Annotated[str, "environment variable for wifi scale address"] = os.getenv("SCALE_HOST")
-print(f'WifiScale host is: {SCALE_HOST}')
+logger.info(f'WifiScale host is: {SCALE_HOST}')
 
 
 def get_weight() -> Annotated[float, "weight in grams"]:
@@ -41,7 +42,7 @@ def get_weight() -> Annotated[float, "weight in grams"]:
         response = requests.get(api, timeout=10)
         response.raise_for_status()
     except requests.RequestException as e:
-        print(f"Error retrieving weight: {e}")
+        logger.error(f"Error retrieving weight: {e}")
         return "ERROR SCALE NOT FOUND"
     weight = response.content.decode('utf-8')
     return weight
