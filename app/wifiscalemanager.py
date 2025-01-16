@@ -28,7 +28,7 @@ SCALE_HOST: Annotated[str, "environment variable for wifi scale address"] = os.g
 print(f'WifiScale host is: {SCALE_HOST}')
 
 
-def get_weight() -> float:
+def get_weight() -> Annotated[float, "weight in grams"]:
     """
     Retrieve the weight of the scale.
     This function sends a GET request to the specified API endpoint

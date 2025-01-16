@@ -6,11 +6,12 @@ Functions:
     get_env() -> dict:
         Loads environment variables from a .env file and returns them as a dictionary.
 """
+from typing import Annotated
 import os
 from dotenv import load_dotenv
 
 
-def get_env_variables(env_path: str) -> dict:
+def get_env_variables_from_path(env_path: str) -> Annotated[dict, "dictionary of environment variables"]:
     """
     Reads environment variables from a file and returns them as a dictionary.
     Args:
@@ -25,7 +26,7 @@ def get_env_variables(env_path: str) -> dict:
     return env_dict
 
 
-def get_env() -> dict:
+def get_env() -> Annotated[dict, "dictionary of environment variables"]:
     """
     Loads environment variables from a .env file and returns 
     them as a dictionary.
@@ -34,7 +35,7 @@ def get_env() -> dict:
     """
     env_path = os.path.join(os.path.dirname(__file__), 'data/.env')
     load_dotenv(dotenv_path=env_path)
-    env_dict = get_env_variables(env_path)
+    env_dict = get_env_variables_from_path(env_path)
     return env_dict
 
 

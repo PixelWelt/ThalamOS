@@ -10,12 +10,12 @@ Functions:
     change_power_state(state): Change the power state of the device.
     get_power_state(): Retrieves the power state of a WLED device.
 """
+from typing import Annotated
 import json
 import os
 
 import requests
 from dotenv import load_dotenv
-from typing import Annotated
 
 
 ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(os.path.dirname(__file__), 'data/.env')
@@ -58,7 +58,7 @@ def load_default_state() -> None:
     Raises:
         requests.exceptions.RequestException: If there is an issue with the HTTP request.
     """
-    req = json.dumps({"ps":1})
+    req = json.dumps({"ps": 1})
     requests.post(API, req, timeout=10)
 
 
@@ -70,11 +70,11 @@ def change_power_state(state) -> None:
     Returns:
         None
     """
-    req = json.dumps({"on":state})
+    req = json.dumps({"on": state})
     requests.post(API, req, timeout=10)
 
 
-def get_power_state() -> bool:
+def get_power_state() -> Annotated[bool, "True if power is on, false if power is off"]:
     """
     Retrieves the power state of a WLED device.
     Sends a GET request to the WLED device's JSON API endpoint to fetch the current state.

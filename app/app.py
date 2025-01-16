@@ -28,7 +28,7 @@ Setup:
 Usage:
     Run the application using the command `python app.py`.
 """
-
+from typing import Annotated
 import json
 import os
 
@@ -49,7 +49,7 @@ CORS(app)
 
 
 @app.route('/')
-def index() -> str:
+def index() -> Annotated[str, "search page as a rendered template"]:
     """
     Renders the search page.
     Returns:
@@ -59,7 +59,7 @@ def index() -> str:
 
 
 @app.route('/toggleLight')
-def toggle_light() -> str:
+def toggle_light() -> Annotated[str, "search page as a rendered template"]:
     """
     Toggles the power state of the WLED device and renders the search template.
     This function changes the power state of the WLED device to the opposite of its current state
@@ -74,7 +74,7 @@ def toggle_light() -> str:
 
 
 @app.route('/createItem')
-def create_item() -> str:
+def create_item() -> Annotated[str, "item creation page as a rendered template"]:
     """
     Renders the template for creating a new item.
     Returns:
@@ -84,7 +84,7 @@ def create_item() -> str:
 
 
 @app.route('/sendCreation', methods=['POST'])
-def send_creation() -> tuple:
+def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
     """
     Handle the creation of a new item by processing the incoming JSON request data.
     The function expects a JSON payload with the following structure:
@@ -117,7 +117,7 @@ def send_creation() -> tuple:
 
 
 @app.route('/item/<item_id>')
-def item(item_id) -> str:
+def item(item_id) -> Annotated[str, "item page as a rendered template"]:
     """
     Handles the request to display an item.
     This function performs the following steps:
@@ -146,7 +146,7 @@ def item(item_id) -> str:
 
 
 @app.route('/item/<item>/delete')
-def delete_item(item_id) -> str:
+def delete_item(item_id) -> Annotated[str, "search page as a rendered template"]:
     """
     Deletes an item using the StorageConnector and renders the search.html template.
     Args:
@@ -160,7 +160,7 @@ def delete_item(item_id) -> str:
 
 
 @app.route('/search/<term>', methods=['GET'])
-def search(term) -> str:
+def search(term) -> Annotated[str, "json response"]:
     """
     Search for a term in the storage and return the results in JSON format.
     Args:
@@ -187,7 +187,7 @@ def handle_exception(e) -> Exception:
 
 
 @app.route('/config/env')
-def get_env() -> str:
+def get_env() -> Annotated[str, "json response"]:
     """
     Retrieve the environment configuration.
     This function uses the configmanager to get the current environment
@@ -199,15 +199,17 @@ def get_env() -> str:
 
 
 @app.route('/wifiscale/weight')
-def get_weight() -> str:
+def get_weight() -> Annotated[dict, {"weight": float} | {"status": str}]:
     """
     Retrieve the weight of the scale.
-    This function uses the wledRequests to get the weight of the scale
+    This function checks if the scale service is enabled by reading the IS_SCALE_ENABLED environment variable.
+    If the scale service is not enabled, it returns a JSON response with a status message and HTTP status code 412.
+    If the scale service is enabled, it uses the wifiscale module to get the weight of the scale and returns it as a JSON response.
     Returns:
-        Response: A Flask JSON response containing the weight of the scale.
+        Response: A Flask JSON response containing the weight of the scale or a status message.
     """
     if IS_SCALE_ENABLED == "False":
-        return {"status": "scale service is not enabled"}, 412
+        return jsonify({"status": "scale service is not enabled"}), 412
 
     weight = wifiscale.get_weight()
     return jsonify({"weight": weight})
