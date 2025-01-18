@@ -34,4 +34,5 @@ jobs:
       with:
         file: dockerfile
         push: true
+        platforms: linux/amd64,linux/arm64
         tags: ${{ secrets.docker_username }}/thalamos:latest,${{ secrets.docker_username }}/thalamos:${{ steps.get_latest_release.outputs.release }}
