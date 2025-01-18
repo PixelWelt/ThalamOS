@@ -22,6 +22,8 @@ The name **ThalamOS** is derived from the Latin word *thalamus*, which means "in
 ## Documentation
 The ThalamOS code documentation, generated with Doxygen, is available at: [https://pixelwelt.github.io/ThalamOS/](https://pixelwelt.github.io/ThalamOS/)
 
+Credits to [jothepro/doxygen-awesome-css](https://github.com/jothepro/doxygen-awesome-css) for providing the CSS files for the documentation.
+
 ## Installation
 ### Pull the latest build from Docker Hub (the easy way)
 
