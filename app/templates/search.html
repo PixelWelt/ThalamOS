@@ -78,7 +78,7 @@
     resultBox.innerHTML = "";
     const searchTerm = document.getElementById("search").value;
     if (searchTerm.length >= 2) {
-        const searchRequest = new Request(`${API_URL}search/${searchTerm}`, {
+        const searchRequest = new Request(`${API_URL}/search/${searchTerm}`, {
             method: "GET",
         });
         const response = await fetch(searchRequest);
