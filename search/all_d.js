@@ -5,6 +5,7 @@ var searchData=
   ['license_2',['LICENSE',['../LICENSE.html',1,'']]],
   ['license_3',['License',['../index.html#autotoc_md10',1,'']]],
   ['load_5fdefault_5fstate_4',['load_default_state',['../namespacewledRequests.html#a04cc644700c94d37123dfaf7ddb24dd8',1,'wledRequests']]],
-  ['logger_5fconfig_5',['logger_config',['../namespacelogger__config.html',1,'']]],
-  ['logger_5fconfig_2epy_6',['logger_config.py',['../logger__config_8py.html',1,'']]]
+  ['log_5fmessage_5',['log_message',['../namespaceapp.html#a9d83645dd9aca58b4152b187fb8a6983',1,'app']]],
+  ['logger_5fconfig_6',['logger_config',['../namespacelogger__config.html',1,'']]],
+  ['logger_5fconfig_2epy_7',['logger_config.py',['../logger__config_8py.html',1,'']]]
 ];
