@@ -146,6 +146,28 @@ def item(item_id) -> Annotated[str, "item page as a rendered template"]:
     return render_template("item.jinja2", item=item_sql, id=item_id)
 
 
+@app.route('/item/<item_id>/update', methods=['POST'])
+def update_item(item_id) -> Annotated[tuple, {"status": str, "status_code": int}]:
+    """
+    Updates an item using the StorageConnector and returns a status message.
+    Args:
+        item_id: The id of the item to be updated.
+    Returns:
+        A dictionary with a status message and an HTTP status code.
+    """
+    data = request.get_json()
+    logger.info(f"Received update request for item_id {item_id} with data: {data}")
+    info = json.dumps(data.get("info", {}))
+    typ = data.get("type")
+    name = data.get("name")
+    pos = data.get("position")
+    try:
+        StorageConnector.update_item(item_id=item_id, pos=pos, type=typ, name=name, json_data=info)
+    except Exception as e:
+        logger.error(f"Failed to update item with id: {item_id}. Error: {e}")
+        return {"status": "error"}, 500
+    return {"status": "updated"}, 200
+
 @app.route('/item/<item>/delete')
 def delete_item(item_id) -> Annotated[str, "search page as a rendered template"]:
     """

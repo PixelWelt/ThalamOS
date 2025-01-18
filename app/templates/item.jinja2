@@ -17,7 +17,31 @@
         </span>
     </div>
     <div class="container">
-        <div class="buttons">
+        <div class="single-item">
+            <h2 id="name">{{item[3]}}</h2>
+            <br>
+            <table>
+                <tr>
+                    <td>position</td>
+                    <td contenteditable="true">{{item[1]}}</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td contenteditable="true">{{item[2]}}</td>
+                </tr>
+            {%for item in json%}
+                <tr>
+                    <td>{{item}}</td>
+                    
+                    <td contenteditable="true">{{json[item]}}</td>
+                    
+                </tr>
+            {%endfor%}
+
+            </table>
+            <button class="btn green" onclick="updateItem()"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z"/></svg> save changes</button>
+            <hr>
+            <div class="item-buttons">
             <a href="/" class="btn green">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" fill="#FFFFFF"/></svg>
                 back to search
@@ -36,25 +60,44 @@
                 delete item
             </a>
         </div>
-        <div class="single-item">
-            <h2>{{item[3]}}</h2>
-            <br>
-            <table>
-                <tr>
-                    <td>type</td>
-                    <td>{{item[2]}}</td>
-                </tr>
-            {%for item in json%}
-                <tr>
-                    <td>{{item}}</td>
-                    
-                    <td contenteditable="true">{{json[item]}}</td>
-                    
-                </tr>
-            {%endfor%}
-
-            </table>
-            
         </div>
     </div>
 </body>
+<script type="text/javascript" src="/static/logging.js"></script>
+<script>
+    const id = window.location.pathname.split('/').pop();
+    function updateItem() {
+        const data = {};
+        const rows = document.querySelectorAll('table tr');
+        rows.forEach(row => {
+            const key = row.children[0].textContent;
+            const value = row.children[1].textContent;
+            data[key] = value;
+        });
+
+        data["name"] = document.getElementById('name').textContent;
+
+        payload =  
+        {
+            type: data['type'],
+            name: data['name'],
+            position: data['position'],
+            info: Object.fromEntries(Object.entries(data).filter(([key]) => !['type', 'name', 'position'].includes(key)))
+        }
+
+        fetch(`/item/${id}/update`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                sendLog('INFO', 'Item updated successfully');
+            })
+            .catch((error) => {
+                sendLog('ERROR', `Error updating item with id ${id} and data ${data}`);
+            });
+    }
+</script>

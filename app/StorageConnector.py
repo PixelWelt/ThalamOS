@@ -185,3 +185,32 @@ def search(search_term) -> Annotated[list, "list of tuples containing the rows f
     except sqlite3.ProgrammingError as e:
         logger.error(f"SQLite-Error: {str(e)}")
         return None
+
+
+def update_item(item_id, pos, type, name, json_data) -> None:
+    """
+    Updates an item in the storage database.
+    Args:
+        item_id (int): The id of the item to update.
+        pos (int): The new position of the item.
+        type (str): The new type of the item.
+        name (str): The new name of the item.
+        json_data (str): The new JSON data associated with the item.
+    Returns:
+        None
+    """
+    logger.info("Updating item with id: {}, position: {}, type: {}, name: {}, json_data: {}", 
+                item_id,
+                pos,
+                type,
+                name,
+                json_data)
+    query = """
+        UPDATE storage
+        SET position = ?, type = ?, name = ?, info = ?
+        WHERE id = ?;
+    """
+    params = (pos, type, name, json_data, item_id)
+    logger.debug(f"Executing query: {query} with params: {params}")
+    cursor.execute(query, params)
+    mydb.commit()

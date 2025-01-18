@@ -375,3 +375,17 @@ body::before {
     align-items: center;
     width: 100%;
 }
+hr{
+    width: 100%;
+    margin-top: 1em;
+}
+
+.item-buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 100%;
+}
+.item-buttons .btn:first-child{
+    margin-left: 0;
+}

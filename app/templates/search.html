@@ -71,24 +71,10 @@
     
     
 </body>
+<script type="text/javascript" src="/static/logging.js"></script>
 <script>
     const API_URL = window.location.origin;
     resultBox = document.getElementById("results")
-
-    async function sendLog(level, message) {
-        try {
-            await fetch(`${API_URL}/log`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ level: level, message: message })
-            });
-        } catch (error) {
-            console.error('Error sending log:', error);
-        }
-    }
-
 
     async function Search() {
     resultBox.innerHTML = "";
