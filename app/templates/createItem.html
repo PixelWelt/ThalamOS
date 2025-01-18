@@ -69,6 +69,19 @@
 <script>
     environment = {};
     const API_URL = `${window.location.origin}`;
+    async function sendLog(level, message) {
+        try {
+            await fetch(`${API_URL}/log`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ level: level, message: message })
+            });
+        } catch (error) {
+            console.error('Error sending log:', error);
+        }
+    }
     function addPairInput(){
         pairWrapper = document.createElement("div")
         pairWrapper.className = "pair"
@@ -130,11 +143,11 @@
         jsonArea = document.getElementById("jsonArea")
         response = await fetch(`${API_URL}/config/env`)
         env = await response.json()
-        console.log(env)
+        sendLog('info', `Environment: ${JSON.stringify(env)}`);
         environment = env
 
         if(env["IS_SCALE_ENABLED"]){
-            console.log("scale is enabled")
+            sendLog('info', 'Scale is enabled');
             const scaleButton = document.createElement("button");
             scaleButton.type = "button";
             scaleButton.textContent = "measure weight";
@@ -145,24 +158,36 @@
             jsonArea.insertBefore(scaleButton, jsonArea.children[2]);
         }
         if(env["IS_OLLAMA_ENABLED"]){
-            console.error("Ollama not implemented yet")
+            sendLog('error', 'Ollama not implemented yet');
         }
     }
 
     async function getWeight() {
         document.getElementById("scaleButton").disabled = true;
-        const response = await fetch(`${API_URL}/wifiscale/weight`);
-        const data = await response.json();
-        console.log(data);
-        const pairs = document.getElementsByClassName("pair");
-        const lastPair = pairs[pairs.length - 1];
-        if (lastPair.children[0].value !== "" && lastPair.children[1].value !== "") {
-            addPairInput();
-        }
-        document.getElementsByClassName("pair")[document.getElementsByClassName("pair").length - 1].children[0].value = "weight";
-        document.getElementsByClassName("pair")[document.getElementsByClassName("pair").length - 1].children[1].value = data["weight"];
-    }
+        try {
+            const response = await fetch(`${API_URL}/wifiscale/weight`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            sendLog('info', `Weight data: ${JSON.stringify(data)}`);
 
+            const pairs = document.getElementsByClassName("pair");
+            const lastPair = pairs[pairs.length - 1];
+            if (lastPair.children[0].value !== "" && lastPair.children[1].value !== "") {
+                addPairInput();
+            }
+
+            const newPair = pairs[pairs.length - 1];
+            newPair.children[0].value = "weight";
+            newPair.children[1].value = data["weight"];
+        } catch (error) {
+            sendLog('error', `Error fetching weight: ${error}`);
+        } finally {
+            document.getElementById("scaleButton").disabled = false;
+        }
+    }
+    
 </script>
 
 </html>

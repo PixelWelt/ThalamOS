@@ -74,6 +74,22 @@
 <script>
     const API_URL = window.location.origin;
     resultBox = document.getElementById("results")
+
+    async function sendLog(level, message) {
+        try {
+            await fetch(`${API_URL}/log`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ level: level, message: message })
+            });
+        } catch (error) {
+            console.error('Error sending log:', error);
+        }
+    }
+
+
     async function Search() {
     resultBox.innerHTML = "";
     const searchTerm = document.getElementById("search").value;
@@ -81,33 +97,37 @@
         const searchRequest = new Request(`${API_URL}/search/${searchTerm}`, {
             method: "GET",
         });
-        const response = await fetch(searchRequest);
-        const data = await response.json();
-        console.log(data);
-        console.log(typeof(data));
 
+        try {
+            const response = await fetch(searchRequest);
+            const data = await response.json();
+            sendLog("INFO", `recieved the following search response: ${data} with typeof: ${typeof(data)}`);
+        } catch (error) {
+            sendLog("ERROR", `Search request failed: ${error}`);
+            resultBox.innerHTML = "An error occurred while searching. Please try again.";
+            return;
+        }
         if (data.length === 0) {
             resultBox.innerHTML = "no results found";
             return;
         }
 
-         // Erstelle die Tabelle ohne Table-Head
-         const table = document.createElement("table");
-        table.className = "resultTable"; // CSS-Klasse für Styling
+        const table = document.createElement("table");
+        table.className = "resultTable";
         const tbody = document.createElement("tbody");
 
         data.forEach(result => {
-            let jsonData = result[4]; // Wert von result["3"]
+            let jsonData = result[4];
             let info = "";
 
-            // Überprüfe, ob jsonData ein JSON-String ist
+            // check, if jsonData is a JSON-String
             try {
                 jsonData = JSON.parse(jsonData);
                 Object.keys(jsonData).forEach(key => {
                     info += `<span class="infoItem"><strong>${key}:</strong> ${jsonData[key]}</span><br/>`;
                 });
             } catch (e) {
-                console.log("Kein JSON-Format:", jsonData);
+                sendLog("ERROR", `NOT A JSON-Format: ${jsonData}`);
                 info = `<div class="infoItem">${jsonData}</div>`;
             }
 

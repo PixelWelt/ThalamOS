@@ -49,7 +49,6 @@ app = Flask(__name__)
 CORS(app)
 
 
-
 @app.route('/')
 def index() -> Annotated[str, "search page as a rendered template"]:
     """
@@ -215,6 +214,44 @@ def get_weight() -> Annotated[dict, {"weight": float} | {"status": str}]:
 
     weight = wifiscale.get_weight()
     return jsonify({"weight": weight})
+
+
+@app.route('/log', methods=['POST'])
+def log_message():
+    """
+    Logs a message with a specified log level.
+
+    The log level and message content are extracted from the JSON payload of the request.
+    If the log level is not provided, it defaults to 'INFO'.
+    If the message content is not provided, it defaults to an empty string.
+
+    Returns:
+        tuple: A dictionary with a status message and an HTTP status code 201.
+
+    Request JSON structure:
+        {
+            "level": "DEBUG" | "INFO" | "WARNING" | "ERROR" | "CRITICAL",
+            "message": "Your log message here"
+        }
+    """
+
+    data: Annotated[str, "content of request"] = request.json
+    level: Annotated[str, "log level, default value is INFO"] = data.get('level', 'INFO')
+    message: Annotated[str, "content of log, default value is empty"] = data.get('message', '')
+
+    match level:
+        case 'DEBUG':
+            logger.debug(message)
+        case 'INFO':
+            logger.info(message)
+        case 'WARNING':
+            logger.warning(message)
+        case 'ERROR':
+            logger.error(message)
+        case 'CRITICAL':
+            logger.critical(message)
+
+    return {"status": "created"}, 201
 
 
 with app.app_context():
