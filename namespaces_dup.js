@@ -8,7 +8,7 @@ var namespaces_dup =
       [ "handle_exception", "namespaceapp.html#a16a0596a94a459d734da46538f5b2bdf", null ],
       [ "index", "namespaceapp.html#af4155dae6790c1c78b4fef1eeca11512", null ],
       [ "item", "namespaceapp.html#ace6a8ee6b554f6b29a218b490bfcddd6", null ],
-      [ "log_message", "namespaceapp.html#a9d83645dd9aca58b4152b187fb8a6983", null ],
+      [ "log_message", "namespaceapp.html#a363580e22c196edbd2a79655b5ac987b", null ],
       [ "search", "namespaceapp.html#af771b9253e90bd967e18851e5ce76533", null ],
       [ "send_creation", "namespaceapp.html#a41417b50ad63e44db304b1fb1feb6961", null ],
       [ "toggle_light", "namespaceapp.html#aaac4e0abbc89b337d90643d472f7c3ad", null ],

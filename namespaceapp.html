@@ -128,8 +128,8 @@ Functions</h2></td></tr>
 <tr class="separator:a7a0d163720ea17ab9226875a15c49f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3119bffd5e5a5c9324900f88a2b6e48" id="r_af3119bffd5e5a5c9324900f88a2b6e48"><td class="memItemLeft" align="right" valign="top">Annotated[dict, {&quot;weight&quot;:float}|{&quot;status&quot;:str}]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3119bffd5e5a5c9324900f88a2b6e48">get_weight</a> ()</td></tr>
 <tr class="separator:af3119bffd5e5a5c9324900f88a2b6e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d83645dd9aca58b4152b187fb8a6983" id="r_a9d83645dd9aca58b4152b187fb8a6983"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d83645dd9aca58b4152b187fb8a6983">log_message</a> ()</td></tr>
-<tr class="separator:a9d83645dd9aca58b4152b187fb8a6983"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a363580e22c196edbd2a79655b5ac987b" id="r_a363580e22c196edbd2a79655b5ac987b"><td class="memItemLeft" align="right" valign="top">Annotated[tuple, {&quot;status&quot;:str, &quot;status_code&quot;:int}]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a363580e22c196edbd2a79655b5ac987b">log_message</a> ()</td></tr>
+<tr class="separator:a363580e22c196edbd2a79655b5ac987b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -461,14 +461,14 @@ Returns:
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a9d83645dd9aca58b4152b187fb8a6983" name="a9d83645dd9aca58b4152b187fb8a6983"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d83645dd9aca58b4152b187fb8a6983">&#9670;&#160;</a></span>log_message()</h2>
+<a id="a363580e22c196edbd2a79655b5ac987b" name="a363580e22c196edbd2a79655b5ac987b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a363580e22c196edbd2a79655b5ac987b">&#9670;&#160;</a></span>log_message()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">app.log_message </td>
+          <td class="memname"> Annotated[tuple, {&quot;status&quot;: str, &quot;status_code&quot;: int}] app.log_message </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -491,7 +491,7 @@ Request JSON structure:
     }
 </pre> 
 <p class="definition">Definition at line <a class="el" href="app_8py_source.html#l00220">220</a> of file <a class="el" href="app_8py_source.html">app.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  220</span><span class="keyword">def </span>log_message():</div>
+<div class="fragment"><div class="line"><span class="lineno">  220</span><span class="keyword">def </span>log_message() -&gt; Annotated[tuple, {&quot;status&quot;: str, <span class="stringliteral">&quot;status_code&quot;</span>: int}]:</div>
 <div class="line"><span class="lineno">  221</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><span class="lineno">  222</span><span class="stringliteral">    Logs a message with a specified log level.</span></div>
 <div class="line"><span class="lineno">  223</span><span class="stringliteral"></span> </div>
