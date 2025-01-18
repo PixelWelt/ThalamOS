@@ -217,7 +217,7 @@ def get_weight() -> Annotated[dict, {"weight": float} | {"status": str}]:
 
 
 @app.route('/log', methods=['POST'])
-def log_message():
+def log_message() -> Annotated[tuple, {"status": str, "status_code": int}]:
     """
     Logs a message with a specified log level.
 
