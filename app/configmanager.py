@@ -8,7 +8,7 @@ Functions:
 """
 from typing import Annotated
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # pylint: disable=import-error
 
 from logger_config import logger
 
