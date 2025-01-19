@@ -41,10 +41,11 @@ import Storage_connector
 import config_manager
 import wifiscale_manager as wifiscale
 import wled_requests
+import ollama_manager as ollama
 
 ENV_PATH = os.path.join(os.path.dirname(__file__), 'data/.env')
 load_dotenv(dotenv_path=ENV_PATH)
-IS_SCALE_ENABLED = os.getenv("IS_SCALE_ENABLED")
+IS_SCALE_ENABLED = os.getenv("IS_SCALE_ENABLED").lower() == "true"
 app = Flask(__name__)
 CORS(app)
 
@@ -220,6 +221,19 @@ def get_env() -> Annotated[str, "json response"]:
         Response: A Flask JSON response containing the environment configuration.
     """
     return jsonify(config_manager.get_env())
+
+
+@app.route('/config/ollama/models')
+def get_ollama_models() -> Annotated[str, "json response"]:
+    """
+    Fetches the list of available Ollama models.
+    Returns:
+        Annotated[str, "json response"]: A JSON response containing the list of Ollama models.
+    """
+    values = ollama.get_ollama_models()
+    if not values:
+        return jsonify({"status": "Ollama service is not enabled"}), 412
+    return jsonify(values)
 
 
 @app.route('/wifiscale/weight')

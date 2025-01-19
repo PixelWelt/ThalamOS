@@ -1,0 +1,9 @@
+venv/*
+__pycache__/*
+.git/*
+.gitignore
+*.md
+Doxyfile
+License
+.github
+*.yml
