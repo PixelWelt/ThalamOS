@@ -12,7 +12,7 @@ Routes:
     - /createItem: Renders the template for creating a new item.
     - /sendCreation: Handles the creation of a new item by processing the incoming JSON request data.
     - /item/<item_id>: Handles the request to display an item.
-    - /item/<item>/delete: Deletes an item using the StorageConnector and renders the search.html template.
+    - /item/<item>/delete: Deletes an item using the Storage_connector and renders the search.html template.
     - /search/<term>: Searches for a term in the storage and returns the results in JSON format.
     - /config/env: Retrieves the environment configuration.
     - /wifiscale/weight: Retrieves the weight of the scale.
@@ -23,7 +23,7 @@ Error Handling:
 Setup:
     - Initializes the Flask app and sets up CORS.
     - Loads environment variables from a .env file.
-    - Sets up the StorageConnector within the app context.
+    - Sets up the Storage_connector within the app context.
 
 Usage:
     Run the application using the command `python app.py`.
@@ -37,10 +37,10 @@ from flask_cors import CORS  # pylint: disable=import-error
 from dotenv import load_dotenv  # pylint: disable=import-error
 
 from logger_config import logger
-import StorageConnector
-import configmanager
-import wifiscalemanager as wifiscale
-import wledRequests
+import Storage_connector
+import config_manager
+import wifiscale_manager as wifiscale
+import wled_requests
 
 ENV_PATH = os.path.join(os.path.dirname(__file__), 'data/.env')
 load_dotenv(dotenv_path=ENV_PATH)
@@ -64,13 +64,13 @@ def toggle_light() -> Annotated[str, "search page as a rendered template"]:
     """
     Toggles the power state of the WLED device and renders the search template.
     This function changes the power state of the WLED device to the opposite of its current state
-    by calling the `changePowerState` method of the `wledRequests` object.
+    by calling the `changePowerState` method of the `wled_requests` object.
     After toggling the power state,
     it returns the rendered "search.html" template.
     Returns:
         str: The rendered "search.html" template.
     """
-    wledRequests.change_power_state(not wledRequests.get_power_state())
+    wled_requests.change_power_state(not wled_requests.get_power_state())
     return render_template("search.html")
 
 
@@ -96,7 +96,7 @@ def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
         "position": <str>
     }
     It extracts the necessary information from the JSON payload and attempts to create a new item
-    using the StorageConnector.CreateItem method. 
+    using the Storage_connector.CreateItem method. 
     If an exception occurs during the creation process,
     it prints the exception.
     Returns:
@@ -110,7 +110,7 @@ def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
     name = data["name"]
     pos = data["position"]
     try:
-        StorageConnector.create_item(pos=pos, typ=typ, name=name, json_data=info)
+        Storage_connector.create_item(pos=pos, typ=typ, name=name, json_data=info)
     except Exception as e:
         logger.error(f"Failed to create item with name: {name}, type: {typ}, position: {pos}. Error: {e}")
         return {"status": "error"}, 500
@@ -135,9 +135,9 @@ def item(item_id) -> Annotated[str, "item page as a rendered template"]:
     Returns:
         The rendered HTML template for the item.
     """
-    wledRequests.change_power_state(True)
-    item_sql = StorageConnector.fetch_item(item_id)
-    wledRequests.color_pos(item_sql[1])
+    wled_requests.change_power_state(True)
+    item_sql = Storage_connector.fetch_item(item_id)
+    wled_requests.color_pos(item_sql[1])
     logger.info(f"Fetched item details for item_id {item_id}: {item_sql}")
     if item_sql[4]:
         json_info = json.loads(item_sql[4])
@@ -149,7 +149,7 @@ def item(item_id) -> Annotated[str, "item page as a rendered template"]:
 @app.route('/item/<item_id>/update', methods=['POST'])
 def update_item(item_id) -> Annotated[tuple, {"status": str, "status_code": int}]:
     """
-    Updates an item using the StorageConnector and returns a status message.
+    Updates an item using the Storage_connector and returns a status message.
     Args:
         item_id: The id of the item to be updated.
     Returns:
@@ -162,23 +162,24 @@ def update_item(item_id) -> Annotated[tuple, {"status": str, "status_code": int}
     name = data.get("name")
     pos = data.get("position")
     try:
-        StorageConnector.update_item(item_id=item_id, pos=pos, type=typ, name=name, json_data=info)
+        Storage_connector.update_item(item_id=item_id, pos=pos, type=typ, name=name, json_data=info)
     except Exception as e:
         logger.error(f"Failed to update item with id: {item_id}. Error: {e}")
         return {"status": "error"}, 500
     return {"status": "updated"}, 200
 
+
 @app.route('/item/<item>/delete')
 def delete_item(item_id) -> Annotated[str, "search page as a rendered template"]:
     """
-    Deletes an item using the StorageConnector and renders the search.html template.
+    Deletes an item using the Storage_connector and renders the search.html template.
     Args:
         item_id: The id of the item to be deleted.
     Returns:
         A rendered template for the search page.
     """
 
-    StorageConnector.delete_item(item_id)
+    Storage_connector.delete_item(item_id)
     return render_template("search.html")
 
 
@@ -191,7 +192,7 @@ def search(term) -> Annotated[str, "json response"]:
     Returns:
         Response: A Flask Response object containing the search results in JSON format.
     """
-    data = StorageConnector.search(term)
+    data = Storage_connector.search(term)
     return jsonify(data)
 
 
@@ -213,12 +214,12 @@ def handle_exception(e) -> Exception:
 def get_env() -> Annotated[str, "json response"]:
     """
     Retrieve the environment configuration.
-    This function uses the configmanager to get the current environment
+    This function uses the config_manager to get the current environment
     configuration and returns it as a JSON response.
     Returns:
         Response: A Flask JSON response containing the environment configuration.
     """
-    return jsonify(configmanager.get_env())
+    return jsonify(config_manager.get_env())
 
 
 @app.route('/wifiscale/weight')
@@ -277,7 +278,7 @@ def log_message() -> Annotated[tuple, {"status": str, "status_code": int}]:
 
 
 with app.app_context():
-    StorageConnector.setup()
+    Storage_connector.setup()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
