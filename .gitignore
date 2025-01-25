@@ -5,3 +5,4 @@ __pycache__/
 venv
 .env.json
 storagemanager.log
+.pytest_cache/
