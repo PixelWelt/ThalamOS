@@ -40,9 +40,9 @@ def check_ollama_enabled(func):
     def wrapper(*args, **kwargs):
         if pre_check_ollama_enabled():
             return func(*args, **kwargs)
-        else:
-            logger.info(f'Ollama is not enabled. Execution of function {func.__name__} skipped.')
-            return None
+
+        logger.info(f'Ollama is not enabled. Execution of function {func.__name__} skipped.')
+        return None
     return wrapper
 
 

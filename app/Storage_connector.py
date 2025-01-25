@@ -116,7 +116,7 @@ def delete_item(item_id) -> None:
     mydb.commit()
 
 
-def create_item(pos, typ, name, json_data) -> None:
+def create_item(pos, obj_type, name, json_data) -> None:
     """
     Creates an item in the storage database.
     Args:
@@ -129,13 +129,13 @@ def create_item(pos, typ, name, json_data) -> None:
         None
     """
 
-    logger.info("Creating item with position: {}, type: {}, name: {}, json_data: {}", pos, typ, name, json_data)
+    logger.info("Creating item with position: {}, type: {}, name: {}, json_data: {}", pos, obj_type, name, json_data)
     if json_data == "{}":
         query = "INSERT INTO storage (position, type, name) VALUES (?, ?, ?);"
-        params = (pos, typ, name)
+        params = (pos, obj_type, name)
     else:
         query = "INSERT INTO storage (position, type, name, info) VALUES (?, ?, ?, ?);"
-        params = (pos, typ, name, json_data)
+        params = (pos, obj_type, name, json_data)
     logger.debug(f"Executing query: {query} with params: {params}")
     cursor.execute(query, params)
     mydb.commit()
@@ -145,9 +145,9 @@ def search(search_term) -> Annotated[list, "list of tuples containing the rows f
     """
     Searches the storage database for entries that match the given search term.
     Args:
-        searchTerm (str): The term to search for in the database. The term will be split 
+        searchTerm (str): The term to search for in the database. The term will be split
                           into individual words,
-                          and each word will be used to search the 'type', 'name', and 
+                          and each word will be used to search the 'type', 'name', and
                           'info' columns.
     Returns:
         list: A list of tuples containing the rows from the database that match the search criteria.
@@ -187,22 +187,22 @@ def search(search_term) -> Annotated[list, "list of tuples containing the rows f
         return None
 
 
-def update_item(item_id, pos, type, name, json_data) -> None:
+def update_item(item_id, pos, obj_type, name, json_data) -> None:
     """
     Updates an item in the storage database.
     Args:
         item_id (int): The id of the item to update.
         pos (int): The new position of the item.
-        type (str): The new type of the item.
+        obj_type (str): The new type of the item.
         name (str): The new name of the item.
         json_data (str): The new JSON data associated with the item.
     Returns:
         None
     """
-    logger.info("Updating item with id: {}, position: {}, type: {}, name: {}, json_data: {}", 
+    logger.info("Updating item with id: {}, position: {}, type: {}, name: {}, json_data: {}",
                 item_id,
                 pos,
-                type,
+                obj_type,
                 name,
                 json_data)
     query = """
@@ -210,7 +210,7 @@ def update_item(item_id, pos, type, name, json_data) -> None:
         SET position = ?, type = ?, name = ?, info = ?
         WHERE id = ?;
     """
-    params = (pos, type, name, json_data, item_id)
+    params = (pos, obj_type, name, json_data, item_id)
     logger.debug(f"Executing query: {query} with params: {params}")
     cursor.execute(query, params)
     mydb.commit()

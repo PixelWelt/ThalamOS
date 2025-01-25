@@ -31,7 +31,7 @@ def get_env_variables_from_path(env_path: str) -> Annotated[dict, "dictionary of
 
 def get_env() -> Annotated[dict, "dictionary of environment variables"]:
     """
-    Loads environment variables from a .env file and returns 
+    Loads environment variables from a .env file and returns
     them as a dictionary.
     Returns:
         dict: A dictionary containing the environment variables.
@@ -78,8 +78,8 @@ def test_get_env_variables_from_path(tmp_path):
 def test_get_env_variables_from_path_empty_file(tmp_path):
     """
     Test case for get_env_variables_from_path function with an empty .env file.
-    This test creates an empty temporary .env file and calls the 
-    get_env_variables_from_path function with the path to this file. 
+    This test creates an empty temporary .env file and calls the
+    get_env_variables_from_path function with the path to this file.
     It then asserts that the returned dictionary is empty.
     Args:
         tmp_path (pathlib.Path): A temporary directory path provided by pytest.
@@ -99,14 +99,14 @@ def test_get_env_variables_from_path_empty_file(tmp_path):
 def test_get_env_variables_from_path_invalid_format(tmp_path):
     """
     Test case for get_env_variables_from_path function to handle invalid format in .env file.
-    This test creates a temporary .env file with an invalid format and verifies that the 
+    This test creates a temporary .env file with an invalid format and verifies that the
     get_env_variables_from_path function raises an IndexError when attempting to parse it.
     Args:
         tmp_path (pathlib.Path): Temporary directory provided by pytest to create the .env file.
     Raises:
         IndexError: Expected exception when the .env file contains an invalid format.
     """
-    
+
     # Create a temporary .env file with invalid format
     env_file = tmp_path / ".env"
     env_file.write_text('KEY1="value1"\nINVALID_LINE\nKEY2="value2"\n')

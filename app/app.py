@@ -107,13 +107,13 @@ def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
     data = request.get_json()
     logger.info(f"Received creation request with data: {data}")
     info = json.dumps(data["info"])
-    typ = data["type"]
+    obj_type = data["type"]
     name = data["name"]
     pos = data["position"]
     try:
-        Storage_connector.create_item(pos=pos, typ=typ, name=name, json_data=info)
+        Storage_connector.create_item(pos=pos, obj_type=obj_type, name=name, json_data=info)
     except Exception as e:
-        logger.error(f"Failed to create item with name: {name}, type: {typ}, position: {pos}. Error: {e}")
+        logger.error(f"Failed to create item with name: {name}, type: {obj_type}, position: {pos}. Error: {e}")
         return {"status": "error"}, 500
     return {"status": "created"}, 201
 
@@ -159,11 +159,11 @@ def update_item(item_id) -> Annotated[tuple, {"status": str, "status_code": int}
     data = request.get_json()
     logger.info(f"Received update request for item_id {item_id} with data: {data}")
     info = json.dumps(data.get("info", {}))
-    typ = data.get("type")
+    obj_type = data.get("type")
     name = data.get("name")
     pos = data.get("position")
     try:
-        Storage_connector.update_item(item_id=item_id, pos=pos, type=typ, name=name, json_data=info)
+        Storage_connector.update_item(item_id=item_id, pos=pos, obj_type=obj_type, name=name, json_data=info)
     except Exception as e:
         logger.error(f"Failed to update item with id: {item_id}. Error: {e}")
         return {"status": "error"}, 500
