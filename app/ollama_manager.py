@@ -1,4 +1,3 @@
-
 from functools import wraps
 import os
 from typing import Annotated
@@ -8,9 +7,13 @@ from dotenv import load_dotenv
 
 from logger_config import logger
 
-ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(os.path.dirname(__file__), '../data/.env')
+ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(
+    os.path.dirname(__file__), "../data/.env"
+)
 load_dotenv(dotenv_path=ENV_PATH)
-is_ollama_enabled: Annotated[bool, "environment variable for ollama enabled"] = os.getenv("IS_OLLAMA_ENABLED", "false").lower() == "true"
+is_ollama_enabled: Annotated[bool, "environment variable for ollama enabled"] = (
+    os.getenv("IS_OLLAMA_ENABLED", "false").lower() == "true"
+)
 
 
 def pre_check_ollama_enabled():
@@ -36,13 +39,17 @@ def check_ollama_enabled(func):
     Returns:
         callable: The wrapped function that includes the Ollama enabled check.
     """
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         if pre_check_ollama_enabled():
             return func(*args, **kwargs)
 
-        logger.info(f'Ollama is not enabled. Execution of function {func.__name__} skipped.')
+        logger.info(
+            f"Ollama is not enabled. Execution of function {func.__name__} skipped."
+        )
         return None
+
     return wrapper
 
 
