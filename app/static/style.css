@@ -128,12 +128,11 @@ main{
 }
 .logo-container span{
     display: flex;
-    width: 11.75rem;
     height: 2.3125rem;
     flex-direction: column;
     justify-content: center;
     flex-shrink: 0;
-    color: var(--accent-green);
+    color: white;
     font-family: Kanit;
     font-size: 3rem;
     font-style: normal;
@@ -149,6 +148,9 @@ main{
     margin-top: 2rem;    
     overflow-y: scroll;
     overflow-x: hidden;
+    font-family: 'Kanit';
+    color: white;
+    text-align: center;
 }
 .resultTable{
     border-collapse: collapse;
@@ -238,9 +240,6 @@ main{
     overflow: auto;
     width: 80%;
     height: 80%;
-}
-.purple-logo span{
-    color: var(--accent-purple);
 }
 #createForm label {
     display: block;
@@ -388,4 +387,8 @@ hr{
 }
 .item-buttons .btn:first-child{
     margin-left: 0;
+}
+.logo-os{
+    color: var(--secondary-bg) !important;
+    -webkit-text-stroke: 1px #FFFFFF;
 }
