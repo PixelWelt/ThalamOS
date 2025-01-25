@@ -158,7 +158,7 @@ main{
 .resultTable td{
     text-align: left;
     padding: 0.8rem;
-
+    font-family: Kanit;
 }
 .resultTable td:nth-child(2) {
     word-wrap: break-word; 
