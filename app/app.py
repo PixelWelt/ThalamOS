@@ -1,9 +1,9 @@
 """
 StorageManager Application
 
-This module sets up a Flask web application for managing storage items, controlling WLED devices, 
-and interacting with a WiFi scale. It provides various routes for rendering templates, 
-handling item creation, deletion, and search, as well as retrieving environment configurations 
+This module sets up a Flask web application for managing storage items, controlling WLED devices,
+and interacting with a WiFi scale. It provides various routes for rendering templates,
+handling item creation, deletion, and search, as well as retrieving environment configurations
 and scale weight.
 
 Routes:
@@ -32,25 +32,30 @@ from typing import Annotated
 import json
 import os
 
-from flask import Flask, request, render_template, jsonify  # pylint: disable=import-error
+from flask import (
+    Flask,
+    request,
+    render_template,
+    jsonify,
+)  # pylint: disable=import-error
 from flask_cors import CORS  # pylint: disable=import-error
 from dotenv import load_dotenv  # pylint: disable=import-error
 
 from logger_config import logger
 import Storage_connector
 import config_manager
-import wifiscale_manager as wifiscale
+import weigh_fi_manager as wifiscale
 import wled_requests
 import ollama_manager as ollama
 
-ENV_PATH = os.path.join(os.path.dirname(__file__), 'data/.env')
+ENV_PATH = os.path.join(os.path.dirname(__file__), "data/.env")
 load_dotenv(dotenv_path=ENV_PATH)
 IS_SCALE_ENABLED = os.getenv("IS_SCALE_ENABLED").lower() == "true"
 app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/')
+@app.route("/")
 def index() -> Annotated[str, "search page as a rendered template"]:
     """
     Renders the search page.
@@ -60,7 +65,7 @@ def index() -> Annotated[str, "search page as a rendered template"]:
     return render_template("search.html")
 
 
-@app.route('/toggleLight')
+@app.route("/toggleLight")
 def toggle_light() -> Annotated[str, "search page as a rendered template"]:
     """
     Toggles the power state of the WLED device and renders the search template.
@@ -75,7 +80,7 @@ def toggle_light() -> Annotated[str, "search page as a rendered template"]:
     return render_template("search.html")
 
 
-@app.route('/createItem')
+@app.route("/createItem")
 def create_item() -> Annotated[str, "item creation page as a rendered template"]:
     """
     Renders the template for creating a new item.
@@ -85,7 +90,7 @@ def create_item() -> Annotated[str, "item creation page as a rendered template"]
     return render_template("createItem.html")
 
 
-@app.route('/sendCreation', methods=['POST'])
+@app.route("/sendCreation", methods=["POST"])
 def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
     """
     Handle the creation of a new item by processing the incoming JSON request data.
@@ -97,7 +102,7 @@ def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
         "position": <str>
     }
     It extracts the necessary information from the JSON payload and attempts to create a new item
-    using the Storage_connector.CreateItem method. 
+    using the Storage_connector.CreateItem method.
     If an exception occurs during the creation process,
     it prints the exception.
     Returns:
@@ -111,14 +116,18 @@ def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
     name = data["name"]
     pos = data["position"]
     try:
-        Storage_connector.create_item(pos=pos, obj_type=obj_type, name=name, json_data=info)
+        Storage_connector.create_item(
+            pos=pos, obj_type=obj_type, name=name, json_data=info
+        )
     except Exception as e:
-        logger.error(f"Failed to create item with name: {name}, type: {obj_type}, position: {pos}. Error: {e}")
+        logger.error(
+            f"Failed to create item with name: {name}, type: {obj_type}, position: {pos}. Error: {e}"
+        )
         return {"status": "error"}, 500
     return {"status": "created"}, 201
 
 
-@app.route('/item/<item_id>')
+@app.route("/item/<item_id>")
 def item(item_id) -> Annotated[str, "item page as a rendered template"]:
     """
     Handles the request to display an item.
@@ -147,7 +156,7 @@ def item(item_id) -> Annotated[str, "item page as a rendered template"]:
     return render_template("item.jinja2", item=item_sql, id=item_id)
 
 
-@app.route('/item/<item_id>/update', methods=['POST'])
+@app.route("/item/<item_id>/update", methods=["POST"])
 def update_item(item_id) -> Annotated[tuple, {"status": str, "status_code": int}]:
     """
     Updates an item using the Storage_connector and returns a status message.
@@ -163,14 +172,16 @@ def update_item(item_id) -> Annotated[tuple, {"status": str, "status_code": int}
     name = data.get("name")
     pos = data.get("position")
     try:
-        Storage_connector.update_item(item_id=item_id, pos=pos, obj_type=obj_type, name=name, json_data=info)
+        Storage_connector.update_item(
+            item_id=item_id, pos=pos, obj_type=obj_type, name=name, json_data=info
+        )
     except Exception as e:
         logger.error(f"Failed to update item with id: {item_id}. Error: {e}")
         return {"status": "error"}, 500
     return {"status": "updated"}, 200
 
 
-@app.route('/item/<item>/delete')
+@app.route("/item/<item>/delete")
 def delete_item(item_id) -> Annotated[str, "search page as a rendered template"]:
     """
     Deletes an item using the Storage_connector and renders the search.html template.
@@ -184,7 +195,7 @@ def delete_item(item_id) -> Annotated[str, "search page as a rendered template"]
     return render_template("search.html")
 
 
-@app.route('/search/<term>', methods=['GET'])
+@app.route("/search/<term>", methods=["GET"])
 def search(term) -> Annotated[str, "json response"]:
     """
     Search for a term in the storage and return the results in JSON format.
@@ -211,7 +222,7 @@ def handle_exception(e) -> Exception:
     return e
 
 
-@app.route('/config/env')
+@app.route("/config/env")
 def get_env() -> Annotated[str, "json response"]:
     """
     Retrieve the environment configuration.
@@ -223,7 +234,7 @@ def get_env() -> Annotated[str, "json response"]:
     return jsonify(config_manager.get_env())
 
 
-@app.route('/config/ollama/models')
+@app.route("/config/ollama/models")
 def get_ollama_models() -> Annotated[str, "json response"]:
     """
     Fetches the list of available Ollama models.
@@ -236,7 +247,7 @@ def get_ollama_models() -> Annotated[str, "json response"]:
     return jsonify(values)
 
 
-@app.route('/wifiscale/weight')
+@app.route("/wifiscale/weight")
 def get_weight() -> Annotated[dict, {"weight": float} | {"status": str}]:
     """
     Retrieve the weight of the scale.
@@ -253,7 +264,7 @@ def get_weight() -> Annotated[dict, {"weight": float} | {"status": str}]:
     return jsonify({"weight": weight})
 
 
-@app.route('/log', methods=['POST'])
+@app.route("/log", methods=["POST"])
 def log_message() -> Annotated[tuple, {"status": str, "status_code": int}]:
     """
     Logs a message with a specified log level.
@@ -273,19 +284,23 @@ def log_message() -> Annotated[tuple, {"status": str, "status_code": int}]:
     """
 
     data: Annotated[str, "content of request"] = request.json
-    level: Annotated[str, "log level, default value is INFO"] = data.get('level', 'INFO')
-    message: Annotated[str, "content of log, default value is empty"] = data.get('message', '')
+    level: Annotated[str, "log level, default value is INFO"] = data.get(
+        "level", "INFO"
+    )
+    message: Annotated[str, "content of log, default value is empty"] = data.get(
+        "message", ""
+    )
 
     match level:
-        case 'DEBUG':
+        case "DEBUG":
             logger.debug(message)
-        case 'INFO':
+        case "INFO":
             logger.info(message)
-        case 'WARNING':
+        case "WARNING":
             logger.warning(message)
-        case 'ERROR':
+        case "ERROR":
             logger.error(message)
-        case 'CRITICAL':
+        case "CRITICAL":
             logger.critical(message)
 
     return {"status": "created"}, 201
@@ -294,5 +309,5 @@ def log_message() -> Annotated[tuple, {"status": str, "status_code": int}]:
 with app.app_context():
     Storage_connector.setup()
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=True)
