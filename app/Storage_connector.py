@@ -8,7 +8,7 @@ as well as export the data to a CSV file.
 Functions:
 - setup(): Sets up the database by creating the 'storage' table and
   a trigger for automatic updating of the 'modification_time' column.
-- fetch_csv(): Fetches all data from the 'storage' table and 
+- fetch_csv(): Fetches all data from the 'storage' table and
   writes it to a CSV file named 'out.csv'.
 - fetch_item(item_id): Fetches an item from the storage database by its id.
 - delete_item(item_id): Deletes an item from the storage database based on the provided item id.
@@ -23,29 +23,34 @@ import os
 from logger_config import logger
 
 
-db_path: Annotated[str, "path of database files"] = os.path.join(os.path.dirname(__file__), 'data/storage.db')
+db_path: Annotated[str, "path of database files"] = os.path.join(
+    os.path.dirname(__file__), "data/storage.db"
+)
 logger.info(f"Database path: {db_path}")
-mydb: Annotated[sqlite3.Connection, "helper object for database"] = sqlite3.connect(db_path, check_same_thread=False)
+mydb: Annotated[sqlite3.Connection, "helper object for database"] = sqlite3.connect(
+    db_path, check_same_thread=False
+)
 cursor = mydb.cursor()
 
 
 def setup() -> None:
     """
-    Sets up the database by creating the 'storage' table and a trigger for automatic 
+    Sets up the database by creating the 'storage' table and a trigger for automatic
     updating of the 'modification_time' column.
     The 'storage' table contains the following columns:
     - id: INTEGER, primary key, autoincrement
     - position: INTEGER
-    - type: TEXT
+    - type: sensor | screw | display | nail | display | cable | miscellaneous | Motor Driver
     - name: TEXT
     - info: TEXT
     - modification_time: TIMESTAMP, defaults to the current timestamp
-    The trigger 'update_modification_time' ensures that the 'modification_time' column 
-    is automatically updated to the current timestamp whenever a row in the 'storage' 
+    The trigger 'update_modification_time' ensures that the 'modification_time' column
+    is automatically updated to the current timestamp whenever a row in the 'storage'
     table is updated.
     Commits the changes to the database and prints a confirmation message.
     """
-    cursor.execute("""
+    cursor.execute(
+        """
     CREATE TABLE IF NOT EXISTS storage (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         position INTEGER,
@@ -54,10 +59,12 @@ def setup() -> None:
         info TEXT,
         modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
-    """)
+    """
+    )
 
     # trigger for automatic update of modification_time
-    cursor.execute("""
+    cursor.execute(
+        """
     CREATE TRIGGER IF NOT EXISTS update_modification_time
     AFTER UPDATE ON storage
     FOR EACH ROW
@@ -66,16 +73,17 @@ def setup() -> None:
         SET modification_time = CURRENT_TIMESTAMP
         WHERE id = OLD.id;
     END;
-    """)
+    """
+    )
     mydb.commit()
     logger.info("Database setup complete and ready for service")
 
 
 def fetch_csv() -> None:
     """
-    Fetches all data from the 'storage' table in the database and 
+    Fetches all data from the 'storage' table in the database and
     writes it to a CSV file named 'out.csv'.
-    The function executes a SQL query to select all rows from the 
+    The function executes a SQL query to select all rows from the
     'storage' table, writes the column headers
     and all rows to the CSV file, and saves the file with UTF-8 encoding.
     Raises:
@@ -83,14 +91,15 @@ def fetch_csv() -> None:
     """
 
     cursor.execute("SELECT * FROM storage;")
-    with open("out.csv", "w", newline='', encoding='utf-8') as csv_file:
+    with open("static/database.csv", "w", newline="", encoding="utf-8") as csv_file:
         csv_writer = csv.writer(csv_file)
-        csv_writer.writerow([i[0] for i in cursor.description])  # Spaltenüberschriften
-        csv_writer.writerows(cursor.fetchall())  # Alle Zeilen schreiben
-        csv_file.close()
+        csv_writer.writerow([i[0] for i in cursor.description])
+        csv_writer.writerows(cursor.fetchall())
 
 
-def fetch_item(item_id) -> Annotated[tuple, "tuple containing the item's data if found, otherwise None"]:
+def fetch_item(
+    item_id,
+) -> Annotated[tuple, "tuple containing the item's data if found, otherwise None"]:
     """
     Fetch an item from the storage database by its id.
     Args:
@@ -129,7 +138,13 @@ def create_item(pos, obj_type, name, json_data) -> None:
         None
     """
 
-    logger.info("Creating item with position: {}, type: {}, name: {}, json_data: {}", pos, obj_type, name, json_data)
+    logger.info(
+        "Creating item with position: {}, type: {}, name: {}, json_data: {}",
+        pos,
+        obj_type,
+        name,
+        json_data,
+    )
     if json_data == "{}":
         query = "INSERT INTO storage (position, type, name) VALUES (?, ?, ?);"
         params = (pos, obj_type, name)
@@ -141,7 +156,12 @@ def create_item(pos, obj_type, name, json_data) -> None:
     mydb.commit()
 
 
-def search(search_term) -> Annotated[list, "list of tuples containing the rows from the database that match the search criteria"]:
+def search(
+    search_term,
+) -> Annotated[
+    list,
+    "list of tuples containing the rows from the database that match the search criteria",
+]:
     """
     Searches the storage database for entries that match the given search term.
     Args:
@@ -170,9 +190,7 @@ def search(search_term) -> Annotated[list, "list of tuples containing the rows f
         """
 
         # create parameters for each placeholder
-        parameters = tuple(
-            f"%{term}%" for term in search_terms for _ in range(3)
-        )
+        parameters = tuple(f"%{term}%" for term in search_terms for _ in range(3))
 
         # Debugging: print query and parameters
         logger.debug(f"Executing search query: {query} with parameters: {parameters}")
@@ -199,12 +217,14 @@ def update_item(item_id, pos, obj_type, name, json_data) -> None:
     Returns:
         None
     """
-    logger.info("Updating item with id: {}, position: {}, type: {}, name: {}, json_data: {}",
-                item_id,
-                pos,
-                obj_type,
-                name,
-                json_data)
+    logger.info(
+        "Updating item with id: {}, position: {}, type: {}, name: {}, json_data: {}",
+        item_id,
+        pos,
+        obj_type,
+        name,
+        json_data,
+    )
     query = """
         UPDATE storage
         SET position = ?, type = ?, name = ?, info = ?

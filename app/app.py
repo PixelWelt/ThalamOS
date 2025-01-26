@@ -308,6 +308,7 @@ def log_message() -> Annotated[tuple, {"status": str, "status_code": int}]:
 
 with app.app_context():
     Storage_connector.setup()
+    ollama.ask_test()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

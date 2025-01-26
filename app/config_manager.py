@@ -9,12 +9,14 @@ Functions:
 from typing import Annotated
 import os
 from dotenv import load_dotenv  # pylint: disable=import-error
-import pytest
+import pytest  # pylint: disable=import-error
 
 from logger_config import logger
 
 
-def get_env_variables_from_path(env_path: str) -> Annotated[dict, "dictionary of environment variables"]:
+def get_env_variables_from_path(
+    env_path: str,
+) -> Annotated[dict, "dictionary of environment variables"]:
     """
     Reads environment variables from a file and returns them as a dictionary.
     Args:
@@ -22,9 +24,9 @@ def get_env_variables_from_path(env_path: str) -> Annotated[dict, "dictionary of
     Returns:
         dict: A dictionary containing the environment variables as key-value pairs.
     """
-    with open(env_path, encoding='utf-8') as f:
+    with open(env_path, encoding="utf-8") as f:
         env_keys = f.read().splitlines()
-    env_dict = {item.split('=')[0]: item.split('=')[1].strip('"') for item in env_keys}
+    env_dict = {item.split("=")[0]: item.split("=")[1].strip('"') for item in env_keys}
     logger.debug(f"Environment variables loaded: {env_dict}")
     return env_dict
 
@@ -36,17 +38,18 @@ def get_env() -> Annotated[dict, "dictionary of environment variables"]:
     Returns:
         dict: A dictionary containing the environment variables.
     """
-    env_path = os.path.join(os.path.dirname(__file__), 'data/.env')
+    env_path = os.path.join(os.path.dirname(__file__), "data/.env")
     load_dotenv(dotenv_path=env_path)
     env_dict = get_env_variables_from_path(env_path)
     return env_dict
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(get_env())
 
 
 # Tests
+
 
 def test_get_env_variables_from_path(tmp_path):
     """
@@ -69,10 +72,7 @@ def test_get_env_variables_from_path(tmp_path):
     env_vars = get_env_variables_from_path(str(env_file))
 
     # Assert that the returned dictionary contains the expected key-value pairs
-    assert env_vars == {
-        "KEY1": "value1",
-        "KEY2": "value2"
-    }
+    assert env_vars == {"KEY1": "value1", "KEY2": "value2"}
 
 
 def test_get_env_variables_from_path_empty_file(tmp_path):
@@ -87,7 +87,7 @@ def test_get_env_variables_from_path_empty_file(tmp_path):
 
     # Create an empty temporary .env file
     env_file = tmp_path / ".env"
-    env_file.write_text('')
+    env_file.write_text("")
 
     # Call the function with the path to the empty .env file
     env_vars = get_env_variables_from_path(str(env_file))
