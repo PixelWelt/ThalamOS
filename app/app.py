@@ -1,10 +1,10 @@
 """
-StorageManager Application
+ThalamOS Application
 
 This module sets up a Flask web application for managing storage items, controlling WLED devices,
-and interacting with a WiFi scale. It provides various routes for rendering templates,
-handling item creation, deletion, and search, as well as retrieving environment configurations
-and scale weight.
+interacting with a WiFi scale, and querying an LLM service. It provides various routes for rendering templates,
+handling item creation, deletion, and search, as well as retrieving environment configurations,
+scale weight, and logging messages.
 
 Routes:
     - /: Renders the search page.
@@ -12,10 +12,14 @@ Routes:
     - /createItem: Renders the template for creating a new item.
     - /sendCreation: Handles the creation of a new item by processing the incoming JSON request data.
     - /item/<item_id>: Handles the request to display an item.
-    - /item/<item>/delete: Deletes an item using the Storage_connector and renders the search.html template.
+    - /item/<item_id>/update: Updates an item using the Storage_connector and returns a status message.
+    - /item/<item_id>/delete: Deletes an item using the Storage_connector and renders the search.html template.
     - /search/<term>: Searches for a term in the storage and returns the results in JSON format.
     - /config/env: Retrieves the environment configuration.
+    - /config/ollama/models: Fetches the list of available Ollama models.
     - /wifiscale/weight: Retrieves the weight of the scale.
+    - /llm/ask: Asks a question to the LLM service and returns the response.
+    - /log: Logs a message with a specified log level.
 
 Error Handling:
     - handle_exception: Handles exceptions by passing through HTTP errors.
@@ -28,6 +32,7 @@ Setup:
 Usage:
     Run the application using the command `python app.py`.
 """
+
 from typing import Annotated
 import json
 import os
@@ -37,6 +42,7 @@ from flask import (  # pylint: disable=import-error
     request,
     render_template,
     jsonify,
+    Response,
 )
 from flask_cors import CORS  # pylint: disable=import-error
 from dotenv import load_dotenv  # pylint: disable=import-error
@@ -196,7 +202,7 @@ def delete_item(item_id) -> Annotated[str, "search page as a rendered template"]
 
 
 @app.route("/search/<term>", methods=["GET"])
-def search(term) -> Annotated[str, "json response"]:
+def search(term) -> Response:
     """
     Search for a term in the storage and return the results in JSON format.
     Args:
@@ -223,7 +229,7 @@ def handle_exception(e) -> Exception:
 
 
 @app.route("/config/env")
-def get_env() -> Annotated[str, "json response"]:
+def get_env() -> Response:
     """
     Retrieve the environment configuration.
     This function uses the config_manager to get the current environment
@@ -235,7 +241,7 @@ def get_env() -> Annotated[str, "json response"]:
 
 
 @app.route("/config/ollama/models")
-def get_ollama_models() -> Annotated[str, "json response"]:
+def get_ollama_models() -> tuple[Response, int] | Response:
     """
     Fetches the list of available Ollama models.
     Returns:
@@ -248,7 +254,7 @@ def get_ollama_models() -> Annotated[str, "json response"]:
 
 
 @app.route("/wifiscale/weight")
-def get_weight() -> Annotated[dict, {"weight": float} | {"status": str}]:
+def get_weight() -> tuple[Response, int] | Response:
     """
     Retrieve the weight of the scale.
     This function checks if the scale service is enabled by reading the IS_SCALE_ENABLED environment variable.
@@ -262,6 +268,22 @@ def get_weight() -> Annotated[dict, {"weight": float} | {"status": str}]:
 
     weight = wifiscale.get_weight()
     return jsonify({"weight": weight})
+
+
+@app.route("/llm/ask")
+def ask_llm_question() -> Response:
+    """
+    Ask a question to the Language Learning Model (LLM) service.
+    This function sends a GET request to the LLM service at the specified endpoint
+    and returns the response as a JSON object.
+    Returns:
+        Response: A Flask JSON response containing the response from the LLM service.
+    """
+    data = request.get_json()
+    question = data.get("question")
+    logger.info(f"Received question via llm endpoint: {question}")
+    response = ollama.ask_question(question)
+    return jsonify(response)
 
 
 @app.route("/log", methods=["POST"])

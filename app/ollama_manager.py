@@ -1,23 +1,37 @@
+"""
+This module manages interactions with the Ollama model and the SQLite database.
+
+It includes functions to set up the Ollama pipeline, check if the Ollama feature is enabled,
+fetch Ollama models, convert the storage table to a CSV file, and ask questions to the Ollama model.
+
+Classes:
+    SQLQuery: A class to execute SQL queries on the SQLite database.
+
+Functions:
+    setup_ollama: Sets up the Ollama pipeline.
+    pre_check_ollama_enabled: Checks if the Ollama feature is enabled.
+    check_ollama_enabled: A decorator to check if Ollama is enabled before executing a function.
+    get_ollama_models: Fetches a list of Ollama models from a specified API endpoint.
+    storage_table_to_csv: Converts the 'storage' table from the SQLite database to a CSV file.
+    ask_question: Asks a question to the Ollama model using a haystack pipeline.
+"""
 from functools import wraps
 import os
-from typing import Annotated
-import time
-
+from typing import Annotated, List
+import sqlite3
 import requests
-from dotenv import load_dotenv  # pylint: disable=import-error
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_ollama import ChatOllama
-from langchain_community.utilities.sql_database import SQLDatabase
-from langchain_community.agent_toolkits.sql.toolkit import SQLDatabaseToolkit
-from langchain_community.agent_toolkits.sql.base import create_sql_agent
-from langchain_core.prompts import PromptTemplate
-from langchain.agents.agent_types import AgentType
-from langgraph.prebuilt import create_react_agent
+from dotenv import load_dotenv
+from haystack import Pipeline, component
+from haystack.components.builders import PromptBuilder
+from haystack.components.routers import ConditionalRouter
+from haystack_integrations.components.generators.ollama import OllamaGenerator
+import pandas as pd
+import sqlparse
 
 from logger_config import logger
 
 ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(
-    os.path.dirname(__file__), "../data/.env"
+    os.path.dirname(__file__), "data/.env"
 )
 load_dotenv(dotenv_path=ENV_PATH)
 is_ollama_enabled: Annotated[bool, "environment variable for ollama enabled"] = (
@@ -30,36 +44,126 @@ ollama_host: Annotated[str, "environment variable for ollama host"] = os.getenv(
 default_model: Annotated[str, "environment variable for default model"] = os.getenv(
     "DEFAULT_MODEL"
 )
-db = SQLDatabase.from_uri(
-    "sqlite:////mnt/f/Dev/4_ThalamOS/StorageManager/data/storage.db"
+
+DATABASE_PATH: Annotated[str, "path to database"] = os.path.join(
+    os.path.dirname(__file__), "data/storage.db"
 )
 
-TEMPLATE = """You are an agent designed to interact with a SQL database.
-Given an input question, create a syntactically correct {dialect} query to run, then look at the results of the query and return the answer.
-Unless the user specifies a specific number of examples they wish to obtain, always limit your query to at most {top_k} results.
-You can order the results by a relevant column to return the most interesting examples in the database.
-Never query for all the columns from a specific table, only ask for the relevant columns given the question.
-You have access to tools for interacting with the database.
-Only use the below tools. Only use the information returned by the below tools to construct your final answer.
-You MUST double check your query before executing it. If you get an error while executing a query, rewrite the query and try again.
+prompt_instance = PromptBuilder(
+    template="""The table **`storage`** contains information about items stored inside a shelf. It has the following columns: **{{columns}}**.
 
-DO NOT make any DML statements (INSERT, UPDATE, DELETE, DROP etc.) to the database.
+### Rules for Generating an SQL Query:
+1. **Only generate a query if the question is directly answerable using only the `storage` table**.
+2. **First, check if the question is about stored items**. If the question is about anything else (e.g., news, weather, prices, etc.), return `"no_answer"` and **do not generate a query**.
+3. **The `info` column contains JSON data**. To access specific fields within the JSON, use the appropriate SQL functions for JSON extraction:
+   - For **SQLLite**, use `JSON_EXTRACT(info, '$.field_name')` to extract a field.
+4. **If the question asks for ordering based on a field inside the `info` JSON** (like `length`), **extract the field from the JSON** and **order by it** (use `CAST(info ->> 'length' AS INTEGER)` for PostgreSQL/SQLite or `CAST(JSON_EXTRACT(info, '$.length') AS UNSIGNED)` for MySQL).
+5. **Do not use columns like `id` or `position` for ordering unless explicitly mentioned**. If the question is about sorting based on a JSON value (like `length`), **use the JSON extraction in the `ORDER BY` clause**.
+6. **If the question asks for the "longest screw" or something similar**, order by `length` from the JSON data, **not by `id`** or other irrelevant columns.
+7. **If the question cannot be answered with the given columns**, return exactly `"no_answer"` (without explanation).
+8. **Do not attempt to match unrelated concepts to column names**.
+9. **Do not modify the database (no DELETE, UPDATE, or INSERT operations).**
+10. **Ensure the query returns the entire row of the matched item**.
+11. **Ensure the SQL syntax is correct and valid for SQLite**.
+12. **The possible values for the `type` column are: `screw`, `nail`, `display`, `cable`, `misc`, `motor-driver`**. These types are case-sensitive.
 
-To start you should ALWAYS look at the tables in the database to see what you can query.
-Do NOT skip this step.
-Then you should query the schema of the most relevant tables.
 
-The 'storage' table contains the following columns:
-    - id: INTEGER, primary key, autoincrement
-    - position: INTEGER
-    - type: sensor | screw | display | nail | display | cable | miscellaneous | Motor Driver
-    - name: TEXT
-    - info: TEXT
-    - modification_time: TIMESTAMP, defaults to the current timestamp
-    The trigger 'update_modification_time' ensures that the 'modification_time' column
-    is automatically updated to the current timestamp whenever a row in the 'storage'
-    table is updated.
+**Output (only one of the following):**
+- A valid **SQL query**, that returns the row, that matches the user Request, if and only if the question is **directly answerable**. **Do not output anything except of the sql query**.
+- `"no_answer"` (exactly this string) if the question is irrelevant or unanswerable.
+
+
+**Question:** {{question}}
 """
+)
+
+fallback_prompt_instance = PromptBuilder(
+    template="""User entered a query that cannot be answerwed with the given table.
+                                            The query was: {{question}} and the table had columns: {{columns}}.
+                                            Let the user know why the question cannot be answered using the table, but try it to answer with your general knowledge."""
+)
+
+
+@component
+class SQLQuery:
+    """
+    A component to execute SQL queries on the SQLite database.
+
+    Attributes:
+        connection (sqlite3.Connection): The connection to the SQLite database.
+
+    Methods:
+        run(queries: List[str]) -> dict: Executes the provided SQL queries and returns the results.
+    """
+
+    def __init__(self, sql_database: str):
+        self.connection = sqlite3.connect(f"file:{sql_database}?mode=ro", uri=True)
+
+    @component.output_types(results=List[str], queries=List[str])
+    def run(self, queries: List[str]):
+        results = []
+        for query in queries:
+            try:
+                sqlparse.parse(query)
+                print(f"query: {query}")
+                result = pd.read_sql(query, self.connection)
+                results.append(f"{result}")
+            except Exception as e:
+                logger.error(f"Error parsing SQL query: {e}")
+                return {"results": ["error"], "queries": queries}
+
+        return {"results": results, "queries": queries}
+
+
+def setup_ollama():
+    """
+    Sets up the Ollama pipeline with the necessary components and connections.
+
+    This function initializes the SQLQuery component, defines routing conditions,
+    and sets up the ConditionalRouter, OllamaGenerator, and fallback components.
+    It then creates a Pipeline, adds the components to it, and connects them
+    according to the defined routes.
+
+    Returns:
+        Pipeline: The configured Ollama pipeline.
+    """
+    sql_query = SQLQuery(DATABASE_PATH)
+
+    routes = [
+        {
+            "condition": "{{'no_answer' not in replies[0]}}",
+            "output": "{{replies}}",
+            "output_name": "sql",
+            "output_type": List[str],
+        },
+        {
+            "condition": "{{'no_answer'|lower in replies[0]|lower}}",
+            "output": "{{question}}",
+            "output_name": "go_to_fallback",
+            "output_type": str,
+        },
+    ]
+    router = ConditionalRouter(routes)
+    llm = OllamaGenerator(model=default_model, url=ollama_host)
+    fallback_llm = OllamaGenerator(model=default_model, url=ollama_host)
+
+    conditional_sql_pipeline = Pipeline()
+    conditional_sql_pipeline.add_component("prompt", prompt_instance)
+    conditional_sql_pipeline.add_component("llm", llm)
+    conditional_sql_pipeline.add_component("router", router)
+    conditional_sql_pipeline.add_component("fallback_prompt", fallback_prompt_instance)
+    conditional_sql_pipeline.add_component("fallback_llm", fallback_llm)
+    conditional_sql_pipeline.add_component("sql_querier", sql_query)
+
+    conditional_sql_pipeline.connect("prompt", "llm")
+    conditional_sql_pipeline.connect("llm.replies", "router.replies")
+    conditional_sql_pipeline.connect("router.sql", "sql_querier.queries")
+    conditional_sql_pipeline.connect(
+        "router.go_to_fallback", "fallback_prompt.question"
+    )
+    conditional_sql_pipeline.connect("fallback_prompt", "fallback_llm")
+
+    return conditional_sql_pipeline
 
 
 def pre_check_ollama_enabled():
@@ -77,7 +181,7 @@ def check_ollama_enabled(func):
     """
     Decorator to check if Ollama is enabled before executing the function.
     This decorator wraps a function and checks if Ollama is enabled by calling
-    the `pre_check_ollam_enabled` function. If Ollama is enabled, the wrapped
+    the `pre_check_ollama_enabled` function. If Ollama is enabled, the wrapped
     function is executed. Otherwise, a log message is generated, and the function
     execution is skipped.
     Args:
@@ -118,22 +222,49 @@ def get_ollama_models():
     return model_list
 
 
-@check_ollama_enabled
-def ask_question(msg, context=None):
-    llm = ChatOllama(model=default_model, url=ollama_host)
-    toolkit = SQLDatabaseToolkit(db=db, llm=llm)
-    system_message = TEMPLATE.format(dialect="SQLite", top_k=5)
+def storage_table_to_csv(path: str) -> pd.DataFrame:
+    """
+    Converts the 'storage' table from the SQLite database to a CSV file.
 
-    agent_executor = create_react_agent(
-        llm, toolkit.get_tools(), state_modifier=system_message
+    Args:
+        path (str): The file path to the SQLite database.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing the data from the 'storage' table.
+    """
+    conn = sqlite3.connect(path)
+    table = pd.read_sql_query("SELECT * FROM storage", conn)
+    conn.close()
+    return table
+
+
+@check_ollama_enabled
+def ask_question(msg):
+    """
+    Asks a question to the Ollama model using a haystack pipeline.
+
+    Args:
+        msg (str): The question to ask the Ollama model.
+
+    Returns:
+        tuple: A tuple containing the type of response ("Item" or "Fallback") and the response itself.
+    """
+    table = storage_table_to_csv(DATABASE_PATH)
+    columns = table.columns.tolist()
+    result = global_Pipeline.run(
+        {
+            "prompt": {"question": msg, "columns": columns},
+            "router": {"question": msg},
+            "fallback_prompt": {"columns": columns},
+        }
     )
 
-    inputs = {"messages": [("user", msg)]}
+    if "sql_querier" in result:
+        result = result["sql_querier"]["results"][0]
+        return "Item", result
+    elif "fallback_llm" in result:
+        result = result["fallback_llm"]["replies"][0]
+        return "Fallback", result
 
-    response = agent_executor.invoke(input=inputs)
-    print(response)
 
-
-ask_question(
-    "what display should I use for my arduino project? based upon the data in my database?"
-)
+global_Pipeline = setup_ollama()
