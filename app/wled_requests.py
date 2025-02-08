@@ -20,11 +20,15 @@ from dotenv import load_dotenv
 from logger_config import logger
 
 
-ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(os.path.dirname(__file__), 'data/.env')
+ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(
+    os.path.dirname(__file__), "data/.env"
+)
 load_dotenv(dotenv_path=ENV_PATH)
 
-WLED_HOST: Annotated[str, "environment variable for WLED address"] = os.getenv("WLED_HOST")
-logger.info(f'WLED host is: {WLED_HOST}')
+WLED_HOST: Annotated[str, "environment variable for WLED address"] = os.getenv(
+    "WLED_HOST"
+)
+logger.info(f"WLED host is: {WLED_HOST}")
 
 API: Annotated[str, "URL to WLED"] = f"http://{WLED_HOST}/json"
 
@@ -41,9 +45,9 @@ def turn_off_lights() -> None:
     requests.post(API, req, timeout=10)
 
 
-def color_pos(pos) -> None:
+def color_pos(pos: int) -> None:
     """
-    Sends a request to set the color of a specific position on a WLED device.
+    Sends a request to set the  color of a specific position on a WLED device.
     Args:
         pos (int): The position to set the color for.
     Returns:

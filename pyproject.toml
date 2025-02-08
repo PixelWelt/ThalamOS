@@ -1,3 +1,6 @@
+[project]
+name = "ThalamOS"
+
 [tool.poetry]
 name = "ThalamOS"
 version = "0.2.0"
@@ -5,7 +8,7 @@ description = "Light up your storage"
 authors = ["PixelWelt"]
 license = "MIT"
 readme = "README.md"
-keywords = ["Storage", "API", "ThalamOS", "WLED", "Flask", "Web", "Python"]
+keywords = ["Storage", "API", "ThalamOS", "WLED", "Flask", "Web", "Python", "self-hosted", "web", "cloud", "management-system"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -18,10 +21,13 @@ requests = "2.31.0"
 urllib3 = "2.2.1"
 typing-extensions = ">=4.0.0"
 loguru = "0.7.3"
-langchain-ollama = "0.2.2"
 pytest = ">=7.0.0"
+langchain-core = ">=0.3.31"
+langchain-ollama = ">=0.2.2"
+langchain-community = ">=0.3.15"
+pandas = ">=2.2.3"
 
-[tool.poetry.dev-dependencies]
+[poetry.group.dev.dependencies]
 pre-commit = ">=3.0.0"
 
 [build-system]

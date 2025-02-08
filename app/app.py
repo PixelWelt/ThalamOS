@@ -32,12 +32,12 @@ from typing import Annotated
 import json
 import os
 
-from flask import (
+from flask import (  # pylint: disable=import-error
     Flask,
     request,
     render_template,
     jsonify,
-)  # pylint: disable=import-error
+)
 from flask_cors import CORS  # pylint: disable=import-error
 from dotenv import load_dotenv  # pylint: disable=import-error
 
@@ -308,7 +308,7 @@ def log_message() -> Annotated[tuple, {"status": str, "status_code": int}]:
 
 with app.app_context():
     Storage_connector.setup()
-    ollama.ask_test()
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
