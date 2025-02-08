@@ -106,8 +106,8 @@ class SQLQuery:
             try:
                 sqlparse.parse(query)
                 print(f"query: {query}")
-                result = pd.read_sql(query, self.connection)
-                results.append(f"{result}")
+                result = pd.read_sql(query, self.connection).to_json(orient="records")
+                results.append(result)
             except Exception as e:
                 logger.error(f"Error parsing SQL query: {e}")
                 return {"results": ["error"], "queries": queries}
@@ -261,9 +261,15 @@ def ask_question(msg):
 
     if "sql_querier" in result:
         result = result["sql_querier"]["results"][0]
+        logger.info(
+            f"llm answered with the following SQL query: {result} with type {type(result)}"
+        )
         return "Item", result
     elif "fallback_llm" in result:
         result = result["fallback_llm"]["replies"][0]
+        logger.info(
+            f"llm answered with the following fallback: {result} with type {type(result)}"
+        )
         return "Fallback", result
 
 

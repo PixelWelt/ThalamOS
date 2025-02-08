@@ -270,7 +270,7 @@ def get_weight() -> tuple[Response, int] | Response:
     return jsonify({"weight": weight})
 
 
-@app.route("/llm/ask")
+@app.route("/llm/ask", methods=["POST"])
 def ask_llm_question() -> Response:
     """
     Ask a question to the Language Learning Model (LLM) service.

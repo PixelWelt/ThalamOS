@@ -535,6 +535,27 @@ hr {
     margin-left: 0;
     margin-right: auto;
 }
+.llm-result{
+    list-style-type: none;
+    margin: 0.5em;
+}
+.llm-result a{
+    color: white;
+    border: none;
+    padding: 0.3vh;
+    border-radius: 4px;
+    font-size: 1.2vh;
+    background-color: var(--accent-purple);
+    cursor: pointer;
+    height: 2.8em;
+    display: flex;
+    align-items: center;
+    margin-left: 0.5em;
+    animation-timing-function: ease-out;
+    animation-duration: 150ms;
+    text-decoration: none;
+}
+
 
 @keyframes fadeIn {
     from {
