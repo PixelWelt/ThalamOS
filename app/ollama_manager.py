@@ -66,6 +66,7 @@ prompt_instance = PromptBuilder(
 10. **Ensure the query returns the entire row of the matched item**.
 11. **Ensure the SQL syntax is correct and valid for SQLite**.
 12. **The possible values for the `type` column are: `screw`, `nail`, `display`, `cable`, `misc`, `motor-driver`**. These types are case-sensitive.
+13. Always take other columns then info into account when answering the question. For example name or type.
 
 
 **Output (only one of the following):**
@@ -101,18 +102,29 @@ class SQLQuery:
 
     @component.output_types(results=List[str], queries=List[str])
     def run(self, queries: List[str]):
+        """
+        Executes the provided SQL queries and returns the results. Tests if the SQL queries are valid before execution.
+
+        Args:
+            queries (List[str]): A list of SQL queries to be executed.
+
+        Returns:
+            dict: A dictionary containing the results of the executed queries and the original queries.
+        """
         results = []
         for query in queries:
             try:
-                sqlparse.parse(query)
                 print(f"query: {query}")
                 result = pd.read_sql(query, self.connection).to_json(orient="records")
                 results.append(result)
-            except Exception as e:
+            except ValueError as e:
                 logger.error(f"Error parsing SQL query: {e}")
                 return {"results": ["error"], "queries": queries}
 
         return {"results": results, "queries": queries}
+
+    def __str__(self):
+        return "<SQLQuery Object>"
 
 
 def setup_ollama():
@@ -265,7 +277,7 @@ def ask_question(msg):
             f"llm answered with the following SQL query: {result} with type {type(result)}"
         )
         return "Item", result
-    elif "fallback_llm" in result:
+    if "fallback_llm" in result:
         result = result["fallback_llm"]["replies"][0]
         logger.info(
             f"llm answered with the following fallback: {result} with type {type(result)}"
