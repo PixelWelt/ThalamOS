@@ -102,15 +102,15 @@ $(function(){initNavTree('dockerfile_source.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">dockerfile</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="dockerfile.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>FROM python:3.11-slim</div>
+<a href="dockerfile.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>FROM python:3.11-alpine</div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span>WORKDIR /app</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>COPY /app/requirements.txt /app/</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>RUN pip install --no-cache-dir -r requirements.txt</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>COPY . /app</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>RUN pip install python-dotenv</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>COPY pyproject.toml /app/</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>COPY poetry.lock /app/</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>RUN pip install poetry &amp;&amp; poetry install --no-root</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>COPY ./app /app</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>EXPOSE 8000</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>CMD cd app ; gunicorn --bind 0.0.0.0:8000 app:app</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>CMD poetry run gunicorn --bind 0.0.0.0:8000 app:app</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

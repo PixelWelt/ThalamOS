@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['features_0',['Features',['../index.html#autotoc_md2',1,'']]],
-  ['fetch_5fcsv_1',['fetch_csv',['../namespaceStorageConnector.html#a404b4db50f962d9327e6e2be09347dc9',1,'StorageConnector']]],
-  ['fetch_5fitem_2',['fetch_item',['../namespaceStorageConnector.html#a42024776518aec85d7fe4e6f18865405',1,'StorageConnector']]],
-  ['format_3',['format',['../namespacelogger__config.html#ae59712b053dd0e8fdd6b44154b041bc5',1,'logger_config']]],
-  ['from_20docker_20hub_20the_20easy_20way_4',['Pull the latest build from Docker Hub (the easy way)',['../index.html#autotoc_md5',1,'']]]
+  ['easy_20way_0',['Pull the latest build from Docker Hub (the easy way)',['../index.html#autotoc_md5',1,'']]],
+  ['enforcement_1',['Enforcement',['../md_CODE__OF__CONDUCT.html#autotoc_md22',1,'']]],
+  ['enforcement_20guidelines_2',['Enforcement Guidelines',['../md_CODE__OF__CONDUCT.html#autotoc_md23',1,'']]],
+  ['enforcement_20responsibilities_3',['Enforcement Responsibilities',['../md_CODE__OF__CONDUCT.html#autotoc_md20',1,'']]],
+  ['env_5fpath_4',['ENV_PATH',['../namespaceollama__manager.html#ab39c0fd95bb6bd99ff9b9087b7939638',1,'ollama_manager.ENV_PATH'],['../namespaceweigh__fi__manager.html#ada975b9fd65e72a30eb47c41f354cef3',1,'weigh_fi_manager.ENV_PATH'],['../namespacewled__requests.html#a14caea6a648c19dfe6a098c889126d0c',1,'wled_requests.ENV_PATH']]],
+  ['etymology_5',['Etymology',['../index.html#autotoc_md1',1,'']]]
 ];

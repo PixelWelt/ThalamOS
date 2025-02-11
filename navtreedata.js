@@ -34,30 +34,37 @@ var NAVTREE =
         [ "Build it yourself", "index.html#autotoc_md6", null ]
       ] ],
       [ "Usage", "index.html#autotoc_md7", null ],
-      [ "Images", "index.html#autotoc_md8", null ],
-      [ "Contributing", "index.html#autotoc_md9", null ],
-      [ "License", "index.html#autotoc_md10", null ],
-      [ "Contact", "index.html#autotoc_md11", null ]
+      [ "optional Modules", "index.html#autotoc_md8", [
+        [ "Weighfi - Where pounds meet packets", "index.html#autotoc_md9", [
+          [ "To-Dos", "index.html#autotoc_md10", null ]
+        ] ],
+        [ "ThalamOS AI assistant", "index.html#autotoc_md11", null ],
+        [ "To-Dos", "index.html#autotoc_md12", null ]
+      ] ],
+      [ "Images", "index.html#autotoc_md13", null ],
+      [ "Contributing", "index.html#autotoc_md14", null ],
+      [ "License", "index.html#autotoc_md15", null ],
+      [ "Contact", "index.html#autotoc_md16", null ]
     ] ],
     [ "Contributor Covenant Code of Conduct", "md_CODE__OF__CONDUCT.html", [
-      [ "Our Pledge", "md_CODE__OF__CONDUCT.html#autotoc_md13", null ],
-      [ "Our Standards", "md_CODE__OF__CONDUCT.html#autotoc_md14", null ],
-      [ "Enforcement Responsibilities", "md_CODE__OF__CONDUCT.html#autotoc_md15", null ],
-      [ "Scope", "md_CODE__OF__CONDUCT.html#autotoc_md16", null ],
-      [ "Enforcement", "md_CODE__OF__CONDUCT.html#autotoc_md17", null ],
-      [ "Enforcement Guidelines", "md_CODE__OF__CONDUCT.html#autotoc_md18", [
-        [ "Correction", "md_CODE__OF__CONDUCT.html#autotoc_md19", null ],
-        [ "Warning", "md_CODE__OF__CONDUCT.html#autotoc_md20", null ],
-        [ "Temporary Ban", "md_CODE__OF__CONDUCT.html#autotoc_md21", null ],
-        [ "Permanent Ban", "md_CODE__OF__CONDUCT.html#autotoc_md22", null ]
+      [ "Our Pledge", "md_CODE__OF__CONDUCT.html#autotoc_md18", null ],
+      [ "Our Standards", "md_CODE__OF__CONDUCT.html#autotoc_md19", null ],
+      [ "Enforcement Responsibilities", "md_CODE__OF__CONDUCT.html#autotoc_md20", null ],
+      [ "Scope", "md_CODE__OF__CONDUCT.html#autotoc_md21", null ],
+      [ "Enforcement", "md_CODE__OF__CONDUCT.html#autotoc_md22", null ],
+      [ "Enforcement Guidelines", "md_CODE__OF__CONDUCT.html#autotoc_md23", [
+        [ "Correction", "md_CODE__OF__CONDUCT.html#autotoc_md24", null ],
+        [ "Warning", "md_CODE__OF__CONDUCT.html#autotoc_md25", null ],
+        [ "Temporary Ban", "md_CODE__OF__CONDUCT.html#autotoc_md26", null ],
+        [ "Permanent Ban", "md_CODE__OF__CONDUCT.html#autotoc_md27", null ]
       ] ],
-      [ "Attribution", "md_CODE__OF__CONDUCT.html#autotoc_md23", null ]
+      [ "Attribution", "md_CODE__OF__CONDUCT.html#autotoc_md28", null ]
     ] ],
     [ "Security Policy", "md_SECURITY.html", [
-      [ "Supported Versions", "md_SECURITY.html#autotoc_md25", null ],
-      [ "Reporting a Vulnerability", "md_SECURITY.html#autotoc_md26", null ],
-      [ "Scope", "md_SECURITY.html#autotoc_md27", null ],
-      [ "Acknowledgements", "md_SECURITY.html#autotoc_md28", null ]
+      [ "Supported Versions", "md_SECURITY.html#autotoc_md30", null ],
+      [ "Reporting a Vulnerability", "md_SECURITY.html#autotoc_md31", null ],
+      [ "Scope", "md_SECURITY.html#autotoc_md32", null ],
+      [ "Acknowledgements", "md_SECURITY.html#autotoc_md33", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -65,6 +72,15 @@ var NAVTREE =
         [ "All", "namespacemembers.html", null ],
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ]
+      ] ]
+    ] ],
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [

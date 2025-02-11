@@ -1,27 +1,32 @@
 var namespaces_dup =
 [
     [ "app", "namespaceapp.html", [
+      [ "ask_llm_question", "namespaceapp.html#a0b15fbe58e2fafaf1fffc0c31ad9e987", null ],
       [ "create_item", "namespaceapp.html#a72b62fd84b2007fecb090a6324c8ddfb", null ],
       [ "delete_item", "namespaceapp.html#aab2e0d6db7c9abbb307e8e7910adf3cf", null ],
-      [ "get_env", "namespaceapp.html#a7a0d163720ea17ab9226875a15c49f68", null ],
-      [ "get_weight", "namespaceapp.html#af3119bffd5e5a5c9324900f88a2b6e48", null ],
+      [ "get_env", "namespaceapp.html#aeed88e7e4abcc9201639952b0b200b7f", null ],
+      [ "get_ollama_models", "namespaceapp.html#a6a8f4f80f6f1a78cf8c0ca23268f1bdf", null ],
+      [ "get_weight", "namespaceapp.html#a77e92075c2803714379c102748623660", null ],
       [ "handle_exception", "namespaceapp.html#a16a0596a94a459d734da46538f5b2bdf", null ],
       [ "index", "namespaceapp.html#af4155dae6790c1c78b4fef1eeca11512", null ],
       [ "item", "namespaceapp.html#ace6a8ee6b554f6b29a218b490bfcddd6", null ],
       [ "log_message", "namespaceapp.html#a363580e22c196edbd2a79655b5ac987b", null ],
-      [ "search", "namespaceapp.html#af771b9253e90bd967e18851e5ce76533", null ],
+      [ "search", "namespaceapp.html#a64e658d02e2b51faa355a3cc3986efc8", null ],
       [ "send_creation", "namespaceapp.html#a41417b50ad63e44db304b1fb1feb6961", null ],
       [ "toggle_light", "namespaceapp.html#aaac4e0abbc89b337d90643d472f7c3ad", null ],
+      [ "update_item", "namespaceapp.html#a6192172608981828671397eb62767202", null ],
       [ "app", "namespaceapp.html#a675b4ea702c13dc4b8c05f985a25b496", null ],
       [ "debug", "namespaceapp.html#ab4a362027d4aa3246e0e0f57ebf177b0", null ],
       [ "dotenv_path", "namespaceapp.html#a4f6539932c83e167669e366f14d835e3", null ],
-      [ "ENV_PATH", "namespaceapp.html#a59a3e9e5869641503f3e98da2fd60029", null ],
       [ "host", "namespaceapp.html#a7fa7c11c7474c128736b1d34b15a0d5e", null ],
-      [ "IS_SCALE_ENABLED", "namespaceapp.html#a93e10cd27e9effe557ac2a115dc633c6", null ]
+      [ "IS_SCALE_ENABLED", "namespaceapp.html#ae54b0e557a8ce632533a30d58b35e713", null ]
     ] ],
-    [ "configmanager", "namespaceconfigmanager.html", [
-      [ "get_env", "namespaceconfigmanager.html#ab6d51259707342421d4bca0a8ec08a1b", null ],
-      [ "get_env_variables_from_path", "namespaceconfigmanager.html#a114250285f4eec20ae6db96224d1f176", null ]
+    [ "config_manager", "namespaceconfig__manager.html", [
+      [ "get_env", "namespaceconfig__manager.html#aecf4ba123aecccca95951b75c602497b", null ],
+      [ "get_env_variables_from_path", "namespaceconfig__manager.html#ae64528053ffeaf4fc0ac89c4b906469c", null ],
+      [ "test_get_env_variables_from_path", "namespaceconfig__manager.html#a7cc85735e6f0acf26932327b6bba0b87", null ],
+      [ "test_get_env_variables_from_path_empty_file", "namespaceconfig__manager.html#a43699d09b1f5e825d70b28e2c18e979f", null ],
+      [ "test_get_env_variables_from_path_invalid_format", "namespaceconfig__manager.html#ad0e68baa24d26d0202b4d7ea6818edd5", null ]
     ] ],
     [ "logger_config", "namespacelogger__config.html", [
       [ "compression", "namespacelogger__config.html#ae400b9e96ca6657efec3624b281c0389", null ],
@@ -30,33 +35,35 @@ var namespaces_dup =
       [ "retention", "namespacelogger__config.html#a4eebebff580f96bd8ad9d5ff767001a7", null ],
       [ "rotation", "namespacelogger__config.html#ac3d265b98e49b254a2961cd7ffd3bec6", null ]
     ] ],
-    [ "StorageConnector", "namespaceStorageConnector.html", [
-      [ "create_item", "namespaceStorageConnector.html#a0b9442209d553eab4e8701df8d5ad721", null ],
-      [ "delete_item", "namespaceStorageConnector.html#afbddb5f58d664f5594fae668d9803fdb", null ],
-      [ "fetch_csv", "namespaceStorageConnector.html#a404b4db50f962d9327e6e2be09347dc9", null ],
-      [ "fetch_item", "namespaceStorageConnector.html#a42024776518aec85d7fe4e6f18865405", null ],
-      [ "search", "namespaceStorageConnector.html#a934a4293c0cf678010d321659d0318f2", null ],
-      [ "setup", "namespaceStorageConnector.html#acc62120fe4079d51d19d2b692c488e68", null ],
-      [ "cursor", "namespaceStorageConnector.html#a33b2b05b3f8e1257f109e43df48963e4", null ],
-      [ "db_path", "namespaceStorageConnector.html#a4edea004cd3f68f376ceb42d00d03abe", null ],
-      [ "mydb", "namespaceStorageConnector.html#a8b09df9cec668638ba987957159d823d", null ]
+    [ "ollama_manager", "namespaceollama__manager.html", "namespaceollama__manager" ],
+    [ "Storage_connector", "namespaceStorage__connector.html", [
+      [ "create_item", "namespaceStorage__connector.html#abc8d506980d0690835598342c10b574a", null ],
+      [ "delete_item", "namespaceStorage__connector.html#ac5db0c7074c7f024ca28e501598863c3", null ],
+      [ "fetch_csv", "namespaceStorage__connector.html#ac19bb6ab6e13a6787cdd1595367d61cd", null ],
+      [ "fetch_item", "namespaceStorage__connector.html#ac9ef5fceb894ceceab4ab8ff2c23c90b", null ],
+      [ "search", "namespaceStorage__connector.html#ab5389b4171d60c4f986084f96fba404d", null ],
+      [ "setup", "namespaceStorage__connector.html#aafa8ffb7809aa3ef44ee89855067eef4", null ],
+      [ "update_item", "namespaceStorage__connector.html#ae944c67f73d1d668f527caa990370f96", null ],
+      [ "cursor", "namespaceStorage__connector.html#ae8bee1147588222d4166cc6172aedf86", null ],
+      [ "db_path", "namespaceStorage__connector.html#a4c76998b33297de804b47714a32986b0", null ],
+      [ "mydb", "namespaceStorage__connector.html#acb7beadb7474977c5afbede5eedc2ba2", null ]
     ] ],
-    [ "wifiscalemanager", "namespacewifiscalemanager.html", [
-      [ "get_weight", "namespacewifiscalemanager.html#a4ee83ec56cb14a0009fdd27b5bdaf491", null ],
-      [ "dotenv_path", "namespacewifiscalemanager.html#a0fb988bfbf357de39654c5c38f2444b5", null ],
-      [ "ENV_PATH", "namespacewifiscalemanager.html#adb64a19df1f9884d711be5748c465fe2", null ],
-      [ "SCALE_HOST", "namespacewifiscalemanager.html#a730dc51e8d9d50a18736bece69a5b092", null ]
+    [ "weigh_fi_manager", "namespaceweigh__fi__manager.html", [
+      [ "get_weight", "namespaceweigh__fi__manager.html#a8c9d016cf84c30fb61eae2b3558d32fa", null ],
+      [ "dotenv_path", "namespaceweigh__fi__manager.html#a362a0477c84704a3216e116aefbb84d1", null ],
+      [ "ENV_PATH", "namespaceweigh__fi__manager.html#ada975b9fd65e72a30eb47c41f354cef3", null ],
+      [ "SCALE_HOST", "namespaceweigh__fi__manager.html#a2d0d4ed354c122076da8b95b73df9633", null ]
     ] ],
-    [ "wledRequests", "namespacewledRequests.html", [
-      [ "change_power_state", "namespacewledRequests.html#a3d1ba3a4e73218c9dad41c86e7bcd4c0", null ],
-      [ "color_pos", "namespacewledRequests.html#a001686a28ed69e913e6a02c27271ef52", null ],
-      [ "get_power_state", "namespacewledRequests.html#a9a8c23220f01be5c75b1b3f20651fc56", null ],
-      [ "load_default_state", "namespacewledRequests.html#a04cc644700c94d37123dfaf7ddb24dd8", null ],
-      [ "turn_off_lights", "namespacewledRequests.html#a6d0314f78ea2cfd64014c01c2a77d58e", null ],
-      [ "API", "namespacewledRequests.html#a4b072c3b668ea763692fb177771fccc7", null ],
-      [ "dotenv_path", "namespacewledRequests.html#a73365ea634beb4274c628766418eb048", null ],
-      [ "ENV_PATH", "namespacewledRequests.html#aebdcefdfbc8bcaa52f0d62144dabc45b", null ],
-      [ "WLED_HOST", "namespacewledRequests.html#a7cf56d4c91adb698121ddc9c130bcf52", null ]
+    [ "wled_requests", "namespacewled__requests.html", [
+      [ "change_power_state", "namespacewled__requests.html#a4f0df23e4a6b61257c29db6968d45790", null ],
+      [ "color_pos", "namespacewled__requests.html#af22fdc60671a77f5e14ee545207222eb", null ],
+      [ "get_power_state", "namespacewled__requests.html#a2f5bf7ec6957d74f1ea0646d54e6165d", null ],
+      [ "load_default_state", "namespacewled__requests.html#a2970bfb2890165c0b76968aac3608dc4", null ],
+      [ "turn_off_lights", "namespacewled__requests.html#a64872eb0fc99b67bde9595110e70024a", null ],
+      [ "API", "namespacewled__requests.html#a70864bc0ba9a39dd646dd77f7b6acf15", null ],
+      [ "dotenv_path", "namespacewled__requests.html#a776347ab5cb12f3c388c106e674a5eb4", null ],
+      [ "ENV_PATH", "namespacewled__requests.html#a14caea6a648c19dfe6a098c889126d0c", null ],
+      [ "WLED_HOST", "namespacewled__requests.html#aae6b40d4c8903fea1942fa4e46e9ab82", null ]
     ] ],
     [ "wsgi", "namespacewsgi.html", null ]
 ];

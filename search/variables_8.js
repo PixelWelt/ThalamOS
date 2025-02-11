@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mydb_0',['mydb',['../namespaceStorageConnector.html#a8b09df9cec668638ba987957159d823d',1,'StorageConnector']]]
+  ['level_0',['level',['../namespacelogger__config.html#a7bffe4923ecb0351456006a2651daa4b',1,'logger_config']]]
 ];

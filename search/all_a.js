@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['get_5fenv_0',['get_env',['../namespaceapp.html#a7a0d163720ea17ab9226875a15c49f68',1,'app.get_env()'],['../namespaceconfigmanager.html#ab6d51259707342421d4bca0a8ec08a1b',1,'configmanager.get_env()']]],
-  ['get_5fenv_5fvariables_5ffrom_5fpath_1',['get_env_variables_from_path',['../namespaceconfigmanager.html#a114250285f4eec20ae6db96224d1f176',1,'configmanager']]],
-  ['get_5fpower_5fstate_2',['get_power_state',['../namespacewledRequests.html#a9a8c23220f01be5c75b1b3f20651fc56',1,'wledRequests']]],
-  ['get_5fweight_3',['get_weight',['../namespaceapp.html#af3119bffd5e5a5c9324900f88a2b6e48',1,'app.get_weight()'],['../namespacewifiscalemanager.html#a4ee83ec56cb14a0009fdd27b5bdaf491',1,'wifiscalemanager.get_weight()']]],
-  ['guidelines_4',['Enforcement Guidelines',['../md_CODE__OF__CONDUCT.html#autotoc_md18',1,'']]]
+  ['fallback_5fprompt_5finstance_0',['fallback_prompt_instance',['../namespaceollama__manager.html#a215dd9055ead2988932ee6d9759e7a36',1,'ollama_manager']]],
+  ['features_1',['Features',['../index.html#autotoc_md2',1,'']]],
+  ['fetch_5fcsv_2',['fetch_csv',['../namespaceStorage__connector.html#ac19bb6ab6e13a6787cdd1595367d61cd',1,'Storage_connector']]],
+  ['fetch_5fitem_3',['fetch_item',['../namespaceStorage__connector.html#ac9ef5fceb894ceceab4ab8ff2c23c90b',1,'Storage_connector']]],
+  ['format_4',['format',['../namespacelogger__config.html#ae59712b053dd0e8fdd6b44154b041bc5',1,'logger_config']]],
+  ['from_20docker_20hub_20the_20easy_20way_5',['Pull the latest build from Docker Hub (the easy way)',['../index.html#autotoc_md5',1,'']]]
 ];

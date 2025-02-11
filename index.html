@@ -141,7 +141,7 @@ Pull the latest build from Docker Hub (the easy way)</h3>
 <div class="line">           ports:</div>
 <div class="line">           - <span class="stringliteral">&quot;8000:8000&quot;</span></div>
 <div class="line">           volumes:</div>
-<div class="line">           - ./data:/<a class="code hl_namespace" href="namespaceapp.html">app</a>/<a class="code hl_namespace" href="namespaceapp.html">app</a>/data </div>
+<div class="line">           - ./data:/<a class="code hl_namespace" href="namespaceapp.html">app</a>/<a class="code hl_namespace" href="namespaceapp.html">app</a>/data</div>
 <div class="ttc" id="anamespaceapp_html"><div class="ttname"><a href="namespaceapp.html">app</a></div><div class="ttdef"><b>Definition</b> <a href="app_8py_source.html#l00001">app.py:1</a></div></div>
 </div><!-- fragment --></li>
 <li>Start the service <div class="fragment"><div class="line">docker-compose up</div>
@@ -179,16 +179,57 @@ Usage</h2>
 <li>Use the search functionality to find items and see their location light up on your storage shelf.</li>
 </ol>
 <h2><a class="anchor" id="autotoc_md8"></a>
+optional Modules</h2>
+<h3><a class="anchor" id="autotoc_md9"></a>
+Weighfi - Where pounds meet packets</h3>
+<p>Weigh-fi is a WiFi-enabled scale with API access, allowing users to easily add weight measurements when using ThalamOS. To enable it:</p>
+<ol type="1">
+<li>Add the IP address of your Weigh-fi device to the <code>.env</code> file.</li>
+<li>Read more about how to build your own Weigh-fi device <a href="https://github.com/PixelWelt/Weigh-fi">here</a>.</li>
+</ol>
+<h4><a class="anchor" id="autotoc_md10"></a>
+To-Dos</h4>
+<ul class="check">
+<li class="checked">Implement software</li>
+<li class="unchecked">Create a 3D model</li>
+</ul>
+<ul class="check">
+<li class="unchecked">Create a working PCB</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md11"></a>
+ThalamOS AI assistant</h3>
+<p>Why should I use AI in my storage management? - Because you can! The ThalamOS AI assistant helps you manage your storage more efficiently. It uses Retrieval-Augmented Generation (RAG) to access your database in read-only mode, helping you find your items faster. It can also answer simple questions.</p>
+<p><b>Note:</b> The AI assistant is still in development and may not work as expected. Deepseek Models are not yet supported.</p>
+<p>To enable the ThalamOS AI assistant:</p><ol type="1">
+<li>Enable it in the <code>.env</code> file.</li>
+<li>Add the IP address of your Ollama Server.</li>
+</ol>
+<p>Framework: <a href="https://github.com/deepset-ai/haystack">Haystack</a></p>
+<p>The specific pipeline steps are shown in the picture below: <img src="pipeline.png" alt="" class="inline" title="pipeline"/>    </p>
+<p><img src="ai-demo.png" alt="" class="inline" title="ai-demo"/>    </p>
+<h3><a class="anchor" id="autotoc_md12"></a>
+To-Dos</h3>
+<ul class="check">
+<li class="checked">Implement basic ai usage</li>
+<li class="unchecked">Implement Deepseek Models</li>
+</ul>
+<ul class="check">
+<li class="unchecked">Improve pipeline to prevent errors from happening</li>
+</ul>
+<ul class="check">
+<li class="unchecked">make the AI even smarter, by adding more context</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Images</h2>
 <p><img src="home-page.png" alt="" class="inline" title="home page"/>    </p>
-<p><img src="createItem.png" alt="" class="inline" title="create Item page"/>    </p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<p><img src="createItem.png" alt="" class="inline" title="createItem.png"/>    </p>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Contributing</h2>
 <p>Contributions are welcome! Please fork the repository and submit a pull request.</p>
-<h2><a class="anchor" id="autotoc_md10"></a>
+<h2><a class="anchor" id="autotoc_md15"></a>
 License</h2>
 <p>This project is licensed under the MIT License.</p>
-<h2><a class="anchor" id="autotoc_md11"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Contact</h2>
 <p>For any questions or suggestions, please open an issue or contact the repository owner. </p>
 </div></div><!-- PageDoc -->

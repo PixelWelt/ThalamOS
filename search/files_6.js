@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['wifiscalemanager_2epy_0',['wifiscalemanager.py',['../wifiscalemanager_8py.html',1,'']]],
-  ['wledrequests_2epy_1',['wledRequests.py',['../wledRequests_8py.html',1,'']]],
-  ['wsgi_2epy_2',['wsgi.py',['../wsgi_8py.html',1,'']]]
+  ['security_2emd_0',['SECURITY.md',['../SECURITY_8md.html',1,'']]],
+  ['storage_5fconnector_2epy_1',['Storage_connector.py',['../Storage__connector_8py.html',1,'']]]
 ];

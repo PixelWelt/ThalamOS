@@ -1,9 +1,14 @@
 var searchData=
 [
-  ['easy_20way_0',['Pull the latest build from Docker Hub (the easy way)',['../index.html#autotoc_md5',1,'']]],
-  ['enforcement_1',['Enforcement',['../md_CODE__OF__CONDUCT.html#autotoc_md17',1,'']]],
-  ['enforcement_20guidelines_2',['Enforcement Guidelines',['../md_CODE__OF__CONDUCT.html#autotoc_md18',1,'']]],
-  ['enforcement_20responsibilities_3',['Enforcement Responsibilities',['../md_CODE__OF__CONDUCT.html#autotoc_md15',1,'']]],
-  ['env_5fpath_4',['ENV_PATH',['../namespaceapp.html#a59a3e9e5869641503f3e98da2fd60029',1,'app.ENV_PATH'],['../namespacewifiscalemanager.html#adb64a19df1f9884d711be5748c465fe2',1,'wifiscalemanager.ENV_PATH'],['../namespacewledRequests.html#aebdcefdfbc8bcaa52f0d62144dabc45b',1,'wledRequests.ENV_PATH']]],
-  ['etymology_5',['Etymology',['../index.html#autotoc_md1',1,'']]]
+  ['database_5fpath_0',['DATABASE_PATH',['../namespaceollama__manager.html#a4c12c554c512fda578605bb5f8ff7653',1,'ollama_manager']]],
+  ['db_5fpath_1',['db_path',['../namespaceStorage__connector.html#a4c76998b33297de804b47714a32986b0',1,'Storage_connector']]],
+  ['debug_2',['debug',['../namespaceapp.html#ab4a362027d4aa3246e0e0f57ebf177b0',1,'app']]],
+  ['default_5fmodel_3',['default_model',['../namespaceollama__manager.html#af934a2cc43a02219b2d31f92c839c48b',1,'ollama_manager']]],
+  ['delete_5fitem_4',['delete_item',['../namespaceapp.html#aab2e0d6db7c9abbb307e8e7910adf3cf',1,'app.delete_item()'],['../namespaceStorage__connector.html#ac5db0c7074c7f024ca28e501598863c3',1,'Storage_connector.delete_item()']]],
+  ['docker_20hub_20the_20easy_20way_5',['Pull the latest build from Docker Hub (the easy way)',['../index.html#autotoc_md5',1,'']]],
+  ['docker_2dcompose_2eyml_6',['docker-compose.yml',['../docker-compose_8yml.html',1,'']]],
+  ['dockerfile_7',['dockerfile',['../dockerfile.html',1,'']]],
+  ['documentation_8',['Documentation',['../index.html#autotoc_md3',1,'']]],
+  ['dos_9',['Dos',['../index.html#autotoc_md10',1,'To-Dos'],['../index.html#autotoc_md12',1,'To-Dos']]],
+  ['dotenv_5fpath_10',['dotenv_path',['../namespaceapp.html#a4f6539932c83e167669e366f14d835e3',1,'app.dotenv_path'],['../namespaceollama__manager.html#af3ce864d26b1a11dc4c0994c1f036fbe',1,'ollama_manager.dotenv_path'],['../namespaceweigh__fi__manager.html#a362a0477c84704a3216e116aefbb84d1',1,'weigh_fi_manager.dotenv_path'],['../namespacewled__requests.html#a776347ab5cb12f3c388c106e674a5eb4',1,'wled_requests.dotenv_path']]]
 ];

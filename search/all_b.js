@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['handle_5fexception_0',['handle_exception',['../namespaceapp.html#a16a0596a94a459d734da46538f5b2bdf',1,'app']]],
-  ['host_1',['host',['../namespaceapp.html#a7fa7c11c7474c128736b1d34b15a0d5e',1,'app']]],
-  ['hub_20the_20easy_20way_2',['Pull the latest build from Docker Hub (the easy way)',['../index.html#autotoc_md5',1,'']]]
+  ['get_5fenv_0',['get_env',['../namespaceapp.html#aeed88e7e4abcc9201639952b0b200b7f',1,'app.get_env()'],['../namespaceconfig__manager.html#aecf4ba123aecccca95951b75c602497b',1,'config_manager.get_env()']]],
+  ['get_5fenv_5fvariables_5ffrom_5fpath_1',['get_env_variables_from_path',['../namespaceconfig__manager.html#ae64528053ffeaf4fc0ac89c4b906469c',1,'config_manager']]],
+  ['get_5follama_5fmodels_2',['get_ollama_models',['../namespaceapp.html#a6a8f4f80f6f1a78cf8c0ca23268f1bdf',1,'app.get_ollama_models()'],['../namespaceollama__manager.html#a89cb339749acf82be8db2c7710593d44',1,'ollama_manager.get_ollama_models()']]],
+  ['get_5fpower_5fstate_3',['get_power_state',['../namespacewled__requests.html#a2f5bf7ec6957d74f1ea0646d54e6165d',1,'wled_requests']]],
+  ['get_5fweight_4',['get_weight',['../namespaceapp.html#a77e92075c2803714379c102748623660',1,'app.get_weight()'],['../namespaceweigh__fi__manager.html#a8c9d016cf84c30fb61eae2b3558d32fa',1,'weigh_fi_manager.get_weight()']]],
+  ['global_5fpipeline_5',['global_Pipeline',['../namespaceollama__manager.html#a0afc3524f40250103df93359bd2ce285',1,'ollama_manager']]],
+  ['guidelines_6',['Enforcement Guidelines',['../md_CODE__OF__CONDUCT.html#autotoc_md23',1,'']]]
 ];

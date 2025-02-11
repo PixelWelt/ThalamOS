@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['delete_5fitem_0',['delete_item',['../namespaceapp.html#aab2e0d6db7c9abbb307e8e7910adf3cf',1,'app.delete_item()'],['../namespaceStorageConnector.html#afbddb5f58d664f5594fae668d9803fdb',1,'StorageConnector.delete_item()']]]
+  ['ask_5fllm_5fquestion_0',['ask_llm_question',['../namespaceapp.html#a0b15fbe58e2fafaf1fffc0c31ad9e987',1,'app']]],
+  ['ask_5fquestion_1',['ask_question',['../namespaceollama__manager.html#a079cb3e7ecee72277a50fa86e8df1ffb',1,'ollama_manager']]]
 ];

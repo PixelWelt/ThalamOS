@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['toggle_5flight_0',['toggle_light',['../namespaceapp.html#aaac4e0abbc89b337d90643d472f7c3ad',1,'app']]],
-  ['turn_5foff_5flights_1',['turn_off_lights',['../namespacewledRequests.html#a6d0314f78ea2cfd64014c01c2a77d58e',1,'wledRequests']]]
+  ['load_5fdefault_5fstate_0',['load_default_state',['../namespacewled__requests.html#a2970bfb2890165c0b76968aac3608dc4',1,'wled_requests']]],
+  ['log_5fmessage_1',['log_message',['../namespaceapp.html#a363580e22c196edbd2a79655b5ac987b',1,'app']]]
 ];

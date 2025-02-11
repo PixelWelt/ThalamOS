@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['handle_5fexception_0',['handle_exception',['../namespaceapp.html#a16a0596a94a459d734da46538f5b2bdf',1,'app']]]
+  ['fetch_5fcsv_0',['fetch_csv',['../namespaceStorage__connector.html#ac19bb6ab6e13a6787cdd1595367d61cd',1,'Storage_connector']]],
+  ['fetch_5fitem_1',['fetch_item',['../namespaceStorage__connector.html#ac9ef5fceb894ceceab4ab8ff2c23c90b',1,'Storage_connector']]]
 ];

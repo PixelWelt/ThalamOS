@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['env_5fpath_0',['ENV_PATH',['../namespaceapp.html#a59a3e9e5869641503f3e98da2fd60029',1,'app.ENV_PATH'],['../namespacewifiscalemanager.html#adb64a19df1f9884d711be5748c465fe2',1,'wifiscalemanager.ENV_PATH'],['../namespacewledRequests.html#aebdcefdfbc8bcaa52f0d62144dabc45b',1,'wledRequests.ENV_PATH']]]
+  ['env_5fpath_0',['ENV_PATH',['../namespaceollama__manager.html#ab39c0fd95bb6bd99ff9b9087b7939638',1,'ollama_manager.ENV_PATH'],['../namespaceweigh__fi__manager.html#ada975b9fd65e72a30eb47c41f354cef3',1,'weigh_fi_manager.ENV_PATH'],['../namespacewled__requests.html#a14caea6a648c19dfe6a098c889126d0c',1,'wled_requests.ENV_PATH']]]
 ];
