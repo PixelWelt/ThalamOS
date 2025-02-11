@@ -1,7 +1,7 @@
 """
 wifiscalemanager.py
 
-This module provides functionality to interact with a WiFi-enabled scale. 
+This module provides functionality to interact with a WiFi-enabled scale.
 It retrieves the weight from the scale by sending a GET request to the specified API endpoint.
 
 Functions:
@@ -23,11 +23,15 @@ from dotenv import load_dotenv
 from logger_config import logger
 
 
-ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(os.path.dirname(__file__), 'data/.env')
+ENV_PATH: Annotated[str, "path to environment variables"] = os.path.join(
+    os.path.dirname(__file__), "data/.env"
+)
 load_dotenv(dotenv_path=ENV_PATH)
 
-SCALE_HOST: Annotated[str, "environment variable for wifi scale address"] = os.getenv("SCALE_HOST")
-logger.info(f'WifiScale host is: {SCALE_HOST}')
+SCALE_HOST: Annotated[str, "environment variable for wifi scale address"] = os.getenv(
+    "SCALE_HOST"
+)
+logger.info(f"WifiScale host is: {SCALE_HOST}")
 
 
 def get_weight() -> Annotated[float, "weight in grams"]:
@@ -45,5 +49,5 @@ def get_weight() -> Annotated[float, "weight in grams"]:
     except requests.RequestException as e:
         logger.error(f"Error retrieving weight: {e}")
         return "ERROR SCALE NOT FOUND"
-    weight = response.content.decode('utf-8')
+    weight = response.content.decode("utf-8")
     return weight

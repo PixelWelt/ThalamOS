@@ -12,9 +12,11 @@ Usage:
 """
 from loguru import logger
 
-logger.add("storagemanager.log",
-           format="{time} {level} {message}",
-           level="INFO",
-           rotation="10 MB",
-           compression="zip",
-           retention="2 days")
+logger.add(
+    "storagemanager.log",
+    format="{time} {level} {message}",
+    level="INFO",
+    rotation="10 MB",
+    compression="zip",
+    retention="2 days",
+)

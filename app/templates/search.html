@@ -6,17 +6,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    <link rel="manifest" href="/static/site.webmanifest">
     <title>ThalamOS</title>
 </head>
 <body class="home">
     <header>
         <div class="logo-container">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
-                <path d="M8.33331 43.75V18.75L25 6.25L41.6666 18.75V43.75H37.5V20.8333L25 11.4583L12.5 20.8333V43.75H8.33331ZM18.75 39.5833H31.25V35.4167H18.75V39.5833ZM18.75 31.25H31.25V27.0833H18.75V31.25ZM14.5833 43.75V22.9167H35.4166V43.75H14.5833Z" fill="#2A9D8F"/>
+                <path d="M8.33331 43.75V18.75L25 6.25L41.6666 18.75V43.75H37.5V20.8333L25 11.4583L12.5 20.8333V43.75H8.33331ZM18.75 39.5833H31.25V35.4167H18.75V39.5833ZM18.75 31.25H31.25V27.0833H18.75V31.25ZM14.5833 43.75V22.9167H35.4166V43.75H14.5833Z" fill="#ffffff"/>
             </svg>
             <span>
-                ThalamOS
+                Thalam
             </span>
+            <span class="logo-os">OS</span>
         </div>
     </header>
     <main>
@@ -41,7 +46,7 @@
                   </svg>
                   Power On/Off
             </a>
-            <a href="/createItem" class="btn item"> 
+            <a href="/createItem" class="btn item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="36" viewBox="0 0 35 36" fill="none">
                     <g clip-path="url(#clip0_1_62)">
                     <path d="M7.29167 31.125C6.48958 31.125 5.80295 30.8394 5.23177 30.2682C4.66059 29.697 4.375 29.0104 4.375 28.2083V13.625C4.375 12.8229 4.66059 12.1363 5.23177 11.5651C5.80295 10.9939 6.48958 10.7083 7.29167 10.7083H13.125V13.625H7.29167V28.2083H27.7083V13.625H21.875V10.7083H27.7083C28.5104 10.7083 29.197 10.9939 29.7682 11.5651C30.3394 12.1363 30.625 12.8229 30.625 13.625V28.2083C30.625 29.0104 30.3394 29.697 29.7682 30.2682C29.197 30.8394 28.5104 31.125 27.7083 31.125H7.29167ZM17.5 23.8333L11.6667 18L13.7083 15.9583L16.0417 18.2552V0.5H18.9583V18.2552L21.2917 15.9583L23.3333 18L17.5 23.8333Z" fill="white"/>
@@ -55,7 +60,7 @@
                 neues Item erstellen
             </a>
         </div>
-        
+
 
         <div class="searchbar">
             <label>
@@ -63,98 +68,113 @@
                     <path d="M27.6667 30L17.1667 19.5C16.3333 20.1667 15.375 20.6944 14.2917 21.0833C13.2083 21.4722 12.0556 21.6667 10.8333 21.6667C7.80556 21.6667 5.24306 20.6181 3.14583 18.5208C1.04861 16.4236 0 13.8611 0 10.8333C0 7.80556 1.04861 5.24306 3.14583 3.14583C5.24306 1.04861 7.80556 0 10.8333 0C13.8611 0 16.4236 1.04861 18.5208 3.14583C20.6181 5.24306 21.6667 7.80556 21.6667 10.8333C21.6667 12.0556 21.4722 13.2083 21.0833 14.2917C20.6944 15.375 20.1667 16.3333 19.5 17.1667L30 27.6667L27.6667 30ZM10.8333 18.3333C12.9167 18.3333 14.6875 17.6042 16.1458 16.1458C17.6042 14.6875 18.3333 12.9167 18.3333 10.8333C18.3333 8.75 17.6042 6.97917 16.1458 5.52083C14.6875 4.0625 12.9167 3.33333 10.8333 3.33333C8.75 3.33333 6.97917 4.0625 5.52083 5.52083C4.0625 6.97917 3.33333 8.75 3.33333 10.8333C3.33333 12.9167 4.0625 14.6875 5.52083 16.1458C6.97917 17.6042 8.75 18.3333 10.8333 18.3333Z" fill="white"/>
                 </svg>
                 <input id="search" type="text" placeholder="Was suchst du?" name="query" oninput="Search()">
-            </label> 
+            </label>
         </div>
         <div id="results">
         </div>
     </main>
-    
-    
+
+    <div id="chat-icon" onclick="openChat()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M323-160q-11 0-20.5-5.5T288-181l-78-139h58l40 80h92v-40h-68l-40-80H188l-57-100q-2-5-3.5-10t-1.5-10q0-4 5-20l57-100h104l40-80h68v-40h-92l-40 80h-58l78-139q5-10 14.5-15.5T323-800h97q17 0 28.5 11.5T460-760v160h-60l-40 40h100v120h-88l-40-80h-92l-40 40h108l40 80h112v200q0 17-11.5 28.5T420-160h-97Zm237 0q-33 0-56.5-23.5T480-240q0-23 11-40.5t29-28.5v-342q-18-11-29-28.5T480-720q0-33 23.5-56.5T560-800q33 0 56.5 23.5T640-720q0 23-11 40.5T600-651v101l80-48q0-34 23.5-58t56.5-24q33 0 56.5 23.5T840-600q0 33-23.5 56.5T760-520q-11 0-20.5-2.5T721-530l-91 55 101 80q7-3 14-4t15-1q33 0 56.5 23.5T840-320q0 33-23.5 56.5T760-240q-37 0-60.5-28T681-332l-81-65v89q18 11 28.5 28.5T639-240q0 33-23 56.5T560-160Z" fill="#FFFFFF"/></svg>
+    </div>
+    <div class="chat-popup" id="myForm">
+            <div id="chatbox"></div>
+            <div class="chat-form">
+                <textarea placeholder="Type message.." name="msg" id="msg"></textarea>
+                <button type="submit" class="send-btn green" onclick="sendMessage()" id="chat-send-btn">Send</button>
+            </div>
+
+    </div>
 </body>
+
+<script type="text/javascript" src="/static/logging.js"></script>
+<script type="text/javascript" src="/static/chatbot.js"></script>
 <script>
     const API_URL = window.location.origin;
     resultBox = document.getElementById("results")
 
-    async function sendLog(level, message) {
-        try {
-            await fetch(`${API_URL}/log`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ level: level, message: message })
-            });
-        } catch (error) {
-            console.error('Error sending log:', error);
-        }
-    }
-
-
     async function Search() {
-    resultBox.innerHTML = "";
-    const searchTerm = document.getElementById("search").value;
-    if (searchTerm.length >= 2) {
-        const searchRequest = new Request(`${API_URL}/search/${searchTerm}`, {
-            method: "GET",
-        });
-
-        try {
-            const response = await fetch(searchRequest);
-            const data = await response.json();
-            sendLog("INFO", `recieved the following search response: ${data} with typeof: ${typeof(data)}`);
-        } catch (error) {
-            sendLog("ERROR", `Search request failed: ${error}`);
-            resultBox.innerHTML = "An error occurred while searching. Please try again.";
-            return;
-        }
-        if (data.length === 0) {
-            resultBox.innerHTML = "no results found";
-            return;
-        }
-
-        const table = document.createElement("table");
-        table.className = "resultTable";
-        const tbody = document.createElement("tbody");
-
-        data.forEach(result => {
-            let jsonData = result[4];
-            let info = "";
-
-            // check, if jsonData is a JSON-String
+        resultBox.innerHTML = "";
+        const searchTerm = document.getElementById("search").value;
+        if (searchTerm.length >= 2) {
+            const searchRequest = new Request(`${API_URL}/search/${searchTerm}`, {
+                method: "GET",
+            });
+            let data;
             try {
-                jsonData = JSON.parse(jsonData);
-                Object.keys(jsonData).forEach(key => {
-                    info += `<span class="infoItem"><strong>${key}:</strong> ${jsonData[key]}</span><br/>`;
-                });
-            } catch (e) {
-                sendLog("ERROR", `NOT A JSON-Format: ${jsonData}`);
-                info = `<div class="infoItem">${jsonData}</div>`;
+                const response = await fetch(searchRequest);
+                data = await response.json();
+                sendLog("INFO", `recieved the following search response: ${data} with typeof: ${typeof(data)}`);
+            } catch (error) {
+                sendLog("ERROR", `Search request failed: ${error}`);
+                resultBox.innerHTML = "An error occurred while searching. Please try again.";
+                return;
+            }
+            if (data.length === 0) {
+                resultBox.innerHTML = "no results found";
+                return;
             }
 
-            const row = document.createElement("tr");
+            const table = document.createElement("table");
+            table.className = "resultTable";
+            const tbody = document.createElement("tbody");
 
-            const typeCell = document.createElement("td");
-            typeCell.textContent = " " + result[3]; 
-            row.appendChild(typeCell);
+            data.forEach(result => {
+                let jsonData = result[4];
+                let info = "";
 
-            const detailsCell = document.createElement("td");
-            detailsCell.innerHTML = info; 
-            row.appendChild(detailsCell);
+                // check, if jsonData is a JSON-String
+                try {
+                    jsonData = JSON.parse(jsonData);
+                    Object.keys(jsonData).forEach(key => {
+                        info += `<span class="infoItem"><strong>${key}:</strong> ${jsonData[key]}</span><br/>`;
+                    });
+                } catch (e) {
+                    sendLog("ERROR", `NOT A JSON-Format: ${jsonData}`);
+                    info = `<div class="infoItem">${jsonData}</div>`;
+                }
 
-            const actionCell = document.createElement("td");
-            const linkElement = document.createElement("a");
-            linkElement.className = "showItem";
-            linkElement.href = `/item/${result[0]}`;
-            linkElement.textContent = "Show me";
-            actionCell.appendChild(linkElement);
-            row.appendChild(actionCell);
+                const row = document.createElement("tr");
 
-            tbody.appendChild(row);
-        });
+                const typeCell = document.createElement("td");
+                typeCell.textContent = " " + result[3];
+                row.appendChild(typeCell);
 
-        table.appendChild(tbody);
-        resultBox.appendChild(table); 
+                const detailsCell = document.createElement("td");
+                detailsCell.innerHTML = info;
+                row.appendChild(detailsCell);
+
+                const actionCell = document.createElement("td");
+                const linkElement = document.createElement("a");
+                linkElement.className = "showItem";
+                linkElement.href = `/item/${result[0]}`;
+                linkElement.textContent = "Show me";
+                actionCell.appendChild(linkElement);
+                row.appendChild(actionCell);
+
+                tbody.appendChild(row);
+            });
+
+            table.appendChild(tbody);
+            resultBox.appendChild(table);
+        }
+    }
+
+environment = {};
+
+async function setup() {
+    document.getElementById("chat-icon").style.visibility = "hidden";
+    response = await fetch(`${API_URL}/config/env`)
+    env = await response.json()
+    environment = env;
+    sendLog('info', `Environment: ${JSON.stringify(env)}`);
+    if(env["IS_OLLAMA_ENABLED"]){
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = "/static/chatbot.js";
+            head.appendChild(script);
+            document.getElementById("chat-icon").style.visibility = "visible";
+
     }
 }
-
 </script>

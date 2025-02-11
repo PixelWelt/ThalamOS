@@ -1,10 +1,10 @@
 """
-StorageManager Application
+ThalamOS Application
 
-This module sets up a Flask web application for managing storage items, controlling WLED devices, 
-and interacting with a WiFi scale. It provides various routes for rendering templates, 
-handling item creation, deletion, and search, as well as retrieving environment configurations 
-and scale weight.
+This module sets up a Flask web application for managing storage items, controlling WLED devices,
+interacting with a WiFi scale, and querying an LLM service. It provides various routes for rendering templates,
+handling item creation, deletion, and search, as well as retrieving environment configurations,
+scale weight, and logging messages.
 
 Routes:
     - /: Renders the search page.
@@ -12,10 +12,14 @@ Routes:
     - /createItem: Renders the template for creating a new item.
     - /sendCreation: Handles the creation of a new item by processing the incoming JSON request data.
     - /item/<item_id>: Handles the request to display an item.
-    - /item/<item>/delete: Deletes an item using the StorageConnector and renders the search.html template.
+    - /item/<item_id>/update: Updates an item using the Storage_connector and returns a status message.
+    - /item/<item_id>/delete: Deletes an item using the Storage_connector and renders the search.html template.
     - /search/<term>: Searches for a term in the storage and returns the results in JSON format.
     - /config/env: Retrieves the environment configuration.
+    - /config/ollama/models: Fetches the list of available Ollama models.
     - /wifiscale/weight: Retrieves the weight of the scale.
+    - /llm/ask: Asks a question to the LLM service and returns the response.
+    - /log: Logs a message with a specified log level.
 
 Error Handling:
     - handle_exception: Handles exceptions by passing through HTTP errors.
@@ -23,33 +27,41 @@ Error Handling:
 Setup:
     - Initializes the Flask app and sets up CORS.
     - Loads environment variables from a .env file.
-    - Sets up the StorageConnector within the app context.
+    - Sets up the Storage_connector within the app context.
 
 Usage:
     Run the application using the command `python app.py`.
 """
+
 from typing import Annotated
 import json
 import os
 
-from flask import Flask, request, render_template, jsonify  # pylint: disable=import-error
+from flask import (  # pylint: disable=import-error
+    Flask,
+    request,
+    render_template,
+    jsonify,
+    Response,
+)
 from flask_cors import CORS  # pylint: disable=import-error
 from dotenv import load_dotenv  # pylint: disable=import-error
 
 from logger_config import logger
-import StorageConnector
-import configmanager
-import wifiscalemanager as wifiscale
-import wledRequests
+import Storage_connector
+import config_manager
+import weigh_fi_manager as wifiscale
+import wled_requests
+import ollama_manager as ollama
 
-ENV_PATH = os.path.join(os.path.dirname(__file__), 'data/.env')
+ENV_PATH = os.path.join(os.path.dirname(__file__), "data/.env")
 load_dotenv(dotenv_path=ENV_PATH)
-IS_SCALE_ENABLED = os.getenv("IS_SCALE_ENABLED")
+IS_SCALE_ENABLED = os.getenv("IS_SCALE_ENABLED").lower() == "true"
 app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/')
+@app.route("/")
 def index() -> Annotated[str, "search page as a rendered template"]:
     """
     Renders the search page.
@@ -59,22 +71,22 @@ def index() -> Annotated[str, "search page as a rendered template"]:
     return render_template("search.html")
 
 
-@app.route('/toggleLight')
+@app.route("/toggleLight")
 def toggle_light() -> Annotated[str, "search page as a rendered template"]:
     """
     Toggles the power state of the WLED device and renders the search template.
     This function changes the power state of the WLED device to the opposite of its current state
-    by calling the `changePowerState` method of the `wledRequests` object.
+    by calling the `changePowerState` method of the `wled_requests` object.
     After toggling the power state,
     it returns the rendered "search.html" template.
     Returns:
         str: The rendered "search.html" template.
     """
-    wledRequests.change_power_state(not wledRequests.get_power_state())
+    wled_requests.change_power_state(not wled_requests.get_power_state())
     return render_template("search.html")
 
 
-@app.route('/createItem')
+@app.route("/createItem")
 def create_item() -> Annotated[str, "item creation page as a rendered template"]:
     """
     Renders the template for creating a new item.
@@ -84,7 +96,7 @@ def create_item() -> Annotated[str, "item creation page as a rendered template"]
     return render_template("createItem.html")
 
 
-@app.route('/sendCreation', methods=['POST'])
+@app.route("/sendCreation", methods=["POST"])
 def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
     """
     Handle the creation of a new item by processing the incoming JSON request data.
@@ -96,7 +108,7 @@ def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
         "position": <str>
     }
     It extracts the necessary information from the JSON payload and attempts to create a new item
-    using the StorageConnector.CreateItem method. 
+    using the Storage_connector.CreateItem method.
     If an exception occurs during the creation process,
     it prints the exception.
     Returns:
@@ -106,18 +118,22 @@ def send_creation() -> Annotated[tuple, {"status": str, "status_code": int}]:
     data = request.get_json()
     logger.info(f"Received creation request with data: {data}")
     info = json.dumps(data["info"])
-    typ = data["type"]
+    obj_type = data["type"]
     name = data["name"]
     pos = data["position"]
     try:
-        StorageConnector.create_item(pos=pos, typ=typ, name=name, json_data=info)
+        Storage_connector.create_item(
+            pos=pos, obj_type=obj_type, name=name, json_data=info
+        )
     except Exception as e:
-        logger.error(f"Failed to create item with name: {name}, type: {typ}, position: {pos}. Error: {e}")
+        logger.error(
+            f"Failed to create item with name: {name}, type: {obj_type}, position: {pos}. Error: {e}"
+        )
         return {"status": "error"}, 500
     return {"status": "created"}, 201
 
 
-@app.route('/item/<item_id>')
+@app.route("/item/<item_id>")
 def item(item_id) -> Annotated[str, "item page as a rendered template"]:
     """
     Handles the request to display an item.
@@ -135,9 +151,9 @@ def item(item_id) -> Annotated[str, "item page as a rendered template"]:
     Returns:
         The rendered HTML template for the item.
     """
-    wledRequests.change_power_state(True)
-    item_sql = StorageConnector.fetch_item(item_id)
-    wledRequests.color_pos(item_sql[1])
+    wled_requests.change_power_state(True)
+    item_sql = Storage_connector.fetch_item(item_id)
+    wled_requests.color_pos(item_sql[1])
     logger.info(f"Fetched item details for item_id {item_id}: {item_sql}")
     if item_sql[4]:
         json_info = json.loads(item_sql[4])
@@ -146,22 +162,47 @@ def item(item_id) -> Annotated[str, "item page as a rendered template"]:
     return render_template("item.jinja2", item=item_sql, id=item_id)
 
 
-@app.route('/item/<item>/delete')
+@app.route("/item/<item_id>/update", methods=["POST"])
+def update_item(item_id) -> Annotated[tuple, {"status": str, "status_code": int}]:
+    """
+    Updates an item using the Storage_connector and returns a status message.
+    Args:
+        item_id: The id of the item to be updated.
+    Returns:
+        A dictionary with a status message and an HTTP status code.
+    """
+    data = request.get_json()
+    logger.info(f"Received update request for item_id {item_id} with data: {data}")
+    info = json.dumps(data.get("info", {}))
+    obj_type = data.get("type")
+    name = data.get("name")
+    pos = data.get("position")
+    try:
+        Storage_connector.update_item(
+            item_id=item_id, pos=pos, obj_type=obj_type, name=name, json_data=info
+        )
+    except Exception as e:
+        logger.error(f"Failed to update item with id: {item_id}. Error: {e}")
+        return {"status": "error"}, 500
+    return {"status": "updated"}, 200
+
+
+@app.route("/item/<item>/delete")
 def delete_item(item_id) -> Annotated[str, "search page as a rendered template"]:
     """
-    Deletes an item using the StorageConnector and renders the search.html template.
+    Deletes an item using the Storage_connector and renders the search.html template.
     Args:
         item_id: The id of the item to be deleted.
     Returns:
         A rendered template for the search page.
     """
 
-    StorageConnector.delete_item(item_id)
+    Storage_connector.delete_item(item_id)
     return render_template("search.html")
 
 
-@app.route('/search/<term>', methods=['GET'])
-def search(term) -> Annotated[str, "json response"]:
+@app.route("/search/<term>", methods=["GET"])
+def search(term) -> Response:
     """
     Search for a term in the storage and return the results in JSON format.
     Args:
@@ -169,7 +210,7 @@ def search(term) -> Annotated[str, "json response"]:
     Returns:
         Response: A Flask Response object containing the search results in JSON format.
     """
-    data = StorageConnector.search(term)
+    data = Storage_connector.search(term)
     return jsonify(data)
 
 
@@ -187,20 +228,33 @@ def handle_exception(e) -> Exception:
     return e
 
 
-@app.route('/config/env')
-def get_env() -> Annotated[str, "json response"]:
+@app.route("/config/env")
+def get_env() -> Response:
     """
     Retrieve the environment configuration.
-    This function uses the configmanager to get the current environment
+    This function uses the config_manager to get the current environment
     configuration and returns it as a JSON response.
     Returns:
         Response: A Flask JSON response containing the environment configuration.
     """
-    return jsonify(configmanager.get_env())
+    return jsonify(config_manager.get_env())
 
 
-@app.route('/wifiscale/weight')
-def get_weight() -> Annotated[dict, {"weight": float} | {"status": str}]:
+@app.route("/config/ollama/models")
+def get_ollama_models() -> tuple[Response, int] | Response:
+    """
+    Fetches the list of available Ollama models.
+    Returns:
+        Annotated[str, "json response"]: A JSON response containing the list of Ollama models.
+    """
+    values = ollama.get_ollama_models()
+    if not values:
+        return jsonify({"status": "Ollama service is not enabled"}), 412
+    return jsonify(values)
+
+
+@app.route("/wifiscale/weight")
+def get_weight() -> tuple[Response, int] | Response:
     """
     Retrieve the weight of the scale.
     This function checks if the scale service is enabled by reading the IS_SCALE_ENABLED environment variable.
@@ -216,7 +270,23 @@ def get_weight() -> Annotated[dict, {"weight": float} | {"status": str}]:
     return jsonify({"weight": weight})
 
 
-@app.route('/log', methods=['POST'])
+@app.route("/llm/ask", methods=["POST"])
+def ask_llm_question() -> Response:
+    """
+    Ask a question to the Language Learning Model (LLM) service.
+    This function sends a GET request to the LLM service at the specified endpoint
+    and returns the response as a JSON object.
+    Returns:
+        Response: A Flask JSON response containing the response from the LLM service.
+    """
+    data = request.get_json()
+    question = data.get("question")
+    logger.info(f"Received question via llm endpoint: {question}")
+    response = ollama.ask_question(question)
+    return jsonify(response)
+
+
+@app.route("/log", methods=["POST"])
 def log_message() -> Annotated[tuple, {"status": str, "status_code": int}]:
     """
     Logs a message with a specified log level.
@@ -236,26 +306,31 @@ def log_message() -> Annotated[tuple, {"status": str, "status_code": int}]:
     """
 
     data: Annotated[str, "content of request"] = request.json
-    level: Annotated[str, "log level, default value is INFO"] = data.get('level', 'INFO')
-    message: Annotated[str, "content of log, default value is empty"] = data.get('message', '')
+    level: Annotated[str, "log level, default value is INFO"] = data.get(
+        "level", "INFO"
+    )
+    message: Annotated[str, "content of log, default value is empty"] = data.get(
+        "message", ""
+    )
 
     match level:
-        case 'DEBUG':
+        case "DEBUG":
             logger.debug(message)
-        case 'INFO':
+        case "INFO":
             logger.info(message)
-        case 'WARNING':
+        case "WARNING":
             logger.warning(message)
-        case 'ERROR':
+        case "ERROR":
             logger.error(message)
-        case 'CRITICAL':
+        case "CRITICAL":
             logger.critical(message)
 
     return {"status": "created"}, 201
 
 
 with app.app_context():
-    StorageConnector.setup()
+    Storage_connector.setup()
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=True)

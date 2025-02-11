@@ -4,3 +4,6 @@ __pycache__/
 .env
 venv
 .env.json
+storagemanager.log
+.pytest_cache/
+.idea

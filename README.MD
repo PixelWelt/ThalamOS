@@ -45,7 +45,7 @@ Credits to [jothepro/doxygen-awesome-css](https://github.com/jothepro/doxygen-aw
             ports:
             - "8000:8000"
             volumes:
-            - ./data:/app/app/data 
+            - ./data:/app/app/data
     ```
 4. Start the service
     ```bash
@@ -94,10 +94,42 @@ Credits to [jothepro/doxygen-awesome-css](https://github.com/jothepro/doxygen-aw
 2. Add your stored items along with their properties.
 3. Use the search functionality to find items and see their location light up on your storage shelf.
 
+## optional Modules
+### Weighfi - Where pounds meet packets
+Weigh-fi is a WiFi-enabled scale with API access, allowing users to easily add weight measurements when using ThalamOS. To enable it:
+
+1. Add the IP address of your Weigh-fi device to the `.env` file.
+2. Read more about how to build your own Weigh-fi device [here](https://github.com/PixelWelt/Weigh-fi).
+
+#### To-Dos
+- [x] Implement software
+- [ ] Create a 3D model
+- [ ] Create a working PCB
+
+### ThalamOS AI assistant
+Why should I use AI in my storage management? - Because you can!
+The ThalamOS AI assistant helps you manage your storage more efficiently. It uses Retrieval-Augmented Generation (RAG) to access your database in read-only mode, helping you find your items faster. It can also answer simple questions.
+
+**Note:** The AI assistant is still in development and may not work as expected. Deepseek Models are not yet supported.
+
+To enable the ThalamOS AI assistant:
+1. Enable it in the `.env` file.
+2. Add the IP address of your Ollama Server.
+
+Framework: [Haystack](https://github.com/deepset-ai/haystack)
+
+The specific pipeline steps are shown in the picture below:
+![pipeline](img/pipeline.png)
+![ai-demo](img/ai-demo.png)
+### To-Dos
+- [x] Implement basic ai usage
+- [ ] Implement Deepseek Models
+- [ ] Improve pipeline to prevent errors from happening
+- [ ] make the AI even smarter, by adding more context
+
 ## Images
 ![home page](img/home-page.png)
-![create Item page](img/createItem.png)
-
+![createItem.png](img/createItem.png)
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request.

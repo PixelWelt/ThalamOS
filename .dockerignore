@@ -1,0 +1,11 @@
+app/venv/*
+app/__pycache__/*
+app/.pytest_cache/
+.git/*
+.gitignore
+*.md
+Doxyfile
+License
+.github
+*.yml
+.idea
