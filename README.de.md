@@ -8,9 +8,11 @@
 ![Banner](img/banner.png)
 # ThalamOS
 Thalamos ist eine leistungsstarke Flask-Webanwendung, die dein Lagermanagement verbessert. Sie nutzt die WLED-API, um den gesuchten Artikel zu aufleuchten zu lassen.
+
 ## Etymologie
 
 Der Name **ThalamOS** leitet sich vom lateinischen Wort *thalamus* ab, das "inneres Zimmer" oder "Lagerraum" bedeutet. Dies spiegelt den Zweck der Anwendung wider, Lagerflächen effizient zu verwalten und zu organisieren.
+
 ## Funktionen
 
 - **LED-Integration**: Steuert einen adressierbaren LED-Streifen über WLED, um den richtigen Standort Ihrer Artikel hervorzuheben.
@@ -51,6 +53,7 @@ Dank an [jothepro/doxygen-awesome-css](https://github.com/jothepro/doxygen-aweso
     ```bash
     docker-compose up
     ```
+
 ### Selbst bauen
 
 1. Klone das Repository:
@@ -76,6 +79,40 @@ Dank an [jothepro/doxygen-awesome-css](https://github.com/jothepro/doxygen-aweso
 1. Öffne deinen Webbrowser und gehe zu `http://localhost:8000`.
 2. Füge deine gelagerten Artikel zusammen mit ihren Eigenschaften hinzu.
 3. Verwende die Suchfunktion, um Artikel zu finden und sehe deren Standort auf deinem Lagerregal aufleuchten.
+
+## optionale Module
+### Weighfi - Wo Pfunde auf Pakete treffen
+Weigh-fi ist eine WiFi-fähige Waage mit API-Zugriff, die es Benutzern ermöglicht, Gewichtsmessungen einfach hinzuzufügen, wenn sie ThalamOS verwenden. Um es zu aktivieren:
+
+1. Füge die IP-Adresse deines Weigh-fi-Geräts in die `.env` Datei ein.
+2. Lies mehr darüber, wie du dein eigenes Weigh-fi-Gerät bauen kannst [hier](https://github.com/PixelWelt/Weigh-fi).
+
+#### To-Dos
+- [x] Software implementieren
+- [ ] 3D-Modell erstellen
+- [ ] Funktionierende Leiterplatte erstellen
+
+### ThalamOS AI-Assistent
+Warum sollte ich KI in meinem Lagermanagement verwenden? - Weil du es kannst!
+Der ThalamOS AI-Assistent hilft dir, dein Lager effizienter zu verwalten. Er verwendet Retrieval-Augmented Generation (RAG), um auf deine Datenbank im Nur-Lese-Modus zuzugreifen und dir zu helfen, deine Artikel schneller zu finden. Er kann auch einfache Fragen beantworten.
+
+**Hinweis:** Der AI-Assistent befindet sich noch in der Entwicklung und funktioniert möglicherweise nicht wie erwartet. Deepseek-Modelle werden noch nicht unterstützt.
+
+Um den ThalamOS AI-Assistenten zu aktivieren:
+1. Aktiviere ihn in der `.env` Datei.
+2. Füge die IP-Adresse deines Ollama-Servers hinzu.
+
+Framework: [Haystack](https://github.com/deepset-ai/haystack)
+
+Die spezifischen Pipeline-Schritte sind im Bild unten dargestellt:
+![pipeline](img/pipeline.png)
+![ai-demo](img/ai-demo.png)
+
+### To-Dos
+- [x] Grundlegende KI-Nutzung implementieren
+- [ ] Deepseek-Modelle implementieren
+- [ ] Pipeline verbessern, um Fehler zu verhindern
+- [ ] Die KI noch intelligenter machen, indem mehr Kontext hinzugefügt wird
 
 ## Bilder
 ![home page](img/home-page.png)

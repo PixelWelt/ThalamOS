@@ -26,7 +26,6 @@ from haystack.components.builders import PromptBuilder
 from haystack.components.routers import ConditionalRouter
 from haystack_integrations.components.generators.ollama import OllamaGenerator
 import pandas as pd
-import sqlparse
 
 from logger_config import logger
 
