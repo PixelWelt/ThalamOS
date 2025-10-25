@@ -102,15 +102,19 @@ $(function(){initNavTree('dockerfile_source.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">dockerfile</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="dockerfile.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>FROM python:3.11-alpine</div>
+<a href="dockerfile.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>FROM python:3.14-alpine</div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span>WORKDIR /app</div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>COPY pyproject.toml /app/</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>COPY poetry.lock /app/</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>RUN pip install poetry &amp;&amp; poetry install --no-root</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>COPY ./app /app</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>EXPOSE 8000</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>CMD poetry run gunicorn --bind 0.0.0.0:8000 app:app</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>RUN apk add --no-cache build-base libffi-dev openssl-dev cargo</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>RUN pip install --no-cache-dir uv \</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    &amp;&amp; uv install --no-root</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>COPY ./app /app</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>EXPOSE 8000</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>CMD [&quot;uv&quot;, &quot;run&quot;, &quot;gunicorn&quot;, &quot;--bind&quot;, &quot;0.0.0.0:8000&quot;, &quot;app:app&quot;]</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -10,10 +10,10 @@ var searchData=
   ['config_5fmanager_7',['config_manager',['../namespaceconfig__manager.html',1,'']]],
   ['config_5fmanager_2epy_8',['config_manager.py',['../config__manager_8py.html',1,'']]],
   ['connection_9',['connection',['../classollama__manager_1_1SQLQuery.html#af70088500b6e9ab7c2bd78a4fef81b17',1,'ollama_manager::SQLQuery']]],
-  ['contact_10',['Contact',['../index.html#autotoc_md16',1,'']]],
-  ['contributing_11',['Contributing',['../index.html#autotoc_md14',1,'']]],
+  ['contact_10',['Contact',['../index.html#autotoc_md15',1,'']]],
+  ['contributing_11',['Contributing',['../index.html#autotoc_md13',1,'']]],
   ['contributor_20covenant_20code_20of_20conduct_12',['Contributor Covenant Code of Conduct',['../md_CODE__OF__CONDUCT.html',1,'']]],
-  ['correction_13',['1. Correction',['../md_CODE__OF__CONDUCT.html#autotoc_md24',1,'']]],
+  ['correction_13',['1. Correction',['../md_CODE__OF__CONDUCT.html#autotoc_md23',1,'']]],
   ['covenant_20code_20of_20conduct_14',['Contributor Covenant Code of Conduct',['../md_CODE__OF__CONDUCT.html',1,'']]],
   ['create_5fitem_15',['create_item',['../namespaceapp.html#a72b62fd84b2007fecb090a6324c8ddfb',1,'app.create_item()'],['../namespaceStorage__connector.html#abc8d506980d0690835598342c10b574a',1,'Storage_connector.create_item(pos, obj_type, name, json_data)']]],
   ['cursor_16',['cursor',['../namespaceStorage__connector.html#ae8bee1147588222d4166cc6172aedf86',1,'Storage_connector']]]

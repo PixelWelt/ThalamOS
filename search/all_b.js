@@ -6,5 +6,5 @@ var searchData=
   ['get_5fpower_5fstate_3',['get_power_state',['../namespacewled__requests.html#a2f5bf7ec6957d74f1ea0646d54e6165d',1,'wled_requests']]],
   ['get_5fweight_4',['get_weight',['../namespaceapp.html#a77e92075c2803714379c102748623660',1,'app.get_weight()'],['../namespaceweigh__fi__manager.html#a8c9d016cf84c30fb61eae2b3558d32fa',1,'weigh_fi_manager.get_weight()']]],
   ['global_5fpipeline_5',['global_Pipeline',['../namespaceollama__manager.html#a0afc3524f40250103df93359bd2ce285',1,'ollama_manager']]],
-  ['guidelines_6',['Enforcement Guidelines',['../md_CODE__OF__CONDUCT.html#autotoc_md23',1,'']]]
+  ['guidelines_6',['Enforcement Guidelines',['../md_CODE__OF__CONDUCT.html#autotoc_md22',1,'']]]
 ];

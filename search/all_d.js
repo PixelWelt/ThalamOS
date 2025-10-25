@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['images_0',['Images',['../index.html#autotoc_md13',1,'']]],
+  ['images_0',['Images',['../index.html#autotoc_md12',1,'']]],
   ['index_1',['index',['../namespaceapp.html#af4155dae6790c1c78b4fef1eeca11512',1,'app']]],
   ['installation_2',['Installation',['../index.html#autotoc_md4',1,'']]],
   ['is_5follama_5fenabled_3',['is_ollama_enabled',['../namespaceollama__manager.html#ae457055331f43b769faed517329096af',1,'ollama_manager']]],
