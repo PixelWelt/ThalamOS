@@ -87,10 +87,6 @@ Weigh-fi ist eine WiFi-fähige Waage mit API-Zugriff, die es Benutzern ermöglic
 1. Füge die IP-Adresse deines Weigh-fi-Geräts in die `.env` Datei ein.
 2. Lies mehr darüber, wie du dein eigenes Weigh-fi-Gerät bauen kannst [hier](https://github.com/PixelWelt/Weigh-fi).
 
-#### To-Dos
-- [x] Software implementieren
-- [ ] 3D-Modell erstellen
-- [ ] Funktionierende Leiterplatte erstellen
 
 ### ThalamOS AI-Assistent
 Warum sollte ich KI in meinem Lagermanagement verwenden? - Weil du es kannst!
@@ -108,11 +104,6 @@ Die spezifischen Pipeline-Schritte sind im Bild unten dargestellt:
 ![pipeline](img/pipeline.png)
 ![ai-demo](img/ai-demo.png)
 
-### To-Dos
-- [x] Grundlegende KI-Nutzung implementieren
-- [ ] Deepseek-Modelle implementieren
-- [ ] Pipeline verbessern, um Fehler zu verhindern
-- [ ] Die KI noch intelligenter machen, indem mehr Kontext hinzugefügt wird
 
 ## Bilder
 ![home page](img/home-page.png)

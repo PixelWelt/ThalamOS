@@ -1,9 +1,13 @@
-FROM python:3.11-alpine
+FROM python:3.14-alpine
 
 WORKDIR /app
 COPY pyproject.toml /app/
-COPY poetry.lock /app/
-RUN pip install poetry && poetry install --no-root
+
+RUN apk add --no-cache build-base libffi-dev openssl-dev cargo
+RUN pip install --no-cache-dir uv \
+    && uv install --no-root
+
 COPY ./app /app
 EXPOSE 8000
-CMD poetry run gunicorn --bind 0.0.0.0:8000 app:app
+
+CMD ["uv", "run", "gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
