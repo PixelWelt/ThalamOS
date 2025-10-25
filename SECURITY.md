@@ -4,8 +4,8 @@
 We strive to keep the latest version of this project secure. Older versions do not receive security updates.
 
 | Version | Supported          |
-| ------- | ------------------ |
-| 0.2   | :white_check_mark: |
+|---------| ------------------ |
+| 0.2.3   | :white_check_mark: |
 
 ## Reporting a Vulnerability
 We appreciate your support in keeping this project secure. If you discover a vulnerability, please follow these steps:

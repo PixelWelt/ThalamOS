@@ -70,23 +70,6 @@ Credits to [jothepro/doxygen-awesome-css](https://github.com/jothepro/doxygen-aw
     ```bash
     docker-compose up
     ```
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/yourusername/thalamos.git
-    ```
-2. Navigate to the project directory:
-    ```bash
-    cd thalamos
-    ```
-3. Build the container:
-    ```bash
-    docker build -t PixelWelt/thalamos .
-    ```
-4. insert your WLED_HOST into the .env.example file and rename it to .env
-5. Run the application using the docker compose file:
-    ```bash
-    docker-compose up
-    ```
 
 ## Usage
 
@@ -100,11 +83,6 @@ Weigh-fi is a WiFi-enabled scale with API access, allowing users to easily add w
 
 1. Add the IP address of your Weigh-fi device to the `.env` file.
 2. Read more about how to build your own Weigh-fi device [here](https://github.com/PixelWelt/Weigh-fi).
-
-#### To-Dos
-- [x] Implement software
-- [ ] Create a 3D model
-- [ ] Create a working PCB
 
 ### ThalamOS AI assistant
 Why should I use AI in my storage management? - Because you can!
