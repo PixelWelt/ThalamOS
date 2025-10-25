@@ -109,7 +109,7 @@ $(function(){initNavTree('dockerfile_source.html',''); initResizable(true); });
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>RUN apk add --no-cache build-base libffi-dev openssl-dev cargo</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>RUN pip install --no-cache-dir uv \</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    &amp;&amp; uv install --no-root</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    &amp;&amp; uv pip install --system --no-root</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>COPY ./app /app</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>EXPOSE 8000</div>
