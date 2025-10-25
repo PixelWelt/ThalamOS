@@ -1,7 +1,7 @@
 var NAVTREEINDEX0 =
 {
-"LICENSE.html":[5,0,3],
-"LICENSE_source.html":[5,0,3],
+"LICENSE.html":[5,0,2],
+"LICENSE_source.html":[5,0,2],
 "Storage__connector_8py.html":[5,0,0,4],
 "Storage__connector_8py_source.html":[5,0,0,4],
 "annotated.html":[4,0],
@@ -23,8 +23,6 @@ var NAVTREEINDEX0 =
 "dir_d422163b96683743ed3963d4aac17747.html":[5,0,0],
 "docker-compose_8yml.html":[5,0,1],
 "docker-compose_8yml_source.html":[5,0,1],
-"dockerfile.html":[5,0,2],
-"dockerfile_source.html":[5,0,2],
 "files.html":[5,0],
 "functions.html":[4,2,0],
 "functions_func.html":[4,2,1],
