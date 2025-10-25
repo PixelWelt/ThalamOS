@@ -5,7 +5,7 @@ COPY pyproject.toml /app/
 
 RUN apk add --no-cache build-base libffi-dev openssl-dev cargo
 RUN pip install --no-cache-dir uv \
-    && uv install --no-root
+    && uv pip install --system --no-root
 
 COPY ./app /app
 EXPOSE 8000
