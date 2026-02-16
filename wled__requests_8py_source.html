@@ -207,19 +207,7 @@ $(function(){initNavTree('wled__requests_8py_source.html',''); initResizable(tru
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    req = json.dumps({<span class="stringliteral">&quot;on&quot;</span>: state})</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    requests.post(API, req, timeout=10)</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
 </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keyword">def </span><a class="code hl_function" href="namespacewled__requests.html#ade3c5aa32cb6707bc9103702df4cc890">get_power_state</a>() -&gt; Annotated[bool, &quot;True if power is on, false if power is off&quot;]:</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="stringliteral">    Retrieves the power state of a WLED device.</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="stringliteral">    Sends a GET request to the WLED device&#39;s JSON API endpoint to fetch the current state.</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="stringliteral">    Parses the JSON response to determine if the device is on or off.</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="stringliteral">        bool: True if the WLED device is on, False otherwise.</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    state = requests.get(f<span class="stringliteral">&quot;http://{WLED_HOST}/json/state&quot;</span>, timeout=10)</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordflow">return</span> json.loads(state.text)[<span class="stringliteral">&quot;on&quot;</span>]</div>
 <div class="ttc" id="anamespacewled__requests_html_a2970bfb2890165c0b76968aac3608dc4"><div class="ttname"><a href="namespacewled__requests.html#a2970bfb2890165c0b76968aac3608dc4">wled_requests.load_default_state</a></div><div class="ttdeci">None load_default_state()</div><div class="ttdef"><b>Definition</b> <a href="#l00076">wled_requests.py:76</a></div></div>
 <div class="ttc" id="anamespacewled__requests_html_a4f0df23e4a6b61257c29db6968d45790"><div class="ttname"><a href="namespacewled__requests.html#a4f0df23e4a6b61257c29db6968d45790">wled_requests.change_power_state</a></div><div class="ttdeci">None change_power_state(state)</div><div class="ttdef"><b>Definition</b> <a href="#l00087">wled_requests.py:87</a></div></div>
 <div class="ttc" id="anamespacewled__requests_html_a64872eb0fc99b67bde9595110e70024a"><div class="ttname"><a href="namespacewled__requests.html#a64872eb0fc99b67bde9595110e70024a">wled_requests.turn_off_lights</a></div><div class="ttdeci">None turn_off_lights()</div><div class="ttdef"><b>Definition</b> <a href="#l00052">wled_requests.py:52</a></div></div>

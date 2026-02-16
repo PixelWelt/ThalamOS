@@ -173,8 +173,6 @@ Returns:
 <div class="line"><span class="lineno">   94</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><span class="lineno">   95</span>    req = json.dumps({<span class="stringliteral">&quot;on&quot;</span>: state})</div>
 <div class="line"><span class="lineno">   96</span>    requests.post(API, req, timeout=10)</div>
-<div class="line"><span class="lineno">   97</span> </div>
-<div class="line"><span class="lineno">   98</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -232,11 +230,6 @@ Returns:
 Sends a GET request to the WLED device's JSON API endpoint to fetch the current state
 Returns:
     bool: True if the WLED device is on, False otherwise. Returns None if the device is unreachable.
-</pre><pre class="fragment">Retrieves the power state of a WLED device.
-Sends a GET request to the WLED device's JSON API endpoint to fetch the current state.
-Parses the JSON response to determine if the device is on or off.
-Returns:
-    bool: True if the WLED device is on, False otherwise.
 </pre> 
 <p class="definition">Definition at line <a class="el" href="wled__requests_8py_source.html#l00035">35</a> of file <a class="el" href="wled__requests_8py_source.html">wled_requests.py</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   35</span><span class="keyword">def </span>get_power_state():</div>
