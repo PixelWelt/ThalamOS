@@ -1,12 +1,13 @@
 FROM python:3.14-alpine
 COPY --from=docker.io/astral/uv:latest /uv /uvx /bin/
 
-WORKDIR /app
-COPY pyproject.toml /app/
+RUN apk add --no-cache libffi-dev openssl-dev libgcc libstdc++
 
-RUN apk add --no-cache build-base libffi-dev openssl-dev cargo curl
+WORKDIR /app
+COPY pyproject.toml uv.lock /app/
+
 RUN pip install --upgrade pip
-RUN uv lock
+RUN uv sync --frozen --no-dev
 
 COPY ./app /app
 EXPOSE 8000
