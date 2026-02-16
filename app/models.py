@@ -9,6 +9,7 @@ from enum import Enum
 from typing import Optional
 from sqlmodel import Field, SQLModel
 
+
 class StorageItemType(str, Enum):
     """Enumeration for different types of storage items."""
     SENSOR = "SENSOR"
@@ -17,6 +18,7 @@ class StorageItemType(str, Enum):
     NAIL = "NAIL"
     CABLE = "CABLE"
     MISCELLANEOUS = "MISCELLANEOUS"
+
 
 class StorageItem(SQLModel, table=True):
     """Data model representing an item in the storage database."""
@@ -27,5 +29,3 @@ class StorageItem(SQLModel, table=True):
     name: str
     info: Optional[str] = None
     modification_time: datetime = Field(default_factory=datetime.now)
-
-

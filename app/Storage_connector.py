@@ -24,6 +24,7 @@ logger.info(f"Database path: {db_path}")
 engine = create_engine(f"sqlite:///{db_path}", connect_args={"check_same_thread": False})
 
 def setup():
+    """Sets up the database by creating the necessary tables if they do not already exist."""
     SQLModel.metadata.create_all(engine)
 
 def fetch_item(item_id: int) -> StorageItem | None:

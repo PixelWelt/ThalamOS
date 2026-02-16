@@ -94,15 +94,3 @@ def change_power_state(state) -> None:
     """
     req = json.dumps({"on": state})
     requests.post(API, req, timeout=10)
-
-
-def get_power_state() -> Annotated[bool, "True if power is on, false if power is off"]:
-    """
-    Retrieves the power state of a WLED device.
-    Sends a GET request to the WLED device's JSON API endpoint to fetch the current state.
-    Parses the JSON response to determine if the device is on or off.
-    Returns:
-        bool: True if the WLED device is on, False otherwise.
-    """
-    state = requests.get(f"http://{WLED_HOST}/json/state", timeout=10)
-    return json.loads(state.text)["on"]
