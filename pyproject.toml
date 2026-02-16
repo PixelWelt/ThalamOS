@@ -3,9 +3,9 @@ name = "ThalamOS"
 version = "0.2.3"
 description = "Light up your storage"
 authors = [{ name = "PixelWelt" }]
-requires-python = ">=3.10,<=3.14"
+requires-python = ">=3.12,<=3.14"
 readme = "README.md"
-license = "MIT"
+license = "GNU AGPLv3"
 keywords = [
     "Storage",
     "API",
@@ -28,6 +28,7 @@ dependencies = [
     "attrs",
     "backoff",
     "blinker",
+    "build",
     "cachecontrol",
     "certifi",
     "charset-normalizer",
@@ -63,7 +64,7 @@ dependencies = [
     "jsonschema",
     "jsonschema-specifications",
     "keyring",
-    "lazy_imports",
+    "lazy-imports",
     "loguru",
     "MarkupSafe",
     "marshmallow",
@@ -80,7 +81,7 @@ dependencies = [
     "orjson",
     "packaging",
     "pandas",
-    "pandas-stubs~=2.3.3",
+    "pandas-stubs",
     "pefile",
     "pkginfo",
     "platformdirs",

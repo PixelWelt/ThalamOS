@@ -33,6 +33,13 @@ logger.info(f"WLED host is: {WLED_HOST}")
 API: Annotated[str, "URL to WLED"] = f"http://{WLED_HOST}/json"
 
 def get_power_state():
+    """
+    Retrieves the power state of a WLED device.
+    Sends a GET request to the WLED device's JSON API endpoint to fetch the current state
+    Returns:
+        bool: True if the WLED device is on, False otherwise. Returns None if the device is unreachable.
+
+    """
     try:
         response = requests.get(f"http://{WLED_HOST}/json/state", timeout=3) # Timeout verkürzen
         response.raise_for_status()
