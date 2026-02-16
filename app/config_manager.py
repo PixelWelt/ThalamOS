@@ -37,7 +37,7 @@ def get_env_variables_from_path(
 
         logger.debug(f"Environment variables loaded: {env_dict}")
     except FileNotFoundError:
-        logger.error(f"Config-Datei nicht gefunden: {env_path}")
+        logger.error(f"Config-File not found: {env_path}")
 
     return env_dict
 
@@ -104,7 +104,7 @@ def test_get_env_variables_from_path_empty_file(tmp_path):
     env_vars = get_env_variables_from_path(str(env_file))
 
     # Assert that the returned dictionary is empty
-    assert env_vars == {}
+    assert not env_vars
 
 
 def test_get_env_variables_from_path_invalid_format(tmp_path):

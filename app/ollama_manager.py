@@ -18,7 +18,6 @@ Functions:
 from functools import wraps
 import os
 from typing import Annotated, List
-import sqlite3
 import requests
 from dotenv import load_dotenv
 from haystack import Pipeline, component
@@ -102,6 +101,13 @@ class SQLQuery:
 
     @component.output_types(results=List[str], queries=List[str])
     def run(self, queries: List[str]):
+        """
+        Executes the provided SQL queries on the SQLite database and returns the results.
+        Args:
+            queries (List[str]): A list of SQL query strings to be executed.
+        Returns:
+            dict: A dictionary containing the results of the executed queries and the original queries.
+        """
         results = []
         for query in queries:
             try:

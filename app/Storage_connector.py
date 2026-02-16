@@ -6,7 +6,7 @@ It includes functionalities to set up the database, create, fetch, delete, and s
 as well as export the data to a CSV file.
 """
 import os
-from typing import Annotated, List, Optional
+from typing import List
 from sqlmodel import Session, create_engine, select, or_, SQLModel
 from models import StorageItem, StorageItemType
 from logger_config import logger

@@ -1,8 +1,13 @@
+"""
+Models Module
+
+This module defines the database models using SQLModel and Pydantic.
+It includes the StorageItem model and the StorageItemType enumeration.
+"""
 from datetime import datetime
-from typing import Optional
-from sqlmodel import Field
-from sqlmodel import SQLModel
 from enum import Enum
+from typing import Optional
+from sqlmodel import Field, SQLModel
 
 class StorageItemType(str, Enum):
     """Enumeration for different types of storage items."""
