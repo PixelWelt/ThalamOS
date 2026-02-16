@@ -26,6 +26,7 @@ from haystack.components.builders import PromptBuilder
 from haystack.components.routers import ConditionalRouter
 from haystack_integrations.components.generators.ollama import OllamaGenerator
 import pandas as pd
+from sqlalchemy import create_engine
 
 from logger_config import logger
 
@@ -97,27 +98,19 @@ class SQLQuery:
     """
 
     def __init__(self, sql_database: str):
-        self.connection = sqlite3.connect(f"file:{sql_database}?mode=ro", uri=True)
+        self.engine = create_engine(f"sqlite:///{os.path.abspath(sql_database)}")
 
     @component.output_types(results=List[str], queries=List[str])
     def run(self, queries: List[str]):
-        """
-        Executes the provided SQL queries and returns the results. Tests if the SQL queries are valid before execution.
-
-        Args:
-            queries (List[str]): A list of SQL queries to be executed.
-
-        Returns:
-            dict: A dictionary containing the results of the executed queries and the original queries.
-        """
         results = []
         for query in queries:
             try:
-                print(f"query: {query}")
-                result = pd.read_sql(query, self.connection).to_json(orient="records")
+                # pandas kann direkt mit der SQLAlchemy-Engine arbeiten
+                df = pd.read_sql(query, self.engine)
+                result = df.to_json(orient="records")
                 results.append(result)
-            except ValueError as e:
-                logger.error(f"Error parsing SQL query: {e}")
+            except Exception as e:
+                logger.error(f"Error executing SQL query: {e}")
                 return {"results": ["error"], "queries": queries}
 
         return {"results": results, "queries": queries}
@@ -243,9 +236,10 @@ def storage_table_to_csv(path: str) -> pd.DataFrame:
     Returns:
         pd.DataFrame: A DataFrame containing the data from the 'storage' table.
     """
-    conn = sqlite3.connect(path)
-    table = pd.read_sql_query("SELECT * FROM storage", conn)
-    conn.close()
+    abs_path = os.path.abspath(path)
+    engine = create_engine(f"sqlite:///{abs_path}")
+    with engine.connect() as conn:
+        table = pd.read_sql_query("SELECT * FROM storage", conn)
     return table
 
 

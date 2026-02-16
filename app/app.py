@@ -5,32 +5,6 @@ This module sets up a Flask web application for managing storage items, controll
 interacting with a WiFi scale, and querying an LLM service. It provides various routes for rendering templates,
 handling item creation, deletion, and search, as well as retrieving environment configurations,
 scale weight, and logging messages.
-
-Routes:
-    - /: Renders the search page.
-    - /toggleLight: Toggles the power state of the WLED device and renders the search template.
-    - /createItem: Renders the template for creating a new item.
-    - /sendCreation: Handles the creation of a new item by processing the incoming JSON request data.
-    - /item/<item_id>: Handles the request to display an item.
-    - /item/<item_id>/update: Updates an item using the Storage_connector and returns a status message.
-    - /item/<item_id>/delete: Deletes an item using the Storage_connector and renders the search.html template.
-    - /search/<term>: Searches for a term in the storage and returns the results in JSON format.
-    - /config/env: Retrieves the environment configuration.
-    - /config/ollama/models: Fetches the list of available Ollama models.
-    - /wifiscale/weight: Retrieves the weight of the scale.
-    - /llm/ask: Asks a question to the LLM service and returns the response.
-    - /log: Logs a message with a specified log level.
-
-Error Handling:
-    - handle_exception: Handles exceptions by passing through HTTP errors.
-
-Setup:
-    - Initializes the Flask app and sets up CORS.
-    - Loads environment variables from a .env file.
-    - Sets up the Storage_connector within the app context.
-
-Usage:
-    Run the application using the command `python app.py`.
 """
 
 from typing import Annotated
@@ -82,7 +56,15 @@ def toggle_light() -> Annotated[str, "search page as a rendered template"]:
     Returns:
         str: The rendered "search.html" template.
     """
-    wled_requests.change_power_state(not wled_requests.get_power_state())
+    try:
+        current_state = wled_requests.get_power_state()
+        if current_state is not None:
+            wled_requests.change_power_state(not current_state)
+            logger.info(f"Toggled WLED power state to: {not current_state}")
+        else:
+            logger.warning("Unable to toggle WLED power state: Current state is unknown.")
+    except Exception as e:
+        logger.error(f"Error toggling WLED power state: {e}")
     return render_template("search.html")
 
 

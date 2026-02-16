@@ -24,10 +24,21 @@ def get_env_variables_from_path(
     Returns:
         dict: A dictionary containing the environment variables as key-value pairs.
     """
-    with open(env_path, encoding="utf-8") as f:
-        env_keys = f.read().splitlines()
-    env_dict = {item.split("=")[0]: item.split("=")[1].strip('"') for item in env_keys}
-    logger.debug(f"Environment variables loaded: {env_dict}")
+    env_dict = {}
+    try:
+        with open(env_path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                if "=" in line:
+                    key, value = line.split("=", 1) # Nur am ersten '=' splitten
+                    env_dict[key.strip()] = value.strip().strip('"').strip("'")
+
+        logger.debug(f"Environment variables loaded: {env_dict}")
+    except FileNotFoundError:
+        logger.error(f"Config-Datei nicht gefunden: {env_path}")
+
     return env_dict
 
 

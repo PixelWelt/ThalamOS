@@ -32,6 +32,15 @@ logger.info(f"WLED host is: {WLED_HOST}")
 
 API: Annotated[str, "URL to WLED"] = f"http://{WLED_HOST}/json"
 
+def get_power_state():
+    try:
+        response = requests.get(f"http://{WLED_HOST}/json/state", timeout=3) # Timeout verkürzen
+        response.raise_for_status()
+        data = response.json()
+        return data.get("on", False)
+    except (requests.exceptions.RequestException, TimeoutError) as e:
+        logger.error(f"WLED nicht erreichbar: {e}")
+        return None
 
 def turn_off_lights() -> None:
     """
