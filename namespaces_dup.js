@@ -35,18 +35,19 @@ var namespaces_dup =
       [ "retention", "namespacelogger__config.html#a4eebebff580f96bd8ad9d5ff767001a7", null ],
       [ "rotation", "namespacelogger__config.html#ac3d265b98e49b254a2961cd7ffd3bec6", null ]
     ] ],
+    [ "models", "namespacemodels.html", "namespacemodels" ],
     [ "ollama_manager", "namespaceollama__manager.html", "namespaceollama__manager" ],
     [ "Storage_connector", "namespaceStorage__connector.html", [
-      [ "create_item", "namespaceStorage__connector.html#abc8d506980d0690835598342c10b574a", null ],
-      [ "delete_item", "namespaceStorage__connector.html#ac5db0c7074c7f024ca28e501598863c3", null ],
-      [ "fetch_csv", "namespaceStorage__connector.html#ac19bb6ab6e13a6787cdd1595367d61cd", null ],
-      [ "fetch_item", "namespaceStorage__connector.html#ac9ef5fceb894ceceab4ab8ff2c23c90b", null ],
-      [ "search", "namespaceStorage__connector.html#ab5389b4171d60c4f986084f96fba404d", null ],
-      [ "setup", "namespaceStorage__connector.html#aafa8ffb7809aa3ef44ee89855067eef4", null ],
-      [ "update_item", "namespaceStorage__connector.html#ae944c67f73d1d668f527caa990370f96", null ],
-      [ "cursor", "namespaceStorage__connector.html#ae8bee1147588222d4166cc6172aedf86", null ],
-      [ "db_path", "namespaceStorage__connector.html#a4c76998b33297de804b47714a32986b0", null ],
-      [ "mydb", "namespaceStorage__connector.html#acb7beadb7474977c5afbede5eedc2ba2", null ]
+      [ "create_item", "namespaceStorage__connector.html#a9d6c50b187903de5c4acd650ff3d2c98", null ],
+      [ "delete_item", "namespaceStorage__connector.html#ac471908d4960c70ab0c8c0828e52ee39", null ],
+      [ "fetch_item", "namespaceStorage__connector.html#a3b07309c9c5cb1d3b02eef5b9c2f7690", null ],
+      [ "search", "namespaceStorage__connector.html#a357b8455dc255ee9590d34de0787bf3f", null ],
+      [ "setup", "namespaceStorage__connector.html#a4a7b8f7d46452a7f1e5d5e3322cfe640", null ],
+      [ "update_item", "namespaceStorage__connector.html#a4309087d1a20815b9930cf35652e668c", null ],
+      [ "base_dir", "namespaceStorage__connector.html#abca51ca0d7cc7c573acca0dfb525f6c7", null ],
+      [ "db_dir", "namespaceStorage__connector.html#a745322a0cf2d03ef7808ee94c4484d11", null ],
+      [ "db_path", "namespaceStorage__connector.html#a737f83cafb7b2f183af5dc7165b82fe8", null ],
+      [ "engine", "namespaceStorage__connector.html#aafb2377c1be1b5aff1e84786b4fe47c3", null ]
     ] ],
     [ "weigh_fi_manager", "namespaceweigh__fi__manager.html", [
       [ "get_weight", "namespaceweigh__fi__manager.html#a8c9d016cf84c30fb61eae2b3558d32fa", null ],
@@ -57,7 +58,7 @@ var namespaces_dup =
     [ "wled_requests", "namespacewled__requests.html", [
       [ "change_power_state", "namespacewled__requests.html#a4f0df23e4a6b61257c29db6968d45790", null ],
       [ "color_pos", "namespacewled__requests.html#af22fdc60671a77f5e14ee545207222eb", null ],
-      [ "get_power_state", "namespacewled__requests.html#a2f5bf7ec6957d74f1ea0646d54e6165d", null ],
+      [ "get_power_state", "namespacewled__requests.html#ade3c5aa32cb6707bc9103702df4cc890", null ],
       [ "load_default_state", "namespacewled__requests.html#a2970bfb2890165c0b76968aac3608dc4", null ],
       [ "turn_off_lights", "namespacewled__requests.html#a64872eb0fc99b67bde9595110e70024a", null ],
       [ "API", "namespacewled__requests.html#a70864bc0ba9a39dd646dd77f7b6acf15", null ],

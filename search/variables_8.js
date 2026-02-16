@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['level_0',['level',['../namespacelogger__config.html#a7bffe4923ecb0351456006a2651daa4b',1,'logger_config']]]
+  ['host_0',['host',['../namespaceapp.html#a7fa7c11c7474c128736b1d34b15a0d5e',1,'app']]]
 ];

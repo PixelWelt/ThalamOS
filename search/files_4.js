@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ollama_5fmanager_2epy_0',['ollama_manager.py',['../ollama__manager_8py.html',1,'']]]
+  ['models_2epy_0',['models.py',['../models_8py.html',1,'']]]
 ];

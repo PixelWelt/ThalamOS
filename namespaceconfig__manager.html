@@ -145,20 +145,20 @@ them as a dictionary.
 Returns:
     dict: A dictionary containing the environment variables.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="config__manager_8py_source.html#l00034">34</a> of file <a class="el" href="config__manager_8py_source.html">config_manager.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   34</span><span class="keyword">def </span>get_env() -&gt; Annotated[dict, &quot;dictionary of environment variables&quot;]:</div>
-<div class="line"><span class="lineno">   35</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   36</span><span class="stringliteral">    Loads environment variables from a .env file and returns</span></div>
-<div class="line"><span class="lineno">   37</span><span class="stringliteral">    them as a dictionary.</span></div>
-<div class="line"><span class="lineno">   38</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><span class="lineno">   39</span><span class="stringliteral">        dict: A dictionary containing the environment variables.</span></div>
-<div class="line"><span class="lineno">   40</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   41</span>    env_path = os.path.join(os.path.dirname(__file__), <span class="stringliteral">&quot;data/.env&quot;</span>)</div>
-<div class="line"><span class="lineno">   42</span>    load_dotenv(dotenv_path=env_path)</div>
-<div class="line"><span class="lineno">   43</span>    env_dict = get_env_variables_from_path(env_path)</div>
-<div class="line"><span class="lineno">   44</span>    <span class="keywordflow">return</span> env_dict</div>
-<div class="line"><span class="lineno">   45</span> </div>
-<div class="line"><span class="lineno">   46</span> </div>
+<p class="definition">Definition at line <a class="el" href="config__manager_8py_source.html#l00045">45</a> of file <a class="el" href="config__manager_8py_source.html">config_manager.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   45</span><span class="keyword">def </span>get_env() -&gt; Annotated[dict, &quot;dictionary of environment variables&quot;]:</div>
+<div class="line"><span class="lineno">   46</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   47</span><span class="stringliteral">    Loads environment variables from a .env file and returns</span></div>
+<div class="line"><span class="lineno">   48</span><span class="stringliteral">    them as a dictionary.</span></div>
+<div class="line"><span class="lineno">   49</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><span class="lineno">   50</span><span class="stringliteral">        dict: A dictionary containing the environment variables.</span></div>
+<div class="line"><span class="lineno">   51</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   52</span>    env_path = os.path.join(os.path.dirname(__file__), <span class="stringliteral">&quot;data/.env&quot;</span>)</div>
+<div class="line"><span class="lineno">   53</span>    load_dotenv(dotenv_path=env_path)</div>
+<div class="line"><span class="lineno">   54</span>    env_dict = get_env_variables_from_path(env_path)</div>
+<div class="line"><span class="lineno">   55</span>    <span class="keywordflow">return</span> env_dict</div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -191,13 +191,24 @@ Returns:
 <div class="line"><span class="lineno">   24</span><span class="stringliteral">    Returns:</span></div>
 <div class="line"><span class="lineno">   25</span><span class="stringliteral">        dict: A dictionary containing the environment variables as key-value pairs.</span></div>
 <div class="line"><span class="lineno">   26</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   27</span>    <span class="keyword">with</span> open(env_path, encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</div>
-<div class="line"><span class="lineno">   28</span>        env_keys = f.read().splitlines()</div>
-<div class="line"><span class="lineno">   29</span>    env_dict = {item.split(<span class="stringliteral">&quot;=&quot;</span>)[0]: item.split(<span class="stringliteral">&quot;=&quot;</span>)[1].strip(<span class="stringliteral">&#39;&quot;&#39;</span>) <span class="keywordflow">for</span> item <span class="keywordflow">in</span> env_keys}</div>
-<div class="line"><span class="lineno">   30</span>    logger.debug(f<span class="stringliteral">&quot;Environment variables loaded: {env_dict}&quot;</span>)</div>
-<div class="line"><span class="lineno">   31</span>    <span class="keywordflow">return</span> env_dict</div>
-<div class="line"><span class="lineno">   32</span> </div>
-<div class="line"><span class="lineno">   33</span> </div>
+<div class="line"><span class="lineno">   27</span>    env_dict = {}</div>
+<div class="line"><span class="lineno">   28</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">   29</span>        <span class="keyword">with</span> open(env_path, encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</div>
+<div class="line"><span class="lineno">   30</span>            <span class="keywordflow">for</span> line <span class="keywordflow">in</span> f:</div>
+<div class="line"><span class="lineno">   31</span>                line = line.strip()</div>
+<div class="line"><span class="lineno">   32</span>                <span class="keywordflow">if</span> <span class="keywordflow">not</span> line <span class="keywordflow">or</span> line.startswith(<span class="stringliteral">&quot;#&quot;</span>):</div>
+<div class="line"><span class="lineno">   33</span>                    <span class="keywordflow">continue</span></div>
+<div class="line"><span class="lineno">   34</span>                <span class="keywordflow">if</span> <span class="stringliteral">&quot;=&quot;</span> <span class="keywordflow">in</span> line:</div>
+<div class="line"><span class="lineno">   35</span>                    key, value = line.split(<span class="stringliteral">&quot;=&quot;</span>, 1) <span class="comment"># Nur am ersten &#39;=&#39; splitten</span></div>
+<div class="line"><span class="lineno">   36</span>                    env_dict[key.strip()] = value.strip().strip(<span class="stringliteral">&#39;&quot;&#39;</span>).strip(<span class="stringliteral">&quot;&#39;&quot;</span>)</div>
+<div class="line"><span class="lineno">   37</span> </div>
+<div class="line"><span class="lineno">   38</span>        logger.debug(f<span class="stringliteral">&quot;Environment variables loaded: {env_dict}&quot;</span>)</div>
+<div class="line"><span class="lineno">   39</span>    <span class="keywordflow">except</span> FileNotFoundError:</div>
+<div class="line"><span class="lineno">   40</span>        logger.error(f<span class="stringliteral">&quot;Config-Datei nicht gefunden: {env_path}&quot;</span>)</div>
+<div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span>    <span class="keywordflow">return</span> env_dict</div>
+<div class="line"><span class="lineno">   43</span> </div>
+<div class="line"><span class="lineno">   44</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -225,31 +236,31 @@ Args:
 Raises:
     AssertionError: If the returned dictionary does not match the expected key-value pairs.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="config__manager_8py_source.html#l00054">54</a> of file <a class="el" href="config__manager_8py_source.html">config_manager.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   54</span><span class="keyword">def </span>test_get_env_variables_from_path(tmp_path):</div>
-<div class="line"><span class="lineno">   55</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   56</span><span class="stringliteral">    Test the get_env_variables_from_path function.</span></div>
-<div class="line"><span class="lineno">   57</span><span class="stringliteral">    This test creates a temporary .env file with predefined key-value pairs,</span></div>
-<div class="line"><span class="lineno">   58</span><span class="stringliteral">    calls the get_env_variables_from_path function with the path to the temporary</span></div>
-<div class="line"><span class="lineno">   59</span><span class="stringliteral">    .env file, and asserts that the returned dictionary contains the expected</span></div>
-<div class="line"><span class="lineno">   60</span><span class="stringliteral">    key-value pairs.</span></div>
-<div class="line"><span class="lineno">   61</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><span class="lineno">   62</span><span class="stringliteral">        tmp_path (pathlib.Path): A temporary directory path provided by pytest.</span></div>
-<div class="line"><span class="lineno">   63</span><span class="stringliteral">    Raises:</span></div>
-<div class="line"><span class="lineno">   64</span><span class="stringliteral">        AssertionError: If the returned dictionary does not match the expected key-value pairs.</span></div>
-<div class="line"><span class="lineno">   65</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   66</span> </div>
-<div class="line"><span class="lineno">   67</span>    <span class="comment"># Create a temporary .env file</span></div>
-<div class="line"><span class="lineno">   68</span>    env_file = tmp_path / <span class="stringliteral">&quot;.env&quot;</span></div>
-<div class="line"><span class="lineno">   69</span>    env_file.write_text(<span class="stringliteral">&#39;KEY1=&quot;value1&quot;\nKEY2=&quot;value2&quot;\n&#39;</span>)</div>
-<div class="line"><span class="lineno">   70</span> </div>
-<div class="line"><span class="lineno">   71</span>    <span class="comment"># Call the function with the path to the temporary .env file</span></div>
-<div class="line"><span class="lineno">   72</span>    env_vars = get_env_variables_from_path(str(env_file))</div>
-<div class="line"><span class="lineno">   73</span> </div>
-<div class="line"><span class="lineno">   74</span>    <span class="comment"># Assert that the returned dictionary contains the expected key-value pairs</span></div>
-<div class="line"><span class="lineno">   75</span>    <span class="keyword">assert</span> env_vars == {<span class="stringliteral">&quot;KEY1&quot;</span>: <span class="stringliteral">&quot;value1&quot;</span>, <span class="stringliteral">&quot;KEY2&quot;</span>: <span class="stringliteral">&quot;value2&quot;</span>}</div>
-<div class="line"><span class="lineno">   76</span> </div>
+<p class="definition">Definition at line <a class="el" href="config__manager_8py_source.html#l00065">65</a> of file <a class="el" href="config__manager_8py_source.html">config_manager.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   65</span><span class="keyword">def </span>test_get_env_variables_from_path(tmp_path):</div>
+<div class="line"><span class="lineno">   66</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   67</span><span class="stringliteral">    Test the get_env_variables_from_path function.</span></div>
+<div class="line"><span class="lineno">   68</span><span class="stringliteral">    This test creates a temporary .env file with predefined key-value pairs,</span></div>
+<div class="line"><span class="lineno">   69</span><span class="stringliteral">    calls the get_env_variables_from_path function with the path to the temporary</span></div>
+<div class="line"><span class="lineno">   70</span><span class="stringliteral">    .env file, and asserts that the returned dictionary contains the expected</span></div>
+<div class="line"><span class="lineno">   71</span><span class="stringliteral">    key-value pairs.</span></div>
+<div class="line"><span class="lineno">   72</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><span class="lineno">   73</span><span class="stringliteral">        tmp_path (pathlib.Path): A temporary directory path provided by pytest.</span></div>
+<div class="line"><span class="lineno">   74</span><span class="stringliteral">    Raises:</span></div>
+<div class="line"><span class="lineno">   75</span><span class="stringliteral">        AssertionError: If the returned dictionary does not match the expected key-value pairs.</span></div>
+<div class="line"><span class="lineno">   76</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>    <span class="comment"># Create a temporary .env file</span></div>
+<div class="line"><span class="lineno">   79</span>    env_file = tmp_path / <span class="stringliteral">&quot;.env&quot;</span></div>
+<div class="line"><span class="lineno">   80</span>    env_file.write_text(<span class="stringliteral">&#39;KEY1=&quot;value1&quot;\nKEY2=&quot;value2&quot;\n&#39;</span>)</div>
+<div class="line"><span class="lineno">   81</span> </div>
+<div class="line"><span class="lineno">   82</span>    <span class="comment"># Call the function with the path to the temporary .env file</span></div>
+<div class="line"><span class="lineno">   83</span>    env_vars = get_env_variables_from_path(str(env_file))</div>
+<div class="line"><span class="lineno">   84</span> </div>
+<div class="line"><span class="lineno">   85</span>    <span class="comment"># Assert that the returned dictionary contains the expected key-value pairs</span></div>
+<div class="line"><span class="lineno">   86</span>    <span class="keyword">assert</span> env_vars == {<span class="stringliteral">&quot;KEY1&quot;</span>: <span class="stringliteral">&quot;value1&quot;</span>, <span class="stringliteral">&quot;KEY2&quot;</span>: <span class="stringliteral">&quot;value2&quot;</span>}</div>
+<div class="line"><span class="lineno">   87</span> </div>
+<div class="line"><span class="lineno">   88</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -274,28 +285,28 @@ It then asserts that the returned dictionary is empty.
 Args:
     tmp_path (pathlib.Path): A temporary directory path provided by pytest.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="config__manager_8py_source.html#l00078">78</a> of file <a class="el" href="config__manager_8py_source.html">config_manager.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   78</span><span class="keyword">def </span>test_get_env_variables_from_path_empty_file(tmp_path):</div>
-<div class="line"><span class="lineno">   79</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   80</span><span class="stringliteral">    Test case for get_env_variables_from_path function with an empty .env file.</span></div>
-<div class="line"><span class="lineno">   81</span><span class="stringliteral">    This test creates an empty temporary .env file and calls the</span></div>
-<div class="line"><span class="lineno">   82</span><span class="stringliteral">    get_env_variables_from_path function with the path to this file.</span></div>
-<div class="line"><span class="lineno">   83</span><span class="stringliteral">    It then asserts that the returned dictionary is empty.</span></div>
-<div class="line"><span class="lineno">   84</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><span class="lineno">   85</span><span class="stringliteral">        tmp_path (pathlib.Path): A temporary directory path provided by pytest.</span></div>
-<div class="line"><span class="lineno">   86</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   87</span> </div>
-<div class="line"><span class="lineno">   88</span>    <span class="comment"># Create an empty temporary .env file</span></div>
-<div class="line"><span class="lineno">   89</span>    env_file = tmp_path / <span class="stringliteral">&quot;.env&quot;</span></div>
-<div class="line"><span class="lineno">   90</span>    env_file.write_text(<span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><span class="lineno">   91</span> </div>
-<div class="line"><span class="lineno">   92</span>    <span class="comment"># Call the function with the path to the empty .env file</span></div>
-<div class="line"><span class="lineno">   93</span>    env_vars = get_env_variables_from_path(str(env_file))</div>
-<div class="line"><span class="lineno">   94</span> </div>
-<div class="line"><span class="lineno">   95</span>    <span class="comment"># Assert that the returned dictionary is empty</span></div>
-<div class="line"><span class="lineno">   96</span>    <span class="keyword">assert</span> env_vars == {}</div>
-<div class="line"><span class="lineno">   97</span> </div>
+<p class="definition">Definition at line <a class="el" href="config__manager_8py_source.html#l00089">89</a> of file <a class="el" href="config__manager_8py_source.html">config_manager.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   89</span><span class="keyword">def </span>test_get_env_variables_from_path_empty_file(tmp_path):</div>
+<div class="line"><span class="lineno">   90</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   91</span><span class="stringliteral">    Test case for get_env_variables_from_path function with an empty .env file.</span></div>
+<div class="line"><span class="lineno">   92</span><span class="stringliteral">    This test creates an empty temporary .env file and calls the</span></div>
+<div class="line"><span class="lineno">   93</span><span class="stringliteral">    get_env_variables_from_path function with the path to this file.</span></div>
+<div class="line"><span class="lineno">   94</span><span class="stringliteral">    It then asserts that the returned dictionary is empty.</span></div>
+<div class="line"><span class="lineno">   95</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><span class="lineno">   96</span><span class="stringliteral">        tmp_path (pathlib.Path): A temporary directory path provided by pytest.</span></div>
+<div class="line"><span class="lineno">   97</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><span class="lineno">   98</span> </div>
+<div class="line"><span class="lineno">   99</span>    <span class="comment"># Create an empty temporary .env file</span></div>
+<div class="line"><span class="lineno">  100</span>    env_file = tmp_path / <span class="stringliteral">&quot;.env&quot;</span></div>
+<div class="line"><span class="lineno">  101</span>    env_file.write_text(<span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><span class="lineno">  102</span> </div>
+<div class="line"><span class="lineno">  103</span>    <span class="comment"># Call the function with the path to the empty .env file</span></div>
+<div class="line"><span class="lineno">  104</span>    env_vars = get_env_variables_from_path(str(env_file))</div>
+<div class="line"><span class="lineno">  105</span> </div>
+<div class="line"><span class="lineno">  106</span>    <span class="comment"># Assert that the returned dictionary is empty</span></div>
+<div class="line"><span class="lineno">  107</span>    <span class="keyword">assert</span> env_vars == {}</div>
+<div class="line"><span class="lineno">  108</span> </div>
+<div class="line"><span class="lineno">  109</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -321,25 +332,25 @@ Args:
 Raises:
     IndexError: Expected exception when the .env file contains an invalid format.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="config__manager_8py_source.html#l00099">99</a> of file <a class="el" href="config__manager_8py_source.html">config_manager.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   99</span><span class="keyword">def </span>test_get_env_variables_from_path_invalid_format(tmp_path):</div>
-<div class="line"><span class="lineno">  100</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  101</span><span class="stringliteral">    Test case for get_env_variables_from_path function to handle invalid format in .env file.</span></div>
-<div class="line"><span class="lineno">  102</span><span class="stringliteral">    This test creates a temporary .env file with an invalid format and verifies that the</span></div>
-<div class="line"><span class="lineno">  103</span><span class="stringliteral">    get_env_variables_from_path function raises an IndexError when attempting to parse it.</span></div>
-<div class="line"><span class="lineno">  104</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><span class="lineno">  105</span><span class="stringliteral">        tmp_path (pathlib.Path): Temporary directory provided by pytest to create the .env file.</span></div>
-<div class="line"><span class="lineno">  106</span><span class="stringliteral">    Raises:</span></div>
-<div class="line"><span class="lineno">  107</span><span class="stringliteral">        IndexError: Expected exception when the .env file contains an invalid format.</span></div>
-<div class="line"><span class="lineno">  108</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  109</span> </div>
-<div class="line"><span class="lineno">  110</span>    <span class="comment"># Create a temporary .env file with invalid format</span></div>
-<div class="line"><span class="lineno">  111</span>    env_file = tmp_path / <span class="stringliteral">&quot;.env&quot;</span></div>
-<div class="line"><span class="lineno">  112</span>    env_file.write_text(<span class="stringliteral">&#39;KEY1=&quot;value1&quot;\nINVALID_LINE\nKEY2=&quot;value2&quot;\n&#39;</span>)</div>
-<div class="line"><span class="lineno">  113</span> </div>
-<div class="line"><span class="lineno">  114</span>    <span class="comment"># Call the function with the path to the temporary .env file</span></div>
-<div class="line"><span class="lineno">  115</span>    <span class="keyword">with</span> pytest.raises(IndexError):</div>
-<div class="line"><span class="lineno">  116</span>        get_env_variables_from_path(str(env_file))</div>
+<p class="definition">Definition at line <a class="el" href="config__manager_8py_source.html#l00110">110</a> of file <a class="el" href="config__manager_8py_source.html">config_manager.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  110</span><span class="keyword">def </span>test_get_env_variables_from_path_invalid_format(tmp_path):</div>
+<div class="line"><span class="lineno">  111</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  112</span><span class="stringliteral">    Test case for get_env_variables_from_path function to handle invalid format in .env file.</span></div>
+<div class="line"><span class="lineno">  113</span><span class="stringliteral">    This test creates a temporary .env file with an invalid format and verifies that the</span></div>
+<div class="line"><span class="lineno">  114</span><span class="stringliteral">    get_env_variables_from_path function raises an IndexError when attempting to parse it.</span></div>
+<div class="line"><span class="lineno">  115</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><span class="lineno">  116</span><span class="stringliteral">        tmp_path (pathlib.Path): Temporary directory provided by pytest to create the .env file.</span></div>
+<div class="line"><span class="lineno">  117</span><span class="stringliteral">    Raises:</span></div>
+<div class="line"><span class="lineno">  118</span><span class="stringliteral">        IndexError: Expected exception when the .env file contains an invalid format.</span></div>
+<div class="line"><span class="lineno">  119</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  120</span> </div>
+<div class="line"><span class="lineno">  121</span>    <span class="comment"># Create a temporary .env file with invalid format</span></div>
+<div class="line"><span class="lineno">  122</span>    env_file = tmp_path / <span class="stringliteral">&quot;.env&quot;</span></div>
+<div class="line"><span class="lineno">  123</span>    env_file.write_text(<span class="stringliteral">&#39;KEY1=&quot;value1&quot;\nINVALID_LINE\nKEY2=&quot;value2&quot;\n&#39;</span>)</div>
+<div class="line"><span class="lineno">  124</span> </div>
+<div class="line"><span class="lineno">  125</span>    <span class="comment"># Call the function with the path to the temporary .env file</span></div>
+<div class="line"><span class="lineno">  126</span>    <span class="keyword">with</span> pytest.raises(IndexError):</div>
+<div class="line"><span class="lineno">  127</span>        get_env_variables_from_path(str(env_file))</div>
 </div><!-- fragment -->
 </div>
 </div>

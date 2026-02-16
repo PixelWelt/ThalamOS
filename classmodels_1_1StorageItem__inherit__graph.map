@@ -1,0 +1,9 @@
+<map id="models.StorageItem" name="models.StorageItem">
+<area shape="rect" id="Node000001" title=" " alt="" coords="66,79,221,104"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,92,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,37,129,76,126,81,73,41"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="116,5,171,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="146,44,146,79,141,79,141,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="195,5,244,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="199,42,158,80,154,76,195,38"/>
+</map>

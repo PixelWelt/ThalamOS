@@ -108,257 +108,161 @@ $(function(){initNavTree('Storage__connector_8py_source.html',''); initResizable
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="stringliteral">This module provides functions to interact with a SQLite database for managing storage items.</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="stringliteral">It includes functionalities to set up the database, create, fetch, delete, and search items,</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="stringliteral">as well as export the data to a CSV file.</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="stringliteral">Functions:</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="stringliteral">- setup(): Sets up the database by creating the &#39;storage&#39; table and</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="stringliteral">  a trigger for automatic updating of the &#39;modification_time&#39; column.</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="stringliteral">- fetch_csv(): Fetches all data from the &#39;storage&#39; table and</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="stringliteral">  writes it to a CSV file named &#39;out.csv&#39;.</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="stringliteral">- fetch_item(item_id): Fetches an item from the storage database by its id.</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="stringliteral">- delete_item(item_id): Deletes an item from the storage database based on the provided item id.</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="stringliteral">- create_item(pos, typ, name, jsonData): Creates an item in the storage database.</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="stringliteral">- search(search_term): Searches the storage database for entries that match the given search term.</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">from</span> typing <span class="keyword">import</span> Annotated</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">import</span> csv</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">import</span> sqlite3</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">import</span> os</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">import</span> os</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">from</span> typing <span class="keyword">import</span> Annotated, List, Optional</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">from</span> sqlmodel <span class="keyword">import</span> Session, create_engine, select, or_, SQLModel</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">from</span> models <span class="keyword">import</span> StorageItem, StorageItemType</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">from</span> logger_config <span class="keyword">import</span> logger</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#abca51ca0d7cc7c573acca0dfb525f6c7">   15</a></span>base_dir = os.path.dirname(__file__)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#a745322a0cf2d03ef7808ee94c4484d11">   16</a></span>db_dir = os.path.join(base_dir, <span class="stringliteral">&quot;data&quot;</span>)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#a737f83cafb7b2f183af5dc7165b82fe8">   17</a></span>db_path = os.path.join(db_dir, <span class="stringliteral">&quot;storage.db&quot;</span>)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.exists(db_dir):</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    os.makedirs(db_dir)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    logger.info(f<span class="stringliteral">&quot;Verzeichnis erstellt: {db_dir}&quot;</span>)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>logger.info(f<span class="stringliteral">&quot;Database path: {db_path}&quot;</span>)</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">from</span> logger_config <span class="keyword">import</span> logger</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"># SQLAlchemy Engine erstellen</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#aafb2377c1be1b5aff1e84786b4fe47c3">   24</a></span>engine = create_engine(f<span class="stringliteral">&quot;sqlite:///{db_path}&quot;</span>, connect_args={<span class="stringliteral">&quot;check_same_thread&quot;</span>: <span class="keyword">False</span>})</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#a4c76998b33297de804b47714a32986b0">   26</a></span>db_path: Annotated[str, <span class="stringliteral">&quot;path of database files&quot;</span>] = os.path.join(</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    os.path.dirname(__file__), <span class="stringliteral">&quot;data/storage.db&quot;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>)</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>logger.info(f<span class="stringliteral">&quot;Database path: {db_path}&quot;</span>)</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#acb7beadb7474977c5afbede5eedc2ba2">   30</a></span>mydb: Annotated[sqlite3.Connection, <span class="stringliteral">&quot;helper object for database&quot;</span>] = sqlite3.connect(</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    db_path, check_same_thread=<span class="keyword">False</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>)</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#ae8bee1147588222d4166cc6172aedf86">   33</a></span>cursor = mydb.cursor()</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="foldopen" id="foldopen00036" data-start="" data-end="">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#aafa8ffb7809aa3ef44ee89855067eef4">   36</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#aafa8ffb7809aa3ef44ee89855067eef4">setup</a>() -&gt; None:</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="stringliteral">    Sets up the database by creating the &#39;storage&#39; table and a trigger for automatic</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="stringliteral">    updating of the &#39;modification_time&#39; column.</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="stringliteral">    The &#39;storage&#39; table contains the following columns:</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="stringliteral">    - id: INTEGER, primary key, autoincrement</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="stringliteral">    - position: INTEGER</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="stringliteral">    - type: sensor | screw | display | nail | display | cable | miscellaneous | Motor Driver</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="stringliteral">    - name: TEXT</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="stringliteral">    - info: TEXT</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="stringliteral">    - modification_time: TIMESTAMP, defaults to the current timestamp</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="stringliteral">    The trigger &#39;update_modification_time&#39; ensures that the &#39;modification_time&#39; column</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="stringliteral">    is automatically updated to the current timestamp whenever a row in the &#39;storage&#39;</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="stringliteral">    table is updated.</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="stringliteral">    Commits the changes to the database and prints a confirmation message.</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    cursor.execute(</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="stringliteral">    CREATE TABLE IF NOT EXISTS storage (</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="stringliteral">        id INTEGER PRIMARY KEY AUTOINCREMENT,</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="stringliteral">        position INTEGER,</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="stringliteral">        type TEXT,</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="stringliteral">        name TEXT,</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="stringliteral">        info TEXT,</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="stringliteral">        modification_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="stringliteral">    );</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    )</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="comment"># trigger for automatic update of modification_time</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    cursor.execute(</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="stringliteral">    CREATE TRIGGER IF NOT EXISTS update_modification_time</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="stringliteral">    AFTER UPDATE ON storage</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="stringliteral">    FOR EACH ROW</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="stringliteral">    BEGIN</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="stringliteral">        UPDATE storage</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="stringliteral">        SET modification_time = CURRENT_TIMESTAMP</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="stringliteral">        WHERE id = OLD.id;</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="stringliteral">    END;</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    )</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    mydb.commit()</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    logger.info(<span class="stringliteral">&quot;Database setup complete and ready for service&quot;</span>)</div>
+<div class="foldopen" id="foldopen00026" data-start="" data-end="">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#a4a7b8f7d46452a7f1e5d5e3322cfe640">   26</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#a4a7b8f7d46452a7f1e5d5e3322cfe640">setup</a>():</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    SQLModel.metadata.create_all(engine)</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+</div>
+<div class="foldopen" id="foldopen00029" data-start="" data-end="">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#a3b07309c9c5cb1d3b02eef5b9c2f7690">   29</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#a3b07309c9c5cb1d3b02eef5b9c2f7690">fetch_item</a>(item_id: int) -&gt; StorageItem | <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="stringliteral">    Fetch an item from the storage database by its id.</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="stringliteral">        item_id: The id of the item to fetch.</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="stringliteral">        The item object if found, otherwise None.</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">with</span> Session(engine) <span class="keyword">as</span> session:</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">return</span> session.get(StorageItem, item_id)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+</div>
+<div class="foldopen" id="foldopen00041" data-start="" data-end="">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#ac471908d4960c70ab0c8c0828e52ee39">   41</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#ac471908d4960c70ab0c8c0828e52ee39">delete_item</a>(item_id: int) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="stringliteral">    Deletes an item from the storage database based on the provided item id.</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="stringliteral">        item_id: The id of the item to be deleted from the storage.</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="stringliteral">        None</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">with</span> Session(engine) <span class="keyword">as</span> session:</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        item = session.get(StorageItem, item_id)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">if</span> item:</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            session.delete(item)</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            session.commit()</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            logger.info(f<span class="stringliteral">&quot;Item with ID {item_id} deleted.&quot;</span>)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            logger.warning(f<span class="stringliteral">&quot;Deletion failed: ID {item_id} not found.&quot;</span>)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+</div>
+<div class="foldopen" id="foldopen00059" data-start="" data-end="">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#a9d6c50b187903de5c4acd650ff3d2c98">   59</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#a9d6c50b187903de5c4acd650ff3d2c98">create_item</a>(pos: int, obj_type: StorageItemType, name: str, json_data: str) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="stringliteral">    Creates a new item in the storage database with the provided position, type, name, and JSON data.</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="stringliteral">        pos: LED position of the item.</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="stringliteral">        obj_type: type of the Item</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="stringliteral">        name: name of item</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="stringliteral">        json_data: additional json ifno</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    info_value = <span class="keywordtype">None</span> <span class="keywordflow">if</span> json_data <span class="keywordflow">in</span> [<span class="stringliteral">&quot;{}&quot;</span>, <span class="stringliteral">&quot;&quot;</span>] <span class="keywordflow">else</span> json_data</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    new_item = <a class="code hl_class" href="classmodels_1_1StorageItem.html">StorageItem</a>(</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        position=pos,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        type=obj_type,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        name=name,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        info=info_value</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    )</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">with</span> Session(engine) <span class="keyword">as</span> session:</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        session.add(new_item)</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        session.commit()</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        logger.info(f<span class="stringliteral">&quot;Item created: {name}&quot;</span>)</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 </div>
-<div class="foldopen" id="foldopen00082" data-start="" data-end="">
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#ac19bb6ab6e13a6787cdd1595367d61cd">   82</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#ac19bb6ab6e13a6787cdd1595367d61cd">fetch_csv</a>() -&gt; None:</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="stringliteral">    Fetches all data from the &#39;storage&#39; table in the database and</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="stringliteral">    writes it to a CSV file named &#39;out.csv&#39;.</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="stringliteral">    The function executes a SQL query to select all rows from the</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="stringliteral">    &#39;storage&#39; table, writes the column headers</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="stringliteral">    and all rows to the CSV file, and saves the file with UTF-8 encoding.</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="stringliteral">    Raises:</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="stringliteral">        Any exceptions raised by the database cursor execution or file operations.</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    cursor.execute(<span class="stringliteral">&quot;SELECT * FROM storage;&quot;</span>)</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">with</span> open(<span class="stringliteral">&quot;static/database.csv&quot;</span>, <span class="stringliteral">&quot;w&quot;</span>, newline=<span class="stringliteral">&quot;&quot;</span>, encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> csv_file:</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        csv_writer = csv.writer(csv_file)</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        csv_writer.writerow([i[0] <span class="keywordflow">for</span> i <span class="keywordflow">in</span> cursor.description])</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        csv_writer.writerows(cursor.fetchall())</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-</div>
-<div class="foldopen" id="foldopen00100" data-start="" data-end="">
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#ac9ef5fceb894ceceab4ab8ff2c23c90b">  100</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#ac9ef5fceb894ceceab4ab8ff2c23c90b">fetch_item</a>(</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    item_id,</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>) -&gt; Annotated[tuple, &quot;tuple containing the item&#39;s data if found, otherwise None&quot;]:</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="stringliteral">    Fetch an item from the storage database by its id.</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="stringliteral">        itemID (int): The id of the item to fetch.</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="stringliteral">        tuple: A tuple containing the item&#39;s data if found, otherwise None.</span></div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    cursor.execute(<span class="stringliteral">&quot;select * From storage WHERE id=?;&quot;</span>, (item_id,))</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">return</span> cursor.fetchone()</div>
+<div class="foldopen" id="foldopen00086" data-start="" data-end="">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#a357b8455dc255ee9590d34de0787bf3f">   86</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#a357b8455dc255ee9590d34de0787bf3f">search</a>(search_term: str) -&gt; List[StorageItem]:</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="stringliteral">    Searches the storage database for entries that match the given search term.</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="stringliteral">        search_term: The term to search for in the database. The term will be split</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="stringliteral">                          into individual words,</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="stringliteral">                          and each word will be used to search the &#39;type&#39;, &#39;name&#39;, and</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="stringliteral">                          &#39;info&#39; columns.</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="stringliteral">        A list of tuples containing the rows from the database that match the search criteria.</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="stringliteral">              Returns None if there is an SQLite programming error.</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="stringliteral">    Raises:</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="stringliteral">        sqlite3.ProgrammingError: If there is an error executing the query.</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">with</span> Session(engine) <span class="keyword">as</span> session:</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        statement = select(StorageItem)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        search_words = search_term.split()</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">for</span> word <span class="keywordflow">in</span> search_words:</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            pattern = f<span class="stringliteral">&quot;%{word}%&quot;</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            statement = statement.where(</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                or_(</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                    StorageItem.type.like(pattern),</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                    StorageItem.name.like(pattern),</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                    StorageItem.info.like(pattern)</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                )</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            )</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        results = session.exec(statement).all()</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="keywordflow">return</span> list(results)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
 </div>
-<div class="foldopen" id="foldopen00115" data-start="" data-end="">
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#ac5db0c7074c7f024ca28e501598863c3">  115</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#ac5db0c7074c7f024ca28e501598863c3">delete_item</a>(item_id) -&gt; None:</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="stringliteral">    Deletes an item from the storage database based on the provided item id.</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="stringliteral">        itemID (int): The id of the item to be deleted from the storage.</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="stringliteral">        None</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    cursor.execute(<span class="stringliteral">&quot;DELETE FROM storage WHERE ID=?;&quot;</span>, (item_id,))</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    mydb.commit()</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="foldopen" id="foldopen00118" data-start="" data-end="">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#a4309087d1a20815b9930cf35652e668c">  118</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#a4309087d1a20815b9930cf35652e668c">update_item</a>(item_id: int, pos: int, obj_type: StorageItemType, name: str, json_data: str) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="stringliteral">    Updates an item in the storage database.</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="stringliteral">        item_id: The id of the item to update.</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="stringliteral">        pos: The new position of the item.</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="stringliteral">        obj_type: The new type of the item.</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="stringliteral">        name: The new name of the item.</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="stringliteral">        json_data: The new JSON data associated with the item.</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keyword">with</span> Session(engine) <span class="keyword">as</span> session:</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        db_item = session.get(StorageItem, item_id)</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> db_item:</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            logger.error(f<span class="stringliteral">&quot;Update fehlgeschlagen: Item {item_id} nicht gefunden.&quot;</span>)</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <span class="keywordflow">return</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        db_item.position = pos</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        db_item.type = obj_type</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        db_item.name = name</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        db_item.info = json_data <span class="keywordflow">if</span> json_data != <span class="stringliteral">&quot;{}&quot;</span> <span class="keywordflow">else</span> <span class="keywordtype">None</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        session.add(db_item)</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        session.commit()</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        session.refresh(db_item)</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        logger.info(f<span class="stringliteral">&quot;Item {item_id} erfolgreich aktualisiert.&quot;</span>)</div>
 </div>
-<div class="foldopen" id="foldopen00128" data-start="" data-end="">
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#abc8d506980d0690835598342c10b574a">  128</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#abc8d506980d0690835598342c10b574a">create_item</a>(pos, obj_type, name, json_data) -&gt; None:</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="stringliteral">    Creates an item in the storage database.</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="stringliteral">        pos (int): The position of the item.</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="stringliteral">        typ (str): The type of the item.</span></div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="stringliteral">        name (str): The name of the item.</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="stringliteral">        jsonData (str): The JSON data associated with the item. If empty JSON object (&quot;{}&quot;),</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="stringliteral">        no additional info is stored.</span></div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="stringliteral">        None</span></div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    logger.info(</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="stringliteral">&quot;Creating item with position: {}, type: {}, name: {}, json_data: {}&quot;</span>,</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        pos,</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        obj_type,</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        name,</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        json_data,</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    )</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">if</span> json_data == <span class="stringliteral">&quot;{}&quot;</span>:</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        query = <span class="stringliteral">&quot;INSERT INTO storage (position, type, name) VALUES (?, ?, ?);&quot;</span></div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        params = (pos, obj_type, name)</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keywordflow">else</span>:</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        query = <span class="stringliteral">&quot;INSERT INTO storage (position, type, name, info) VALUES (?, ?, ?, ?);&quot;</span></div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        params = (pos, obj_type, name, json_data)</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    logger.debug(f<span class="stringliteral">&quot;Executing query: {query} with params: {params}&quot;</span>)</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    cursor.execute(query, params)</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    mydb.commit()</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-</div>
-<div class="foldopen" id="foldopen00159" data-start="" data-end="">
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#ab5389b4171d60c4f986084f96fba404d">  159</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#ab5389b4171d60c4f986084f96fba404d">search</a>(</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    search_term,</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>) -&gt; Annotated[</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    list,</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    &quot;list of tuples containing the rows from the database that match the search criteria&quot;,</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>]:</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="stringliteral">    Searches the storage database for entries that match the given search term.</span></div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="stringliteral">        searchTerm (str): The term to search for in the database. The term will be split</span></div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="stringliteral">                          into individual words,</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="stringliteral">                          and each word will be used to search the &#39;type&#39;, &#39;name&#39;, and</span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="stringliteral">                          &#39;info&#39; columns.</span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="stringliteral">        list: A list of tuples containing the rows from the database that match the search criteria.</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="stringliteral">              Returns None if there is an SQLite programming error.</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="stringliteral">    Raises:</span></div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="stringliteral">        sqlite3.ProgrammingError: If there is an error executing the query.</span></div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">try</span>:</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="comment"># Split searchTerm into single words</span></div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        search_terms = search_term.split()</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="comment"># create statement with placeholders for each search term</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        conditions = <span class="stringliteral">&quot; AND &quot;</span>.join(</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            [<span class="stringliteral">&quot;(type LIKE ? OR name LIKE ? OR info LIKE ?)&quot;</span> <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> search_terms]</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        )</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        query = f<span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="stringliteral">        SELECT *</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="stringliteral">        FROM storage</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="stringliteral">        WHERE {conditions};</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="comment"># create parameters for each placeholder</span></div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        parameters = tuple(f<span class="stringliteral">&quot;%{term}%&quot;</span> <span class="keywordflow">for</span> term <span class="keywordflow">in</span> search_terms <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(3))</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <span class="comment"># Debugging: print query and parameters</span></div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        logger.debug(f<span class="stringliteral">&quot;Executing search query: {query} with parameters: {parameters}&quot;</span>)</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        cursor.execute(query, parameters)</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        results = cursor.fetchall()</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        <span class="keywordflow">return</span> results</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordflow">except</span> sqlite3.ProgrammingError <span class="keyword">as</span> e:</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        logger.error(f<span class="stringliteral">&quot;SQLite-Error: {str(e)}&quot;</span>)</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
-</div>
-<div class="foldopen" id="foldopen00208" data-start="" data-end="">
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="namespaceStorage__connector.html#ae944c67f73d1d668f527caa990370f96">  208</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceStorage__connector.html#ae944c67f73d1d668f527caa990370f96">update_item</a>(item_id, pos, obj_type, name, json_data) -&gt; None:</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="stringliteral">    Updates an item in the storage database.</span></div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="stringliteral">        item_id (int): The id of the item to update.</span></div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="stringliteral">        pos (int): The new position of the item.</span></div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="stringliteral">        obj_type (str): The new type of the item.</span></div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="stringliteral">        name (str): The new name of the item.</span></div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="stringliteral">        json_data (str): The new JSON data associated with the item.</span></div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="stringliteral">        None</span></div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    logger.info(</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="stringliteral">&quot;Updating item with id: {}, position: {}, type: {}, name: {}, json_data: {}&quot;</span>,</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        item_id,</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        pos,</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        obj_type,</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        name,</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        json_data,</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    )</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    query = <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="stringliteral">        UPDATE storage</span></div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="stringliteral">        SET position = ?, type = ?, name = ?, info = ?</span></div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="stringliteral">        WHERE id = ?;</span></div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    params = (pos, obj_type, name, json_data, item_id)</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    logger.debug(f<span class="stringliteral">&quot;Executing query: {query} with params: {params}&quot;</span>)</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    cursor.execute(query, params)</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    mydb.commit()</div>
-</div>
-<div class="ttc" id="anamespaceStorage__connector_html_aafa8ffb7809aa3ef44ee89855067eef4"><div class="ttname"><a href="namespaceStorage__connector.html#aafa8ffb7809aa3ef44ee89855067eef4">Storage_connector.setup</a></div><div class="ttdeci">None setup()</div><div class="ttdef"><b>Definition</b> <a href="#l00036">Storage_connector.py:36</a></div></div>
-<div class="ttc" id="anamespaceStorage__connector_html_ab5389b4171d60c4f986084f96fba404d"><div class="ttname"><a href="namespaceStorage__connector.html#ab5389b4171d60c4f986084f96fba404d">Storage_connector.search</a></div><div class="ttdeci">Annotated[ list, &quot;list of tuples containing the rows from the database that match the search criteria&quot;,] search(search_term)</div><div class="ttdef"><b>Definition</b> <a href="#l00159">Storage_connector.py:164</a></div></div>
-<div class="ttc" id="anamespaceStorage__connector_html_abc8d506980d0690835598342c10b574a"><div class="ttname"><a href="namespaceStorage__connector.html#abc8d506980d0690835598342c10b574a">Storage_connector.create_item</a></div><div class="ttdeci">None create_item(pos, obj_type, name, json_data)</div><div class="ttdef"><b>Definition</b> <a href="#l00128">Storage_connector.py:128</a></div></div>
-<div class="ttc" id="anamespaceStorage__connector_html_ac19bb6ab6e13a6787cdd1595367d61cd"><div class="ttname"><a href="namespaceStorage__connector.html#ac19bb6ab6e13a6787cdd1595367d61cd">Storage_connector.fetch_csv</a></div><div class="ttdeci">None fetch_csv()</div><div class="ttdef"><b>Definition</b> <a href="#l00082">Storage_connector.py:82</a></div></div>
-<div class="ttc" id="anamespaceStorage__connector_html_ac5db0c7074c7f024ca28e501598863c3"><div class="ttname"><a href="namespaceStorage__connector.html#ac5db0c7074c7f024ca28e501598863c3">Storage_connector.delete_item</a></div><div class="ttdeci">None delete_item(item_id)</div><div class="ttdef"><b>Definition</b> <a href="#l00115">Storage_connector.py:115</a></div></div>
-<div class="ttc" id="anamespaceStorage__connector_html_ac9ef5fceb894ceceab4ab8ff2c23c90b"><div class="ttname"><a href="namespaceStorage__connector.html#ac9ef5fceb894ceceab4ab8ff2c23c90b">Storage_connector.fetch_item</a></div><div class="ttdeci">Annotated[tuple, &quot;tuple containing the item&#39;s data if found, otherwise None&quot;] fetch_item(item_id)</div><div class="ttdef"><b>Definition</b> <a href="#l00100">Storage_connector.py:102</a></div></div>
-<div class="ttc" id="anamespaceStorage__connector_html_ae944c67f73d1d668f527caa990370f96"><div class="ttname"><a href="namespaceStorage__connector.html#ae944c67f73d1d668f527caa990370f96">Storage_connector.update_item</a></div><div class="ttdeci">None update_item(item_id, pos, obj_type, name, json_data)</div><div class="ttdef"><b>Definition</b> <a href="#l00208">Storage_connector.py:208</a></div></div>
+<div class="ttc" id="aclassmodels_1_1StorageItem_html"><div class="ttname"><a href="classmodels_1_1StorageItem.html">models.StorageItem</a></div><div class="ttdef"><b>Definition</b> <a href="models_8py_source.html#l00015">models.py:15</a></div></div>
+<div class="ttc" id="anamespaceStorage__connector_html_a357b8455dc255ee9590d34de0787bf3f"><div class="ttname"><a href="namespaceStorage__connector.html#a357b8455dc255ee9590d34de0787bf3f">Storage_connector.search</a></div><div class="ttdeci">List[StorageItem] search(str search_term)</div><div class="ttdef"><b>Definition</b> <a href="#l00086">Storage_connector.py:86</a></div></div>
+<div class="ttc" id="anamespaceStorage__connector_html_a3b07309c9c5cb1d3b02eef5b9c2f7690"><div class="ttname"><a href="namespaceStorage__connector.html#a3b07309c9c5cb1d3b02eef5b9c2f7690">Storage_connector.fetch_item</a></div><div class="ttdeci">StorageItem|None fetch_item(int item_id)</div><div class="ttdef"><b>Definition</b> <a href="#l00029">Storage_connector.py:29</a></div></div>
+<div class="ttc" id="anamespaceStorage__connector_html_a4309087d1a20815b9930cf35652e668c"><div class="ttname"><a href="namespaceStorage__connector.html#a4309087d1a20815b9930cf35652e668c">Storage_connector.update_item</a></div><div class="ttdeci">None update_item(int item_id, int pos, StorageItemType obj_type, str name, str json_data)</div><div class="ttdef"><b>Definition</b> <a href="#l00118">Storage_connector.py:118</a></div></div>
+<div class="ttc" id="anamespaceStorage__connector_html_a4a7b8f7d46452a7f1e5d5e3322cfe640"><div class="ttname"><a href="namespaceStorage__connector.html#a4a7b8f7d46452a7f1e5d5e3322cfe640">Storage_connector.setup</a></div><div class="ttdeci">setup()</div><div class="ttdef"><b>Definition</b> <a href="#l00026">Storage_connector.py:26</a></div></div>
+<div class="ttc" id="anamespaceStorage__connector_html_a9d6c50b187903de5c4acd650ff3d2c98"><div class="ttname"><a href="namespaceStorage__connector.html#a9d6c50b187903de5c4acd650ff3d2c98">Storage_connector.create_item</a></div><div class="ttdeci">None create_item(int pos, StorageItemType obj_type, str name, str json_data)</div><div class="ttdef"><b>Definition</b> <a href="#l00059">Storage_connector.py:59</a></div></div>
+<div class="ttc" id="anamespaceStorage__connector_html_ac471908d4960c70ab0c8c0828e52ee39"><div class="ttname"><a href="namespaceStorage__connector.html#ac471908d4960c70ab0c8c0828e52ee39">Storage_connector.delete_item</a></div><div class="ttdeci">None delete_item(int item_id)</div><div class="ttdef"><b>Definition</b> <a href="#l00041">Storage_connector.py:41</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

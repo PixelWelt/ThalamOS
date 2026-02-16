@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['scale_5fhost_0',['SCALE_HOST',['../namespaceweigh__fi__manager.html#a2d0d4ed354c122076da8b95b73df9633',1,'weigh_fi_manager']]]
+  ['ollama_5fhost_0',['ollama_host',['../namespaceollama__manager.html#ab66ea3d4c10a94eade8efbef3f00d8b1',1,'ollama_manager']]]
 ];

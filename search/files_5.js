@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['readme_2emd_0',['README.MD',['../README_8MD.html',1,'']]]
+  ['ollama_5fmanager_2epy_0',['ollama_manager.py',['../ollama__manager_8py.html',1,'']]]
 ];

@@ -118,8 +118,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:af70088500b6e9ab7c2bd78a4fef81b17" id="r_af70088500b6e9ab7c2bd78a4fef81b17"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af70088500b6e9ab7c2bd78a4fef81b17">connection</a> = sqlite3.connect(f&quot;file:{sql_database}?mode=ro&quot;, uri=True)</td></tr>
-<tr class="separator:af70088500b6e9ab7c2bd78a4fef81b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b7fb627251cd7b77c57641dad77db3d" id="r_a3b7fb627251cd7b77c57641dad77db3d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b7fb627251cd7b77c57641dad77db3d">engine</a> = create_engine(f&quot;sqlite:///{os.path.abspath(sql_database)}&quot;)</td></tr>
+<tr class="separator:a3b7fb627251cd7b77c57641dad77db3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">A component to execute SQL queries on the SQLite database.
@@ -130,7 +130,7 @@ Attributes:
 Methods:
     run(queries: List[str]) -&gt; dict: Executes the provided SQL queries and returns the results.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="ollama__manager_8py_source.html#l00088">88</a> of file <a class="el" href="ollama__manager_8py_source.html">ollama_manager.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ollama__manager_8py_source.html#l00089">89</a> of file <a class="el" href="ollama__manager_8py_source.html">ollama_manager.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4807f7b03c28a8741a7cfbd3bdc023a8" name="a4807f7b03c28a8741a7cfbd3bdc023a8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4807f7b03c28a8741a7cfbd3bdc023a8">&#9670;&#160;</a></span>__init__()</h2>
@@ -151,10 +151,10 @@ Methods:
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ollama__manager_8py_source.html#l00099">99</a> of file <a class="el" href="ollama__manager_8py_source.html">ollama_manager.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   99</span>    <span class="keyword">def </span>__init__(self, sql_database: str):</div>
-<div class="line"><span class="lineno">  100</span>        self.connection = sqlite3.connect(f<span class="stringliteral">&quot;file:{sql_database}?mode=ro&quot;</span>, uri=<span class="keyword">True</span>)</div>
-<div class="line"><span class="lineno">  101</span> </div>
+<p class="definition">Definition at line <a class="el" href="ollama__manager_8py_source.html#l00100">100</a> of file <a class="el" href="ollama__manager_8py_source.html">ollama_manager.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  100</span>    <span class="keyword">def </span>__init__(self, sql_database: str):</div>
+<div class="line"><span class="lineno">  101</span>        self.engine = create_engine(f<span class="stringliteral">&quot;sqlite:///{os.path.abspath(sql_database)}&quot;</span>)</div>
+<div class="line"><span class="lineno">  102</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -174,11 +174,11 @@ Methods:
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ollama__manager_8py_source.html#l00125">125</a> of file <a class="el" href="ollama__manager_8py_source.html">ollama_manager.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  125</span>    <span class="keyword">def </span>__str__(self):</div>
-<div class="line"><span class="lineno">  126</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&lt;SQLQuery Object&gt;&quot;</span></div>
-<div class="line"><span class="lineno">  127</span> </div>
-<div class="line"><span class="lineno">  128</span> </div>
+<p class="definition">Definition at line <a class="el" href="ollama__manager_8py_source.html#l00118">118</a> of file <a class="el" href="ollama__manager_8py_source.html">ollama_manager.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  118</span>    <span class="keyword">def </span>__str__(self):</div>
+<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;&lt;SQLQuery Object&gt;&quot;</span></div>
+<div class="line"><span class="lineno">  120</span> </div>
+<div class="line"><span class="lineno">  121</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -200,54 +200,39 @@ Methods:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Executes the provided SQL queries and returns the results. Tests if the SQL queries are valid before execution.
 
-Args:
-    queries (List[str]): A list of SQL queries to be executed.
-
-Returns:
-    dict: A dictionary containing the results of the executed queries and the original queries.
-</pre> 
-<p class="definition">Definition at line <a class="el" href="ollama__manager_8py_source.html#l00103">103</a> of file <a class="el" href="ollama__manager_8py_source.html">ollama_manager.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  103</span>    <span class="keyword">def </span>run(self, queries: List[str]):</div>
-<div class="line"><span class="lineno">  104</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  105</span><span class="stringliteral">        Executes the provided SQL queries and returns the results. Tests if the SQL queries are valid before execution.</span></div>
-<div class="line"><span class="lineno">  106</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  107</span><span class="stringliteral">        Args:</span></div>
-<div class="line"><span class="lineno">  108</span><span class="stringliteral">            queries (List[str]): A list of SQL queries to be executed.</span></div>
-<div class="line"><span class="lineno">  109</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  110</span><span class="stringliteral">        Returns:</span></div>
-<div class="line"><span class="lineno">  111</span><span class="stringliteral">            dict: A dictionary containing the results of the executed queries and the original queries.</span></div>
-<div class="line"><span class="lineno">  112</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  113</span>        results = []</div>
-<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">for</span> query <span class="keywordflow">in</span> queries:</div>
-<div class="line"><span class="lineno">  115</span>            <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">  116</span>                print(f<span class="stringliteral">&quot;query: {query}&quot;</span>)</div>
-<div class="line"><span class="lineno">  117</span>                result = pd.read_sql(query, self.connection).to_json(orient=<span class="stringliteral">&quot;records&quot;</span>)</div>
-<div class="line"><span class="lineno">  118</span>                results.append(result)</div>
-<div class="line"><span class="lineno">  119</span>            <span class="keywordflow">except</span> ValueError <span class="keyword">as</span> e:</div>
-<div class="line"><span class="lineno">  120</span>                logger.error(f<span class="stringliteral">&quot;Error parsing SQL query: {e}&quot;</span>)</div>
-<div class="line"><span class="lineno">  121</span>                <span class="keywordflow">return</span> {<span class="stringliteral">&quot;results&quot;</span>: [<span class="stringliteral">&quot;error&quot;</span>], <span class="stringliteral">&quot;queries&quot;</span>: queries}</div>
-<div class="line"><span class="lineno">  122</span> </div>
-<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">return</span> {<span class="stringliteral">&quot;results&quot;</span>: results, <span class="stringliteral">&quot;queries&quot;</span>: queries}</div>
-<div class="line"><span class="lineno">  124</span> </div>
+<p class="definition">Definition at line <a class="el" href="ollama__manager_8py_source.html#l00104">104</a> of file <a class="el" href="ollama__manager_8py_source.html">ollama_manager.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  104</span>    <span class="keyword">def </span>run(self, queries: List[str]):</div>
+<div class="line"><span class="lineno">  105</span>        results = []</div>
+<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">for</span> query <span class="keywordflow">in</span> queries:</div>
+<div class="line"><span class="lineno">  107</span>            <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">  108</span>                <span class="comment"># pandas kann direkt mit der SQLAlchemy-Engine arbeiten</span></div>
+<div class="line"><span class="lineno">  109</span>                df = pd.read_sql(query, self.engine)</div>
+<div class="line"><span class="lineno">  110</span>                result = df.to_json(orient=<span class="stringliteral">&quot;records&quot;</span>)</div>
+<div class="line"><span class="lineno">  111</span>                results.append(result)</div>
+<div class="line"><span class="lineno">  112</span>            <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">  113</span>                logger.error(f<span class="stringliteral">&quot;Error executing SQL query: {e}&quot;</span>)</div>
+<div class="line"><span class="lineno">  114</span>                <span class="keywordflow">return</span> {<span class="stringliteral">&quot;results&quot;</span>: [<span class="stringliteral">&quot;error&quot;</span>], <span class="stringliteral">&quot;queries&quot;</span>: queries}</div>
+<div class="line"><span class="lineno">  115</span> </div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">return</span> {<span class="stringliteral">&quot;results&quot;</span>: results, <span class="stringliteral">&quot;queries&quot;</span>: queries}</div>
+<div class="line"><span class="lineno">  117</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="af70088500b6e9ab7c2bd78a4fef81b17" name="af70088500b6e9ab7c2bd78a4fef81b17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af70088500b6e9ab7c2bd78a4fef81b17">&#9670;&#160;</a></span>connection</h2>
+<a id="a3b7fb627251cd7b77c57641dad77db3d" name="a3b7fb627251cd7b77c57641dad77db3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b7fb627251cd7b77c57641dad77db3d">&#9670;&#160;</a></span>engine</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ollama_manager.SQLQuery.connection = sqlite3.connect(f&quot;file:{sql_database}?mode=ro&quot;, uri=True)</td>
+          <td class="memname">ollama_manager.SQLQuery.engine = create_engine(f&quot;sqlite:///{os.path.abspath(sql_database)}&quot;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ollama__manager_8py_source.html#l00100">100</a> of file <a class="el" href="ollama__manager_8py_source.html">ollama_manager.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ollama__manager_8py_source.html#l00101">101</a> of file <a class="el" href="ollama__manager_8py_source.html">ollama_manager.py</a>.</p>
 
 </div>
 </div>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wled_5fhost_0',['WLED_HOST',['../namespacewled__requests.html#aae6b40d4c8903fea1942fa4e46e9ab82',1,'wled_requests']]]
+  ['prompt_5finstance_0',['prompt_instance',['../namespaceollama__manager.html#abc9087a01b3f342cd455eeca11ad78b8',1,'ollama_manager']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['env_5fpath_0',['ENV_PATH',['../namespaceollama__manager.html#ab39c0fd95bb6bd99ff9b9087b7939638',1,'ollama_manager.ENV_PATH'],['../namespaceweigh__fi__manager.html#ada975b9fd65e72a30eb47c41f354cef3',1,'weigh_fi_manager.ENV_PATH'],['../namespacewled__requests.html#a14caea6a648c19dfe6a098c889126d0c',1,'wled_requests.ENV_PATH']]]
+  ['cable_0',['CABLE',['../classmodels_1_1StorageItemType.html#a2805798e258e6e649cf98c5aa6264870',1,'models::StorageItemType']]],
+  ['compression_1',['compression',['../namespacelogger__config.html#ae400b9e96ca6657efec3624b281c0389',1,'logger_config']]]
 ];

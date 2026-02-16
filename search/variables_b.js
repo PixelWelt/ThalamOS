@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['prompt_5finstance_0',['prompt_instance',['../namespaceollama__manager.html#abc9087a01b3f342cd455eeca11ad78b8',1,'ollama_manager']]]
+  ['miscellaneous_0',['MISCELLANEOUS',['../classmodels_1_1StorageItemType.html#a6663a82f925c26b8c5d968f076c84772',1,'models::StorageItemType']]],
+  ['modification_5ftime_1',['modification_time',['../classmodels_1_1StorageItem.html#a0d9fee33cf6f59e2c43f61c7a0cc3f0d',1,'models::StorageItem']]]
 ];

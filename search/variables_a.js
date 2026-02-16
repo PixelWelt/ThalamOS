@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ollama_5fhost_0',['ollama_host',['../namespaceollama__manager.html#ab66ea3d4c10a94eade8efbef3f00d8b1',1,'ollama_manager']]]
+  ['level_0',['level',['../namespacelogger__config.html#a7bffe4923ecb0351456006a2651daa4b',1,'logger_config']]]
 ];

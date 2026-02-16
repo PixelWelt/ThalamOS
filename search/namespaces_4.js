@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['storage_5fconnector_0',['Storage_connector',['../namespaceStorage__connector.html',1,'']]]
+  ['ollama_5fmanager_0',['ollama_manager',['../namespaceollama__manager.html',1,'']]]
 ];
