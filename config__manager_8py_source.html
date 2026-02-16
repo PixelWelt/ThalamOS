@@ -142,7 +142,7 @@ $(function(){initNavTree('config__manager_8py_source.html',''); initResizable(tr
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        logger.debug(f<span class="stringliteral">&quot;Environment variables loaded: {env_dict}&quot;</span>)</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">except</span> FileNotFoundError:</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        logger.error(f<span class="stringliteral">&quot;Config-Datei nicht gefunden: {env_path}&quot;</span>)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        logger.error(f<span class="stringliteral">&quot;Config-File not found: {env_path}&quot;</span>)</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> env_dict</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
@@ -215,7 +215,7 @@ $(function(){initNavTree('config__manager_8py_source.html',''); initResizable(tr
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    env_vars = <a class="code hl_function" href="namespaceconfig__manager.html#ae64528053ffeaf4fc0ac89c4b906469c">get_env_variables_from_path</a>(str(env_file))</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="comment"># Assert that the returned dictionary is empty</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">assert</span> env_vars == {}</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">assert</span> <span class="keywordflow">not</span> env_vars</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 </div>

@@ -204,7 +204,7 @@ Returns:
 <div class="line"><span class="lineno">   37</span> </div>
 <div class="line"><span class="lineno">   38</span>        logger.debug(f<span class="stringliteral">&quot;Environment variables loaded: {env_dict}&quot;</span>)</div>
 <div class="line"><span class="lineno">   39</span>    <span class="keywordflow">except</span> FileNotFoundError:</div>
-<div class="line"><span class="lineno">   40</span>        logger.error(f<span class="stringliteral">&quot;Config-Datei nicht gefunden: {env_path}&quot;</span>)</div>
+<div class="line"><span class="lineno">   40</span>        logger.error(f<span class="stringliteral">&quot;Config-File not found: {env_path}&quot;</span>)</div>
 <div class="line"><span class="lineno">   41</span> </div>
 <div class="line"><span class="lineno">   42</span>    <span class="keywordflow">return</span> env_dict</div>
 <div class="line"><span class="lineno">   43</span> </div>
@@ -304,7 +304,7 @@ Args:
 <div class="line"><span class="lineno">  104</span>    env_vars = get_env_variables_from_path(str(env_file))</div>
 <div class="line"><span class="lineno">  105</span> </div>
 <div class="line"><span class="lineno">  106</span>    <span class="comment"># Assert that the returned dictionary is empty</span></div>
-<div class="line"><span class="lineno">  107</span>    <span class="keyword">assert</span> env_vars == {}</div>
+<div class="line"><span class="lineno">  107</span>    <span class="keyword">assert</span> <span class="keywordflow">not</span> env_vars</div>
 <div class="line"><span class="lineno">  108</span> </div>
 <div class="line"><span class="lineno">  109</span> </div>
 </div><!-- fragment -->
