@@ -162,19 +162,19 @@ Args:
 Returns:
     None
 </pre> 
-<p class="definition">Definition at line <a class="el" href="wled__requests_8py_source.html#l00080">80</a> of file <a class="el" href="wled__requests_8py_source.html">wled_requests.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   80</span><span class="keyword">def </span>change_power_state(state) -&gt; None:</div>
-<div class="line"><span class="lineno">   81</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   82</span><span class="stringliteral">    Change the power state of the device.</span></div>
-<div class="line"><span class="lineno">   83</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><span class="lineno">   84</span><span class="stringliteral">        state (bool): The desired power state. True to turn on, False to turn off.</span></div>
-<div class="line"><span class="lineno">   85</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><span class="lineno">   86</span><span class="stringliteral">        None</span></div>
-<div class="line"><span class="lineno">   87</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   88</span>    req = json.dumps({<span class="stringliteral">&quot;on&quot;</span>: state})</div>
-<div class="line"><span class="lineno">   89</span>    requests.post(API, req, timeout=10)</div>
-<div class="line"><span class="lineno">   90</span> </div>
-<div class="line"><span class="lineno">   91</span> </div>
+<p class="definition">Definition at line <a class="el" href="wled__requests_8py_source.html#l00087">87</a> of file <a class="el" href="wled__requests_8py_source.html">wled_requests.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   87</span><span class="keyword">def </span>change_power_state(state) -&gt; None:</div>
+<div class="line"><span class="lineno">   88</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   89</span><span class="stringliteral">    Change the power state of the device.</span></div>
+<div class="line"><span class="lineno">   90</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><span class="lineno">   91</span><span class="stringliteral">        state (bool): The desired power state. True to turn on, False to turn off.</span></div>
+<div class="line"><span class="lineno">   92</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><span class="lineno">   93</span><span class="stringliteral">        None</span></div>
+<div class="line"><span class="lineno">   94</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   95</span>    req = json.dumps({<span class="stringliteral">&quot;on&quot;</span>: state})</div>
+<div class="line"><span class="lineno">   96</span>    requests.post(API, req, timeout=10)</div>
+<div class="line"><span class="lineno">   97</span> </div>
+<div class="line"><span class="lineno">   98</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -198,19 +198,19 @@ Args:
 Returns:
     None
 </pre> 
-<p class="definition">Definition at line <a class="el" href="wled__requests_8py_source.html#l00057">57</a> of file <a class="el" href="wled__requests_8py_source.html">wled_requests.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   57</span><span class="keyword">def </span>color_pos(pos: int) -&gt; <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">   58</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   59</span><span class="stringliteral">    Sends a request to set the  color of a specific position on a WLED device.</span></div>
-<div class="line"><span class="lineno">   60</span><span class="stringliteral">    Args:</span></div>
-<div class="line"><span class="lineno">   61</span><span class="stringliteral">        pos (int): The position to set the color for.</span></div>
-<div class="line"><span class="lineno">   62</span><span class="stringliteral">    Returns:</span></div>
-<div class="line"><span class="lineno">   63</span><span class="stringliteral">        None</span></div>
-<div class="line"><span class="lineno">   64</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   65</span>    req = json.dumps({<span class="stringliteral">&quot;seg&quot;</span>: {<span class="stringliteral">&quot;i&quot;</span>: [pos, <span class="stringliteral">&quot;FF0000&quot;</span>]}})</div>
-<div class="line"><span class="lineno">   66</span>    requests.post(API, req, timeout=10)</div>
-<div class="line"><span class="lineno">   67</span> </div>
-<div class="line"><span class="lineno">   68</span> </div>
+<p class="definition">Definition at line <a class="el" href="wled__requests_8py_source.html#l00064">64</a> of file <a class="el" href="wled__requests_8py_source.html">wled_requests.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   64</span><span class="keyword">def </span>color_pos(pos: int) -&gt; <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">   65</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   66</span><span class="stringliteral">    Sends a request to set the  color of a specific position on a WLED device.</span></div>
+<div class="line"><span class="lineno">   67</span><span class="stringliteral">    Args:</span></div>
+<div class="line"><span class="lineno">   68</span><span class="stringliteral">        pos (int): The position to set the color for.</span></div>
+<div class="line"><span class="lineno">   69</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><span class="lineno">   70</span><span class="stringliteral">        None</span></div>
+<div class="line"><span class="lineno">   71</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   72</span>    req = json.dumps({<span class="stringliteral">&quot;seg&quot;</span>: {<span class="stringliteral">&quot;i&quot;</span>: [pos, <span class="stringliteral">&quot;FF0000&quot;</span>]}})</div>
+<div class="line"><span class="lineno">   73</span>    requests.post(API, req, timeout=10)</div>
+<div class="line"><span class="lineno">   74</span> </div>
+<div class="line"><span class="lineno">   75</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -229,6 +229,10 @@ Returns:
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Retrieves the power state of a WLED device.
+Sends a GET request to the WLED device's JSON API endpoint to fetch the current state
+Returns:
+    bool: True if the WLED device is on, False otherwise. Returns None if the device is unreachable.
+</pre><pre class="fragment">Retrieves the power state of a WLED device.
 Sends a GET request to the WLED device's JSON API endpoint to fetch the current state.
 Parses the JSON response to determine if the device is on or off.
 Returns:
@@ -236,15 +240,22 @@ Returns:
 </pre> 
 <p class="definition">Definition at line <a class="el" href="wled__requests_8py_source.html#l00035">35</a> of file <a class="el" href="wled__requests_8py_source.html">wled_requests.py</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   35</span><span class="keyword">def </span>get_power_state():</div>
-<div class="line"><span class="lineno">   36</span>    <span class="keywordflow">try</span>:</div>
-<div class="line"><span class="lineno">   37</span>        response = requests.get(f<span class="stringliteral">&quot;http://{WLED_HOST}/json/state&quot;</span>, timeout=3) <span class="comment"># Timeout verkürzen</span></div>
-<div class="line"><span class="lineno">   38</span>        response.raise_for_status()</div>
-<div class="line"><span class="lineno">   39</span>        data = response.json()</div>
-<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">return</span> data.get(<span class="stringliteral">&quot;on&quot;</span>, <span class="keyword">False</span>)</div>
-<div class="line"><span class="lineno">   41</span>    <span class="keywordflow">except</span> (requests.exceptions.RequestException, TimeoutError) <span class="keyword">as</span> e:</div>
-<div class="line"><span class="lineno">   42</span>        logger.error(f<span class="stringliteral">&quot;WLED nicht erreichbar: {e}&quot;</span>)</div>
-<div class="line"><span class="lineno">   43</span>        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
-<div class="line"><span class="lineno">   44</span> </div>
+<div class="line"><span class="lineno">   36</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   37</span><span class="stringliteral">    Retrieves the power state of a WLED device.</span></div>
+<div class="line"><span class="lineno">   38</span><span class="stringliteral">    Sends a GET request to the WLED device&#39;s JSON API endpoint to fetch the current state</span></div>
+<div class="line"><span class="lineno">   39</span><span class="stringliteral">    Returns:</span></div>
+<div class="line"><span class="lineno">   40</span><span class="stringliteral">        bool: True if the WLED device is on, False otherwise. Returns None if the device is unreachable.</span></div>
+<div class="line"><span class="lineno">   41</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   42</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   43</span>    <span class="keywordflow">try</span>:</div>
+<div class="line"><span class="lineno">   44</span>        response = requests.get(f<span class="stringliteral">&quot;http://{WLED_HOST}/json/state&quot;</span>, timeout=3) <span class="comment"># Timeout verkürzen</span></div>
+<div class="line"><span class="lineno">   45</span>        response.raise_for_status()</div>
+<div class="line"><span class="lineno">   46</span>        data = response.json()</div>
+<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">return</span> data.get(<span class="stringliteral">&quot;on&quot;</span>, <span class="keyword">False</span>)</div>
+<div class="line"><span class="lineno">   48</span>    <span class="keywordflow">except</span> (requests.exceptions.RequestException, TimeoutError) <span class="keyword">as</span> e:</div>
+<div class="line"><span class="lineno">   49</span>        logger.error(f<span class="stringliteral">&quot;WLED nicht erreichbar: {e}&quot;</span>)</div>
+<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">return</span> <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">   51</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -267,18 +278,18 @@ This function creates a JSON payload with a preset state identifier and sends it
 Raises:
     requests.exceptions.RequestException: If there is an issue with the HTTP request.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="wled__requests_8py_source.html#l00069">69</a> of file <a class="el" href="wled__requests_8py_source.html">wled_requests.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   69</span><span class="keyword">def </span>load_default_state() -&gt; None:</div>
-<div class="line"><span class="lineno">   70</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   71</span><span class="stringliteral">    Sends a POST request to the WLED API to load the default state.</span></div>
-<div class="line"><span class="lineno">   72</span><span class="stringliteral">    This function creates a JSON payload with a preset state identifier and sends it to the WLED API endpoint using a POST request.</span></div>
-<div class="line"><span class="lineno">   73</span><span class="stringliteral">    Raises:</span></div>
-<div class="line"><span class="lineno">   74</span><span class="stringliteral">        requests.exceptions.RequestException: If there is an issue with the HTTP request.</span></div>
-<div class="line"><span class="lineno">   75</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   76</span>    req = json.dumps({<span class="stringliteral">&quot;ps&quot;</span>: 1})</div>
-<div class="line"><span class="lineno">   77</span>    requests.post(API, req, timeout=10)</div>
-<div class="line"><span class="lineno">   78</span> </div>
-<div class="line"><span class="lineno">   79</span> </div>
+<p class="definition">Definition at line <a class="el" href="wled__requests_8py_source.html#l00076">76</a> of file <a class="el" href="wled__requests_8py_source.html">wled_requests.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   76</span><span class="keyword">def </span>load_default_state() -&gt; None:</div>
+<div class="line"><span class="lineno">   77</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   78</span><span class="stringliteral">    Sends a POST request to the WLED API to load the default state.</span></div>
+<div class="line"><span class="lineno">   79</span><span class="stringliteral">    This function creates a JSON payload with a preset state identifier and sends it to the WLED API endpoint using a POST request.</span></div>
+<div class="line"><span class="lineno">   80</span><span class="stringliteral">    Raises:</span></div>
+<div class="line"><span class="lineno">   81</span><span class="stringliteral">        requests.exceptions.RequestException: If there is an issue with the HTTP request.</span></div>
+<div class="line"><span class="lineno">   82</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   83</span>    req = json.dumps({<span class="stringliteral">&quot;ps&quot;</span>: 1})</div>
+<div class="line"><span class="lineno">   84</span>    requests.post(API, req, timeout=10)</div>
+<div class="line"><span class="lineno">   85</span> </div>
+<div class="line"><span class="lineno">   86</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -302,19 +313,19 @@ and sends a POST request to the specified API endpoint to turn off the lights.
 Raises:
     requests.exceptions.RequestException: If there is an issue with the HTTP request.
 </pre> 
-<p class="definition">Definition at line <a class="el" href="wled__requests_8py_source.html#l00045">45</a> of file <a class="el" href="wled__requests_8py_source.html">wled_requests.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   45</span><span class="keyword">def </span>turn_off_lights() -&gt; None:</div>
-<div class="line"><span class="lineno">   46</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   47</span><span class="stringliteral">    Sends a request to turn off the lights by setting the segment color to black.</span></div>
-<div class="line"><span class="lineno">   48</span><span class="stringliteral">    This function creates a JSON payload to set the color of a segment of lights to black (hex code &quot;000000&quot;)</span></div>
-<div class="line"><span class="lineno">   49</span><span class="stringliteral">    and sends a POST request to the specified API endpoint to turn off the lights.</span></div>
-<div class="line"><span class="lineno">   50</span><span class="stringliteral">    Raises:</span></div>
-<div class="line"><span class="lineno">   51</span><span class="stringliteral">        requests.exceptions.RequestException: If there is an issue with the HTTP request.</span></div>
-<div class="line"><span class="lineno">   52</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   53</span>    req = json.dumps({<span class="stringliteral">&quot;seg&quot;</span>: {<span class="stringliteral">&quot;i&quot;</span>: [0, 50, <span class="stringliteral">&quot;000000&quot;</span>]}})</div>
-<div class="line"><span class="lineno">   54</span>    requests.post(API, req, timeout=10)</div>
-<div class="line"><span class="lineno">   55</span> </div>
-<div class="line"><span class="lineno">   56</span> </div>
+<p class="definition">Definition at line <a class="el" href="wled__requests_8py_source.html#l00052">52</a> of file <a class="el" href="wled__requests_8py_source.html">wled_requests.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   52</span><span class="keyword">def </span>turn_off_lights() -&gt; None:</div>
+<div class="line"><span class="lineno">   53</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   54</span><span class="stringliteral">    Sends a request to turn off the lights by setting the segment color to black.</span></div>
+<div class="line"><span class="lineno">   55</span><span class="stringliteral">    This function creates a JSON payload to set the color of a segment of lights to black (hex code &quot;000000&quot;)</span></div>
+<div class="line"><span class="lineno">   56</span><span class="stringliteral">    and sends a POST request to the specified API endpoint to turn off the lights.</span></div>
+<div class="line"><span class="lineno">   57</span><span class="stringliteral">    Raises:</span></div>
+<div class="line"><span class="lineno">   58</span><span class="stringliteral">        requests.exceptions.RequestException: If there is an issue with the HTTP request.</span></div>
+<div class="line"><span class="lineno">   59</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   60</span>    req = json.dumps({<span class="stringliteral">&quot;seg&quot;</span>: {<span class="stringliteral">&quot;i&quot;</span>: [0, 50, <span class="stringliteral">&quot;000000&quot;</span>]}})</div>
+<div class="line"><span class="lineno">   61</span>    requests.post(API, req, timeout=10)</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
